@@ -12,7 +12,7 @@ public class Category {
     enum CategoryType{GOLD, SILVER, BRONZE, PLATINUM}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
