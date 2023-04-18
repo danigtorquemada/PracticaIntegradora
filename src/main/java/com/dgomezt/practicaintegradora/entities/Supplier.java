@@ -23,7 +23,7 @@ public class Supplier {
             inverseJoinColumns = @JoinColumn(name = "products_id"))
     private Set<Product> products = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "supplier", orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "supplier_id")
     private Catalogue catalogue;
-
 }

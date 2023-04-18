@@ -21,8 +21,4 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-    private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 }

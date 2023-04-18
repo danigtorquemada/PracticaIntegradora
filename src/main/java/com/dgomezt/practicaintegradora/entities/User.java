@@ -23,14 +23,14 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private Set<Order> orders = new LinkedHashSet<>();
-
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Set<Order> orders = new LinkedHashSet<>();
 }

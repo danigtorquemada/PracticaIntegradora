@@ -1,5 +1,7 @@
 package com.dgomezt.practicaintegradora.entities;
 
+import com.dgomezt.practicaintegradora.entities.embeddables.Address;
+import com.dgomezt.practicaintegradora.entities.embeddables.Contact;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,17 +16,16 @@ public class Client {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Embedded
+    private Address address;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Embedded
+    private Contact contact;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_Client_Category"))
     private Category category;
+
+    @OneToOne(mappedBy = "client", orphanRemoval = true)
+    private User user;
 }

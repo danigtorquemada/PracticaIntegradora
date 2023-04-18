@@ -16,7 +16,7 @@ public class Category {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "category_type", unique = true)
     private CategoryType categoryType;
 
