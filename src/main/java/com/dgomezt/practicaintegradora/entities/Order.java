@@ -19,6 +19,9 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_orders_userId"))
     private User user;
+
+    @OneToMany(mappedBy = "orderId")
+    private Set<ProductOrderDetails> productOrderDetailses = new LinkedHashSet<>();
 }

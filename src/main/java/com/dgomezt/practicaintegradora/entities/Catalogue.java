@@ -20,9 +20,6 @@ public class Catalogue {
     @OneToOne(mappedBy = "catalogue", orphanRemoval = true)
     private Supplier supplier;
 
-    @ManyToMany
-    @JoinTable(name = "catalogue_products",
-            joinColumns = @JoinColumn(name = "catalogue_id"),
-            inverseJoinColumns = @JoinColumn(name = "products_id"))
-    private Set<Product> products = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "catalogue")
+    private Set<ProductCatalogueDetails> productCatalogueDetailses = new LinkedHashSet<>();
 }

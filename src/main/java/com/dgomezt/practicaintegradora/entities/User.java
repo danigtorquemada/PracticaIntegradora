@@ -24,11 +24,11 @@ public class User {
     private String password;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", foreignKey = @ForeignKey(name = "FK_user_clientID"))
     private Client client;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id", foreignKey = @ForeignKey(name = "FK_user_cartId"))
     private Cart cart;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)

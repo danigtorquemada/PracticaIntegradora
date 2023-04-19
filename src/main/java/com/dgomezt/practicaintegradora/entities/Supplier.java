@@ -17,13 +17,7 @@ public class Supplier {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(name = "supplier_products",
-            joinColumns = @JoinColumn(name = "supplier_id"),
-            inverseJoinColumns = @JoinColumn(name = "products_id"))
-    private Set<Product> products = new LinkedHashSet<>();
-
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", foreignKey = @ForeignKey(name = "FK_supplier_catalogueId"))
     private Catalogue catalogue;
 }

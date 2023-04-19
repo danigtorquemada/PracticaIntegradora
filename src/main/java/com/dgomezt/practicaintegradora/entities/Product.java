@@ -25,7 +25,4 @@ public class Product {
 
     @Column(name = "description")
     private String description;
-
-    @ManyToMany(mappedBy = "products")
-    private Set<Supplier> suppliers = new LinkedHashSet<>();
 }
