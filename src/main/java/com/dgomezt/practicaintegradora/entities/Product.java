@@ -25,4 +25,16 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "advice_supplier")
+    private Integer adviceSupplier;
+
+    @Column(name = "advice_desactivation")
+    private Integer adviceDesactivation;
+
+    @Column(name = "amount")
+    private Integer amount;
+
+    @Column(name = "available")
+    private Boolean available;
 }

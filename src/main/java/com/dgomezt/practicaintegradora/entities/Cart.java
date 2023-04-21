@@ -16,13 +16,8 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @ManyToMany
-    @JoinTable(name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id", foreignKey = @ForeignKey(name = "FK_CartProduct_cardId")),
-            inverseJoinColumns = @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_CartProduct_productId")))
-    private Set<Product> products = new LinkedHashSet<>();
-
     @OneToOne(mappedBy = "cart", orphanRemoval = true)
     private User user;
+    @OneToMany(mappedBy = "cart")
+    private Set<ProductCartDetail> productCartDetails = new LinkedHashSet<>();
 }

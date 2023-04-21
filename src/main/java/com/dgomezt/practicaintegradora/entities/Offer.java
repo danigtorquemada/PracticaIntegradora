@@ -22,15 +22,12 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Column(name = "discount_percent")
     private Double discountPercent;
-
-
     @OneToMany(mappedBy = "offer")
     private Set<ProductOfferDetail> productOfferDetails = new LinkedHashSet<>();
-
     @Embedded
     private Period period;
-
+    @Column(name = "active")
+    private Boolean active;
 }

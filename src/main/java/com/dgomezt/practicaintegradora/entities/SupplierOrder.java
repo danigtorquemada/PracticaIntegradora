@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -27,4 +28,11 @@ public class SupplierOrder {
 
     @OneToMany(mappedBy = "supplierOrder")
     private Set<ProductSupplierOrderDetails> productSupplierOrderDetailses = new LinkedHashSet<>();
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
 }

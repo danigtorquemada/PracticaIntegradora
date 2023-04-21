@@ -17,6 +17,9 @@ public class Supplier {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "supplier_id", foreignKey = @ForeignKey(name = "FK_supplier_catalogueId"))
     private Catalogue catalogue;

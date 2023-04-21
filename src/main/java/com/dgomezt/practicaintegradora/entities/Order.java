@@ -24,4 +24,11 @@ public class Order {
 
     @OneToMany(mappedBy = "orderId")
     private Set<ProductOrderDetails> productOrderDetailses = new LinkedHashSet<>();
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
 }
