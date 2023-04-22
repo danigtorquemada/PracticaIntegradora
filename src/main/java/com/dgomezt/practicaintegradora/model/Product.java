@@ -1,11 +1,8 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter

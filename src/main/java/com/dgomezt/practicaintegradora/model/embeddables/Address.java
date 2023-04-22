@@ -1,4 +1,4 @@
-package com.dgomezt.practicaintegradora.entities.embeddables;
+package com.dgomezt.practicaintegradora.model.embeddables;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

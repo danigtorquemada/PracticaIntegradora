@@ -1,13 +1,12 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.model;
 
-import com.dgomezt.practicaintegradora.entities.embeddables.Period;
+import com.dgomezt.practicaintegradora.model.embeddables.Period;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

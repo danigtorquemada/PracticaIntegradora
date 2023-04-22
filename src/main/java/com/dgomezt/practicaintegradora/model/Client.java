@@ -1,7 +1,7 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.model;
 
-import com.dgomezt.practicaintegradora.entities.embeddables.Address;
-import com.dgomezt.practicaintegradora.entities.embeddables.Contact;
+import com.dgomezt.practicaintegradora.model.embeddables.Address;
+import com.dgomezt.practicaintegradora.model.embeddables.Contact;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

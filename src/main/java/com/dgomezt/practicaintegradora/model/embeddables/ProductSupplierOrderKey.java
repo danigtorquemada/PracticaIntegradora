@@ -1,4 +1,4 @@
-package com.dgomezt.practicaintegradora.entities.embeddables;
+package com.dgomezt.practicaintegradora.model.embeddables;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @Embeddable
-public class ProductCartKey implements Serializable {
-    @Column(name ="product_id")
+public class ProductSupplierOrderKey implements Serializable {
+    @Column(name = "product_id")
     private Long productId;
-    @Column(name = "cart_id")
-    private Long cartId;
+    @Column(name = "supplier_order_id")
+    private Long supplierOrderId;
 }

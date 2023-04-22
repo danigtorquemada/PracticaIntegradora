@@ -1,7 +1,6 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.model;
 
-import com.dgomezt.practicaintegradora.entities.embeddables.ProductOfferKey;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.dgomezt.practicaintegradora.model.embeddables.ProductOfferKey;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
