@@ -3,10 +3,12 @@ package com.dgomezt.practicaintegradora.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "category")
 public class Category {
     enum CategoryType{GOLD, SILVER, BRONZE, PLATINUM}
