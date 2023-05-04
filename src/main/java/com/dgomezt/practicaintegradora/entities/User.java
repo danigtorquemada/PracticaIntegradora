@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,20 +18,31 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email", unique = true)
+    private String email;
 
     @Column(name = "password")
     private String password;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "client_id", foreignKey = @ForeignKey(name = "FK_user_clientID"))
-    private Client client;
+    @Column(name = "date_last_connection")
+    private LocalDate dateLastConnection;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "cart_id", foreignKey = @ForeignKey(name = "FK_user_cartId"))
-    private Cart cart;
+    @Column(name = "number_access")
+    private Integer numberAccess;
+
+    @Column(name = "block_date")
+    private LocalDate blockDate;
+
+    /******* RELATIONSHIPS **********/
+
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
+    private Client client;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "auditory_id")
+    private Auditory auditory;
+
 }
