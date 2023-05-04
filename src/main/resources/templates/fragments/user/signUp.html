@@ -1,0 +1,9 @@
+<div>
+  <h1>Sign up</h1>
+  <form>
+    <label th:for="username"><th:block th:text="#{user.username}"></th:block></label>
+    <input type="text" th:value="${username}">
+    <label th:for="password"><th:block th:text="#{user.password}"></th:block></label>
+    <input type="password" th:value="${password}">
+  </form>
+</div>
