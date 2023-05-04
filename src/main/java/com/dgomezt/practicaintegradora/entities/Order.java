@@ -1,4 +1,4 @@
-package com.dgomezt.practicaintegradora.model;
+package com.dgomezt.practicaintegradora.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
