@@ -1,5 +1,6 @@
 package com.dgomezt.practicaintegradora.entities;
 
+import com.dgomezt.practicaintegradora.entities.helpers.Auditory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,18 +31,16 @@ public class User {
     @Column(name = "number_access")
     private Integer numberAccess;
 
+    @OneToOne
+    @JoinColumn(name = "auditory_id",
+            foreignKey = @ForeignKey(name = "FK_user_auditory"))
+    private Auditory auditory;
+
     @Column(name = "block_date")
     private LocalDate blockDate;
 
     /******* RELATIONSHIPS **********/
 
-    @OneToOne(mappedBy = "user", orphanRemoval = true)
-    private Client client;
-
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "auditory_id")
-    private Auditory auditory;
 }

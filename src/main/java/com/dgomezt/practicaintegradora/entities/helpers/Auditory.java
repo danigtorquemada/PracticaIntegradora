@@ -1,5 +1,6 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.entities.helpers;
 
+import com.dgomezt.practicaintegradora.entities.User;
 import jakarta.persistence.*;
 import lombok.*;
 

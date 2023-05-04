@@ -1,34 +1,31 @@
-package com.dgomezt.practicaintegradora.entities;
+package com.dgomezt.practicaintegradora.entities.helpers;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
 @ToString
-@Table(name = "category")
-public class Category {
-    enum CategoryType{GOLD, SILVER, BRONZE, PLATINUM}
+@Table(name = "client_type")
+public class ClientType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category_type", unique = true)
-    private CategoryType categoryType;
+    @Column(name = "client_type", unique = true)
+    private String clientType;
 
     @Column(name = "discount_percent")
-    private Double discountPercent;
+    private BigDecimal discountPercent;
 
     @Column(name = "min_spend")
-    private Integer minSpend;
-
-    @Column(name = "max_spend")
-    private Integer maxSpend;
+    private BigDecimal minSpend;
 }
 
