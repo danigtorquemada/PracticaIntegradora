@@ -1,9 +1,14 @@
 <div>
   <h1>Sign up</h1>
-  <form>
+  <form action="signUp" method="post">
     <label th:for="username"><th:block th:text="#{user.username}"></th:block></label>
-    <input type="text" th:value="${username}">
+    <input type="text" id="username" name="username">
     <label th:for="password"><th:block th:text="#{user.password}"></th:block></label>
-    <input type="password" th:value="${password}">
+    <input type="password" name="password" id="password">
+    <label th:for="confirmPwd"><th:block th:text="#{user.password}"></th:block></label>
+    <input type="password" name="confirmPwd" id="confirmPwd">
+    <input type="button" th:value="#{form.showPwd}">
+    <input type="button" th:value="#{form.reset}">
+    <input type="submit" th:value="#{form.submit}">
   </form>
 </div>
