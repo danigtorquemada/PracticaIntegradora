@@ -2,7 +2,6 @@ package com.dgomezt.practicaintegradora.utilities;
 
 import com.dgomezt.practicaintegradora.validations.MatchValues;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
@@ -25,5 +24,5 @@ public class UserForm {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!#$&])([A-Za-z0-9!#$%&]*)$", message = "{error.pwdPattern}")
     private String confirmPwd;
     private boolean errorMatchPwds;
-    private String globalErrors;
+    private boolean globalErrors;
 }

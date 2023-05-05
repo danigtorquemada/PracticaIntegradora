@@ -13,8 +13,8 @@ public class UserControllerAdvice {
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ModelAndView handlingUniqueViolationException(RedirectAttributes redirectAttributes){
         ModelAndView mAV = new ModelAndView();
-        redirectAttributes.addFlashAttribute("errorUnicidad", "Ya existe un usuario con ese email");
-        mAV.setViewName("redirect:/user/form");
+        redirectAttributes.addFlashAttribute("errorUnique", "Ya existe un usuario con ese email");
+        mAV.setViewName("redirect:/user/signUp");
         return mAV;
     }
 }
