@@ -25,4 +25,5 @@ public class UserForm {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!#$&])([A-Za-z0-9!#$%&]*)$", message = "{error.pwdPattern}")
     private String confirmPwd;
     private boolean errorMatchPwds;
+    private String globalErrors;
 }

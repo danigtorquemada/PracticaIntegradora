@@ -10,6 +10,7 @@
     <label th:for="confirmPwd"><th:block th:text="#{user.confirmPwd}"></th:block></label>
     <p th:if="${#fields.hasErrors('confirmPwd')}" th:errors="*{confirmPwd}" th:errorclass="error"/>
     <p th:if="${#fields.hasErrors('errorMatchPwds')}" th:errors="*{errorMatchPwds}" th:errorclass="error"/>
+    <p th:if="*{globalErrors}" th:text="*{globalErrors}" th:class="error"></p>
     <input type="password" th:field="*{confirmPwd}">
     <input type="button" th:value="#{form.showPwd}">
     <input type="button" th:value="#{form.reset}">
