@@ -1,6 +1,6 @@
 package com.dgomezt.practicaintegradora.entities;
 
-import com.dgomezt.practicaintegradora.entities.embeddables.Contact;
+import com.dgomezt.practicaintegradora.entities.embeddables.*;
 import com.dgomezt.practicaintegradora.entities.helpers.*;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -76,9 +76,7 @@ public class Client {
     @Column(name = "license")
     private Boolean license;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "auditory_id", foreignKey = @ForeignKey(name = "FK_client_auditory"))
+    @Embedded
     private Auditory auditory;
-
 }
 

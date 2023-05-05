@@ -1,7 +1,7 @@
 package com.dgomezt.practicaintegradora.entities;
 
+import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import com.dgomezt.practicaintegradora.entities.embeddables.Period;
-import com.dgomezt.practicaintegradora.entities.helpers.Auditory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +33,7 @@ public class Promotion {
     @Column(name = "discount", precision = 19, scale = 2)
     private BigDecimal discount;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "auditory_id", foreignKey = @ForeignKey(name = "FK_promotion_discount"))
+    @Embedded
     private Auditory auditory;
 
     @ManyToMany

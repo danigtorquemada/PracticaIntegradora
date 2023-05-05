@@ -1,4 +1,4 @@
-package com.dgomezt.practicaintegradora.entities.helpers;
+package com.dgomezt.practicaintegradora.entities.embeddables;
 
 import com.dgomezt.practicaintegradora.entities.User;
 import jakarta.persistence.*;
@@ -10,22 +10,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@Entity
-@Table(name = "auditory")
+@Embeddable
 public class Auditory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
     @Column(name = "entry_date")
     private LocalDate entryDate;
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "entry_user_id",
-            foreignKey = @ForeignKey(name = "FK_auditory_entryUser"))
+    @JoinColumn(name = "entry_user_id")
     private User entryUser;
 
     @Column(name = "last_modification_date")
@@ -33,8 +25,7 @@ public class Auditory {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "last_modification_user_id",
-            foreignKey = @ForeignKey(name = "FK_auditory_lastModificationUser"))
+    @JoinColumn(name = "last_modification_user_id")
     private User lastModificationUser;
 
     @Column(name = "removed_date")
@@ -42,7 +33,6 @@ public class Auditory {
 
     @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "removed_user_id",
-            foreignKey = @ForeignKey(name = "FK_auditory_removedUser"))
+    @JoinColumn(name = "removed_user_id")
     private User removedUser;
 }

@@ -1,6 +1,6 @@
 package com.dgomezt.practicaintegradora.entities;
 
-import com.dgomezt.practicaintegradora.entities.helpers.Auditory;
+import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +35,6 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
     private Set<Category> childCategories = new LinkedHashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "auditory_id", foreignKey = @ForeignKey(name = "FK_category_auditory"))
+    @Embedded
     private Auditory auditory;
 }

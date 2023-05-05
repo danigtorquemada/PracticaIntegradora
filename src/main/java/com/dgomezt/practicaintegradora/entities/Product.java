@@ -1,6 +1,6 @@
 package com.dgomezt.practicaintegradora.entities;
 
-import com.dgomezt.practicaintegradora.entities.helpers.Auditory;
+import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,9 +70,6 @@ public class Product {
     @Column(name = "comments")
     private String comments;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "auditory_id", foreignKey = @ForeignKey(name = "FK_product_auditory"))
+    @Embedded
     private Auditory auditory;
-
-
 }
