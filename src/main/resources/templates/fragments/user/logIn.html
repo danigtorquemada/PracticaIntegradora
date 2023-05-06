@@ -18,9 +18,7 @@
         <th:block th:text="#{user.password}"/>
     </h1>
     <form action="/user/login/password" method="post" th:object="${user}">
-        <label id="currentUser" class="boldText">
-            <th:block th:text="*{username}"/>
-        </label>
+            <p id="currentUser"><th:block th:text="*{username}"/></p>
         <!--<select th:if="${users}" id="users">
             <option th:each="posibleUser : ${users}" th:text="${posibleUser}" th:value="${posibleUser}"
                     th:selected="${posibleUser.equals(user.username)}"></option>

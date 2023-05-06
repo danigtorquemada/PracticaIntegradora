@@ -7,12 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public void blockUser(UserAuthentication userAuthentication) {
+        Optional<User> userOptional = userRepository.findByEmail(userAuthentication.getUsername());
+        User user = userOptional.get();
+        user.setBlockDate(LocalDate.now());
+
+        save(user);
+    }
 
     @Override
     public boolean isCorrectUser(UserAuthentication userAuthentication) {

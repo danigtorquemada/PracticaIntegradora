@@ -21,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
-    private static int PWD_MAX_ATTEMPS = 3;
     private static final String COOKIE_LAST_USER = "_lastUser";
     private static final String COOKIE_CONNECTED_USER = "_connectedUser";
 
@@ -161,25 +159,33 @@ public class UserController {
     }
 
     @PostMapping("/login/password")
-    public ModelAndView postPassword(@ModelAttribute UserAuthentication user,
-                                     HttpServletResponse httpServletResponse,
+    public ModelAndView postPassword(HttpServletResponse httpServletResponse,
                                      HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
-        user.setUsername(userSession.getUsername());
 
-        if (userService.isCorrectUser(user)) {
+        if (userService.isCorrectUser(userSession)) {
             session.removeAttribute("errorPwd");
 
-            Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, user.getUsername());
+            Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, userSession.getUsername());
             httpServletResponse.addCookie(cookieLastUser);
 
             modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
         }
 
-        session.setAttribute("errorPwd", "Contraseña incorrecta");
+
+        int attemps = userSession.getAttemps();
+        if(attemps > 0){
+            attemps--;
+            userSession.setAttemps(attemps);
+            session.setAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
+        }else {
+            userService.blockUser(userSession);
+            session.setAttribute("errorPwd", "Usuario bloqueado.");
+        }
+        session.setAttribute(SESSION_USER, userSession);
 
         modelAndView.setViewName("redirect:/user/login/password");
         return modelAndView;
@@ -212,5 +218,10 @@ public class UserController {
         session.invalidate();
         modelAndView.setViewName("redirect:/user/login");
         return modelAndView;
+    }
+
+    @GetMapping("/password_user")
+    public @ResponseBody String recoverPassword(String user) {
+        return userService.findByUsername(user).getPassword();
     }
 }

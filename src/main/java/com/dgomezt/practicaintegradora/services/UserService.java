@@ -4,6 +4,7 @@ import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
 
 public interface UserService {
+    void blockUser(UserAuthentication userAuthentication);
     boolean isCorrectUser(UserAuthentication userAuthentication);
     User findByUsername(String username);
     void save(User user);
