@@ -1,15 +1,15 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/layout/head::head('Prueba')" />
+<head th:replace="~{fragments/layout/head::head('Tienda')}" />
 
 <body>
-<header th:replace="fragments/layout/header" />
+<header th:replace="~{fragments/layout/header}" />
 
-<nav th:replace="fragments/layout/nav" />
+<nav th:replace="~{fragments/layout/nav}" />
 
-<section th:replace="fragments/layout/section" />
+<section th:replace="~{fragments/layout/section}" />
 
-<footer th:replace="fragments/layout/footer" />
+<footer th:replace="~{fragments/layout/footer}" />
 </body>
 </html>

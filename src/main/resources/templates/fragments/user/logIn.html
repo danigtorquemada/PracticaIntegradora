@@ -1,42 +1,34 @@
-<div>
-    <h1>Log in</h1>
-    <form th:action="${user.logged} ? logout : login" method="post" th:object="${user}">
-        <input type="hidden" th:field="*{logged}">
+<div th:fragment="username">
+    <h1>
+        <th:block th:text="#{user.username}"/>
+    </h1>
+    <form action="/user/login/username" method="post" th:object="${user}">
         <fieldset>
-            <div th:style="${currentState.name().equals('USERNAME')} ? '': 'display:none'" class="vertical">
+            <div class="vertical">
                 <label class="boldText">Log in</label><br>
                 <input type="text" th:field="*{username}" placeholder="Username" class="inputText"><br>
-                <p th:if="${#fields.hasErrors('username')}" class="error" th:errors="*{username}"></p>
+                <p th:if="${error}" th:text="${error}" class="error"></p>
                 <input type="submit" value="Log in">
             </div>
-            <div th:style="${currentState.name().equals('PWD')} ? '' : 'display:none'" class="vertical">
-                <label id="currentUser" class="boldText">
-                    <th:block th:text="*{username}"/>
-                </label>
-                <select th:if="${users}" id="users">
-                    <option th:each="posibleUser : ${users}" th:text="${posibleUser}" th:value="${posibleUser}"
-                            th:selected="${posibleUser.equals(user.username)}"></option>
-                </select><br>
-                <input type="password" th:field="*{password}" placeholder="Password" class="inputText"><br>
-                <div><input type="checkbox" onclick="showPwd()"><label>Show password</label></div>
-                <p th:if="${#fields.hasGlobalErrors()}" class="error" th:text="${#fields.globalErrors().get(0)}"></p>
-                <div><input type="button" value="Forgot password?" onclick="forgotPwd()">
-                    <input type="submit" value="Log in"></div>
-            </div>
-            <div th:style="${currentState.name().equals('LOGGED')} ? '' : 'display:none'" class="vertical">
-                <h2>Welcome
-                    <th:block th:text="*{username}"/>
-                </h2>
-                <h3>You are in your Personal Area</h3><br>
-                <p>You have connected
-                    <th:block th:text="*{counter}"/>
-                    time.
-                </p>
-                <p>Browser:
-                    <th:block th:if="${browser}" th:text="${browser}"/>
-                </p>
-                <input type="submit" value="Log out">
-            </div>
         </fieldset>
+    </form>
+</div>
+<div th:fragment="password">
+    <h1>
+        <th:block th:text="#{user.password}"/>
+    </h1>
+    <form action="/user/login/password" method="post" th:object="${user}">
+        <label id="currentUser" class="boldText">
+            <th:block th:text="*{username}"/>
+        </label>
+        <!--<select th:if="${users}" id="users">
+            <option th:each="posibleUser : ${users}" th:text="${posibleUser}" th:value="${posibleUser}"
+                    th:selected="${posibleUser.equals(user.username)}"></option>
+        </select><br>-->
+        <input type="password" th:field="*{password}" placeholder="Password" class="inputText"><br>
+        <div><input type="checkbox" onclick="showPwd()"><label>Show password</label></div>
+        <p th:if="${errorPwd}" th:text="${errorPwd}" class="error"></p>
+        <div><input type="button" value="Forgot password?" onclick="forgotPwd()">
+            <input type="submit" value="Log in"></div>
     </form>
 </div>
