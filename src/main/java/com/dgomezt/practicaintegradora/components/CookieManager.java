@@ -10,7 +10,9 @@ import org.springframework.web.util.UriUtils;
 public class CookieManager {
     public Cookie createCookie(String name, String value){
         String valueEncoded = UriUtils.encodePath(value, "utf-8");
-        return new Cookie(name, valueEncoded);
+        Cookie cookie = new Cookie(name, valueEncoded);
+        cookie.setPath("/");
+        return cookie;
     }
 
     public String readEncodedCookie(String value){
@@ -18,9 +20,10 @@ public class CookieManager {
         return valueDecoded;
     }
 
-    private static Cookie deleteCookie(String name) {
+    public Cookie deleteCookie(String name) {
         Cookie cookie = new Cookie(name, "");
         cookie.setMaxAge(0);
+        cookie.setPath("/");
         return cookie;
     }
 }

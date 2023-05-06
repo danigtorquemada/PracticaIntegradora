@@ -5,9 +5,12 @@ import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.services.UserService;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
 import com.dgomezt.practicaintegradora.utilities.UserForm;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/user")
 public class UserController {
 
+    private static int PWD_MAX_ATTEMPS = 3;
     private static final String COOKIE_LAST_USER = "_lastUser";
     private static final String COOKIE_CONNECTED_USER = "_connectedUser";
 
     private static final String CONTENT_CONTAINER = "content";
     private static final String FRAGMENT_CONTAINER = "fragment";
+    private static final String SESSION_USER = "userSession";
 
     @Autowired
     CookieManager cookieManager;
@@ -33,11 +38,11 @@ public class UserController {
     @GetMapping("/signUp")
     public ModelAndView printForm() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("main");
 
         UserForm userForm = new UserForm();
 
         modelAndView.addObject(userForm);
+        modelAndView.setViewName("main");
         modelAndView.addObject(CONTENT_CONTAINER, "user/signUp");
         return modelAndView;
     }
@@ -75,8 +80,27 @@ public class UserController {
                               @CookieValue(value = COOKIE_LAST_USER, required = false) String lastUser,
                               @CookieValue(value = COOKIE_CONNECTED_USER, required = false) String connectedUser,
                               HttpServletRequest httpServletRequest,
-                              HttpSession session){
+                              HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
+
+
+        if (connectedUser != null) {
+            String username = cookieManager.readEncodedCookie(connectedUser);
+            user.setUsername(username);
+            session.setAttribute(SESSION_USER, user);
+
+            modelAndView.setViewName("redirect:/user/logged");
+            return modelAndView;
+        }
+        if(lastUser != null){
+            String username = cookieManager.readEncodedCookie(lastUser);
+            user.setUsername(username);
+            session.setAttribute(SESSION_USER, user);
+
+            modelAndView.setViewName("redirect:/user/login/password");
+            return modelAndView;
+        }
+
 
         modelAndView.addObject("user", user);
 
@@ -87,12 +111,12 @@ public class UserController {
     }
 
     @GetMapping("/login/username")
-    public ModelAndView logInUsername(@ModelAttribute UserAuthentication user, HttpSession session){
+    public ModelAndView logInUsername(@ModelAttribute UserAuthentication user, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        if(session.getAttribute("user") != null)
-            user = (UserAuthentication) session.getAttribute("user");
-        if(session.getAttribute("error") != null)
+        if (session.getAttribute("user") != null)
+            user = (UserAuthentication) session.getAttribute(SESSION_USER);
+        if (session.getAttribute("error") != null)
             modelAndView.addObject("error", session.getAttribute("error"));
 
         modelAndView.addObject("user", user);
@@ -105,11 +129,11 @@ public class UserController {
 
     @PostMapping("/login/username")
     public ModelAndView postUsername(@ModelAttribute UserAuthentication user,
-                                     HttpSession session){
+                                     HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        session.setAttribute("user", user);
+        session.setAttribute(SESSION_USER, user);
 
-        if(userService.findByUsername(user.getUsername()) == null) {
+        if (userService.findByUsername(user.getUsername()) == null) {
             session.setAttribute("error", "El usuario no se encuentra en la base de datos");
             modelAndView.setViewName("redirect:/user/login/username");
             return modelAndView;
@@ -122,10 +146,10 @@ public class UserController {
     }
 
     @GetMapping("/login/password")
-    public ModelAndView logInPassword(HttpSession session){
+    public ModelAndView logInPassword(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        UserAuthentication user = (UserAuthentication) session.getAttribute("user");
+        UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
         modelAndView.addObject("user", user);
 
         modelAndView.addObject("errorPwd", session.getAttribute("errorPwd"));
@@ -138,21 +162,55 @@ public class UserController {
 
     @PostMapping("/login/password")
     public ModelAndView postPassword(@ModelAttribute UserAuthentication user,
-                                     HttpSession session){
+                                     HttpServletResponse httpServletResponse,
+                                     HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        UserAuthentication userSession = (UserAuthentication) session.getAttribute("user");
+        UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
         user.setUsername(userSession.getUsername());
 
-        if(userService.isCorrectUser(user)) {
+        if (userService.isCorrectUser(user)) {
             session.removeAttribute("errorPwd");
-            modelAndView.setViewName("logged");
+
+            Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, user.getUsername());
+            httpServletResponse.addCookie(cookieLastUser);
+
+            modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
         }
 
         session.setAttribute("errorPwd", "Contraseña incorrecta");
 
         modelAndView.setViewName("redirect:/user/login/password");
+        return modelAndView;
+    }
+
+    @GetMapping("/logged")
+    public ModelAndView logged(HttpSession session, HttpServletRequest httpServletRequest) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
+
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("main");
+        modelAndView.addObject(CONTENT_CONTAINER, "user/logged");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/logOut")
+    public ModelAndView logOut(HttpSession session, HttpServletResponse httpServletResponse) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Cookie deletedCookie = cookieManager.deleteCookie(COOKIE_CONNECTED_USER);
+        httpServletResponse.addCookie(deletedCookie);
+
+        UserAuthentication userAuthentication = (UserAuthentication) session.getAttribute(SESSION_USER);
+        Cookie lastUserCookie = cookieManager.createCookie(COOKIE_LAST_USER, userAuthentication.getUsername());
+        httpServletResponse.addCookie(lastUserCookie);
+
+        session.invalidate();
+        modelAndView.setViewName("redirect:/user/login");
         return modelAndView;
     }
 }
