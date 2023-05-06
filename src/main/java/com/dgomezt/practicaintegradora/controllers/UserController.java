@@ -159,11 +159,13 @@ public class UserController {
     }
 
     @PostMapping("/login/password")
-    public ModelAndView postPassword(HttpServletResponse httpServletResponse,
+    public ModelAndView postPassword(@ModelAttribute UserAuthentication userAuthentication,
+                                     HttpServletResponse httpServletResponse,
                                      HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
+        userSession.setPassword(userAuthentication.getPassword());
 
         if (userService.isCorrectUser(userSession)) {
             session.removeAttribute("errorPwd");
@@ -174,7 +176,6 @@ public class UserController {
             modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
         }
-
 
         int attemps = userSession.getAttemps();
         if(attemps > 0){
