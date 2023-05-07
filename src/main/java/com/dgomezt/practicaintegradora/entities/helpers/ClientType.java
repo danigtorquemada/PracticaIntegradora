@@ -1,5 +1,6 @@
 package com.dgomezt.practicaintegradora.entities.helpers;
 
+import com.dgomezt.practicaintegradora.entities.embeddables.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,8 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @ToString
-@Table(name = "client_type")
+@Table(name = "client_type",
+        uniqueConstraints = @UniqueConstraint(name = "UK_clientType_abbreviation", columnNames = {"abbreviation"}))
 public class ClientType {
 
     @Id
@@ -19,8 +21,11 @@ public class ClientType {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "client_type", unique = true)
-    private String clientType;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "type", column = @Column(name = "client_type"))
+    })
+    private Type type;
 
     @Column(name = "discount_percent")
     private BigDecimal discountPercent;

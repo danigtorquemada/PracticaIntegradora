@@ -40,6 +40,11 @@ public class Client {
             foreignKey = @ForeignKey(name = "FK_client_country"))
     private Country country;
 
+    @ManyToOne
+    @JoinColumn(name = "document_type_id",
+            foreignKey = @ForeignKey(name = "FK_client_typeDocument"))
+    private DocumentType documentType;
+
     @Column(name = "document")
     private String document;
 

@@ -1,0 +1,36 @@
+<div class="box detail-container">
+    <h2><th:block th:text="#{client.detail.title}"/></h2>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{table.field}"/></div>
+                <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody" th:object="${clientDetailsDTO}">
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.id}"/></div><div class="divTableCell"><th:block th:text="*{id}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.user}"/></div><div class="divTableCell"><th:block th:text="*{user}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.gender}"/></div><div class="divTableCell"><th:block th:text="*{gender}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.birthDate}"/></div><div class="divTableCell"><th:block th:text="*{birthDate}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.country}"/></div><div class="divTableCell"><th:block th:text="*{country}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.documentType}"/></div><div class="divTableCell"><th:block th:text="*{documentType}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.document}"/></div><div class="divTableCell"><th:block th:text="*{document}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.phoneNumber}"/></div><div class="divTableCell"><th:block th:text="*{phoneNumber}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.firstName}"/></div><div class="divTableCell"><th:block th:text="*{firstName}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.lastName}"/></div><div class="divTableCell"><th:block th:text="*{lastName}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.address}"/></div><div class="divTableCell"><th:block th:text="*{address}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.deliveryAddress}"/></div><div class="divTableCell"><th:block th:text="*{deliveryAddress}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.totalSpentMoney}"/></div><div class="divTableCell"><th:block th:text="*{totalSpentMoney}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.clientType}"/></div><div class="divTableCell"><th:block th:text="*{clientType}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.interestedCategories}"/></div><div class="divTableCell"><th:block th:text="*{interestedCategories}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.comments}"/></div><div class="divTableCell"><th:block th:text="*{comments}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{client.detail.license}"/></div><div class="divTableCell"><th:block th:text="*{license}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryDate}"/></div><div class="divTableCell"><th:block th:text="*{entryDate}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryUser}"/></div><div class="divTableCell"><th:block th:text="*{entryUser}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationDate}"/></div><div class="divTableCell"><th:block th:text="*{lastModificationDate}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div><div class="divTableCell"><th:block th:text="*{lastModificationUser}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedDate}"/></div><div class="divTableCell"><th:block th:text="*{removedDate}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedUser}"/></div><div class="divTableCell"><th:block th:text="*{removedUser}"/></div></div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,9 @@ public class Address {
     foreignKey = @ForeignKey(name = "FK_address_typeRoad"))
     private TypeRoad typeRoad;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "number")
     private Integer number;
 
@@ -44,4 +47,16 @@ public class Address {
     @Column(name = "postcode")
     private String postcode;
 
+    @Override
+    public String toString() {
+        return typeRoad.getType().getAbbreviation() + "/ "
+                + name + ", "
+                + number + ", "
+                + "Portal " + portal + ", "
+                + "Planta " + floor + ", "
+                + "Puerta " + door + ", "
+                + city + ", "
+                + state + ", "
+                + postcode + ", ";
+    }
 }

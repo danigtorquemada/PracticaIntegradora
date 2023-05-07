@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "language",
-        uniqueConstraints = @UniqueConstraint(name = "UK_language_abbreviation", columnNames = {"abbreviation"}))
-public class Language {
+@Table(name = "document_type",
+        uniqueConstraints = @UniqueConstraint(name = "UK_documentType_abbreviation", columnNames = {"abbreviation"}))
+public class DocumentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,7 +22,7 @@ public class Language {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "type", column = @Column(name = "language"))
+            @AttributeOverride(name = "type", column = @Column(name = "type_document"))
     })
     private Type type;
 }

@@ -1,5 +1,6 @@
 package com.dgomezt.practicaintegradora.entities.helpers;
 
+import com.dgomezt.practicaintegradora.entities.embeddables.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,16 +12,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "country")
+@Table(name = "country",
+        uniqueConstraints = @UniqueConstraint(name = "UK_country_abbreviation", columnNames = {"abbreviation"}))
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "abbreviation")
-    private String abbreviation;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "type", column = @Column(name = "name"))
+    })
+    private Type type;
 
-    @Column(name = "name")
-    private String name;
 }
