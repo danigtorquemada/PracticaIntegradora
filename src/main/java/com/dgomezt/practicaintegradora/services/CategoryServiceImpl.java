@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.Category;
+import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,10 @@ public class CategoryServiceImpl implements CategoryService{
     CategoryRepository categoryRepository;
 
     @Override
-    public Category findCategoryById(long id) {
+    public Category findCategoryById(long id) throws ElementNotFoundException {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+        if(optionalCategory.isEmpty()) throw new ElementNotFoundException("Category not found");
 
         return optionalCategory.get();
     }

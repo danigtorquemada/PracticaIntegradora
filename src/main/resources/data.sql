@@ -41,3 +41,8 @@ INSERT INTO category (code, `description`, parent_category_id, entry_date, entry
                       last_modification_user_id)
 VALUES ('Deporte', 'Deporte', null, 20001010, 1, 20010822, 2),
        ('Futbol', 'Futbol', 1, 20081010, 2, 20200822, 2);
+
+INSERT INTO promotion (`description`, discount, init_period, final_period, entry_date, entry_user_id,
+                       last_modification_date, last_modification_user_id)
+VALUES ('Promotion 1', 25, 20001010, 20001110, 20001010, 1, 20001010, 1),
+       ('Promotion 2', 50, 20001231, 20030101, 20001001, 1, 20001015, 2);

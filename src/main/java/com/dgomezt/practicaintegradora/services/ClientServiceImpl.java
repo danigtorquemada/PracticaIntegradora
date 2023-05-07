@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.Client;
+import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public Client getClientById(long id) {
+    public Client getClientById(long id) throws ElementNotFoundException {
         Optional<Client> optionalClient = clientRepository.findById(id);
+        if(optionalClient.isEmpty())  throw new ElementNotFoundException("Client not found");
         return optionalClient.get();
     }
 }
