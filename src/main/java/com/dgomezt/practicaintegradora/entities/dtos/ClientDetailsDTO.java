@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.entities.dtos;
 
 import com.dgomezt.practicaintegradora.entities.Client;
+import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -35,7 +36,10 @@ public class ClientDetailsDTO {
         ClientDetailsDTO clientDetailsDTO = new ClientDetailsDTO();
 
         clientDetailsDTO.id = client.getId();
-        clientDetailsDTO.user = client.getUser().getId();
+
+        if (client.getUser() != null)
+            clientDetailsDTO.user = client.getUser().getId();
+
         clientDetailsDTO.gender = client.getGender().getType().getType();
         clientDetailsDTO.birthDate = client.getBirthDate().toString();
         clientDetailsDTO.country = client.getCountry().getType().getType();
@@ -49,11 +53,22 @@ public class ClientDetailsDTO {
         clientDetailsDTO.clientType = client.getClientType().getType().getType();
         clientDetailsDTO.comments = client.getComments();
         clientDetailsDTO.license = client.getLicense();
+
+        if (client.getAuditory() == null) client.setAuditory(new Auditory());
+
         clientDetailsDTO.entryDate = client.getAuditory().getEntryDate().toString();
-        clientDetailsDTO.entryUser = client.getAuditory().getEntryUser().getId();
+
+        if (client.getAuditory().getEntryUser() != null)
+            clientDetailsDTO.entryUser = client.getAuditory().getEntryUser().getId();
+
         clientDetailsDTO.lastModificationDate = client.getAuditory().getLastModificationDate().toString();
-        clientDetailsDTO.lastModificationUser = client.getAuditory().getLastModificationUser().getId();
+
+        if (client.getAuditory().getLastModificationUser() != null)
+            clientDetailsDTO.lastModificationUser = client.getAuditory().getLastModificationUser().getId();
+
         clientDetailsDTO.removedDate = client.getAuditory().getRemovedDate().toString();
+
+        if(client.getAuditory().getRemovedUser() != null)
         clientDetailsDTO.removedUser = client.getAuditory().getRemovedUser().getId();
 
         return clientDetailsDTO;
