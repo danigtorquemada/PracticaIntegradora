@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequestMapping("/client")
 @Controller
 public class ClientController {
@@ -29,6 +32,26 @@ public class ClientController {
         modelAndView.setViewName("main");
         modelAndView.addObject("clientDetailsDTO", clientDetailsDTO);
         modelAndView.addObject("content", "client/detail");
+        return modelAndView;
+    }
+
+    @GetMapping("/list")
+    public ModelAndView listClients(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("main");
+
+        ClientDetailsDTO clientDetailsDTO = new ClientDetailsDTO();
+        List<Client> clients = clientService.getAllClients();
+
+        List<ClientDetailsDTO> clientDetailsDTOS = new ArrayList<>();
+        for (Client client : clients) {
+            clientDetailsDTOS.add(ClientDetailsDTO.fromClient(client));
+        }
+
+        modelAndView.addObject("clientDetailDTOS", clientDetailsDTOS);
+
+        modelAndView.addObject("content", "client/list");
         return modelAndView;
     }
 }
