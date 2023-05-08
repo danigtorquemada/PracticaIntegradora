@@ -37,7 +37,7 @@ VALUES (1, 2, 20000303, 2, 1, '12342x', 1, 67, 3, 'Ningun comentario', 1, 'Dani'
        (2, 3, 20000303, 1, 3, '1233434', 1, 99, 3, '1 Comentario chulo', 0, 'Pedro', 'Luengo', '132545657',
         20000303, 1, 20000303, 1, 20000303, 1);
 
-INSERT INTO category (code, `description`, parent_category_id, entry_date, entry_user_id, last_modification_date,
+INSERT INTO category (code, description, parent_category_id, entry_date, entry_user_id, last_modification_date,
                       last_modification_user_id)
 VALUES ('Deporte', 'Deporte', null, 20001010, 1, 20010822, 2),
        ('Futbol', 'Futbol', 1, 20081010, 2, 20200822, 2);
@@ -47,5 +47,5 @@ INSERT INTO promotion (`description`, discount, init_period, final_period, entry
 VALUES ('Promotion 1', 25, 20001010, 20001110, 20001010, 1, 20001010, 1),
        ('Promotion 2', 50, 20001231, 20030101, 20001001, 1, 20001015, 2);
 
-INSERT INTO product (code, `description`, entry_date, entry_user_id, last_modification_date, last_modification_user_id)
-VALUES ('12', 'Peras', 20001010, 1, 20001212, 1);
+INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `evaluation`, `min_hidden_stock`, `min_supplier_request`, `model`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`) VALUES ('20001010', '20001010', 'Adidas', 'A10', 'Sin comentarios', 'Zapatillas Adidas', '4', '2', '2', 'AirMax', false, false, '10', '5', '1', '1');
+INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `discount`, `evaluation`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`) VALUES ('20080220', '20080221', 'Polo', 'P8', 'Bonito', 'Polo Gris', '20', '2', true, false, '20', '10', '2', '2');
