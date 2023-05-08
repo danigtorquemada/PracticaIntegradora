@@ -29,3 +29,29 @@ function forgotPwd(){
         alert("Request failed: " + textStatus)
     });
 }
+
+function lockUser(userId){
+    $.ajax
+    ({
+        url:"/user/lock",
+        type: "get",
+        data: "userId=" + userId
+    }).done(function (data){
+        alert(data);
+    }).fail(function (e, textStatus){
+        alert("Request failed: " + textStatus)
+    });
+}
+
+function unlockUser(userId){
+    $.ajax
+    ({
+        url:"/user/unlock",
+        type: "get",
+        data: "userId=" + userId
+    }).done(function (data){
+        alert(data);
+    }).fail(function (e, textStatus){
+        alert("Request failed: " + textStatus)
+    });
+}

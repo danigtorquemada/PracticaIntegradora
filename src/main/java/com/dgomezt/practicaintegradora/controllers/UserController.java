@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.dgomezt.practicaintegradora.utilities.Constants.COOKIE_CONNECTED_USER;
@@ -71,7 +72,7 @@ public class UserController {
         userService.save(newUser);
 
         modelAndView.addObject("user", userForm);
-        modelAndView.addObject("content","user/logged");
+        modelAndView.addObject("content", "user/logged");
         return modelAndView;
     }
 
@@ -91,7 +92,7 @@ public class UserController {
             modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
         }
-        if(lastUser != null){
+        if (lastUser != null) {
             String username = cookieManager.readEncodedCookie(lastUser);
             user.setUsername(username);
             session.setAttribute(SESSION_USER, user);
@@ -173,14 +174,14 @@ public class UserController {
         }
 
         int attemps = userSession.getAttemps();
-        if(attemps > 1){
+        if (attemps > 1) {
             attemps--;
             userSession.setAttemps(attemps);
 
             redirectAttributes.addFlashAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
-        }else {
-            userService.lockUser(userSession);
-            redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado.");
+        } else {
+            LocalDate lockDate = userService.lockUserAuthentication(userSession.getUsername());
+            redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado hasta " + lockDate.toString() + " .");
         }
         session.setAttribute(SESSION_USER, userSession);
 
@@ -218,8 +219,7 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listUsers()
-    {
+    public ModelAndView listUsers() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("main");
@@ -235,5 +235,19 @@ public class UserController {
     @GetMapping("/password_user")
     public @ResponseBody String recoverPassword(String user) {
         return userService.findByUsername(user).getPassword();
+    }
+
+    @GetMapping("/lock")
+    public @ResponseBody LocalDate lockUser(String userId) {
+        long id = Long.parseLong(userId);
+
+        return userService.lockUser(id);
+    }
+
+    @GetMapping("/unlock")
+    public @ResponseBody LocalDate unlockUser(String userId) {
+        long id = Long.parseLong(userId);
+
+        return userService.unlockUser(id);
     }
 }

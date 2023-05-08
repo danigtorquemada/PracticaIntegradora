@@ -23,13 +23,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void lockUser(UserAuthentication userAuthentication) {
-        Optional<User> userOptional = userRepository.findByEmail(userAuthentication.getUsername());
+    public LocalDate lockUserAuthentication(String username) {
+        Optional<User> userOptional = userRepository.findByEmail(username);
+
+        return lockUser(userOptional.get().getId());
+    }
+
+    @Override
+    public LocalDate lockUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.get();
 
         user.setLockDate(LocalDate.now().plusDays(Constants.LOCK_DAYS));
 
         save(user);
+
+        return user.getLockDate();
+    }
+
+    @Override
+    public LocalDate unlockUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.get();
+
+        user.setLockDate(null);
+
+        save(user);
+
+        return user.getLockDate();
+    }
+
+    @Override
+    public boolean isLocked(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.get();
+
+        LocalDate lockDate = user.getLockDate();
+
+        if(lockDate == null) return false;
+
+        return lockDate.isBefore(LocalDate.now());
     }
 
     @Override

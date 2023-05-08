@@ -25,7 +25,9 @@
                 <div class="divTableCell"><th:block th:text="${user.password}"/></div>
                 <div class="divTableCell"><th:block th:text="${user.lockDate}"/></div>
                 <div class="divTableCell"><th:block th:text="${user.dateLastConnection}"/></div>
-                <th:block th:replace="~{fragments/auditory/detail::detailList(${user.auditory})}">
+                <th:block th:replace="~{fragments/auditory/detail::detailList(${user.auditory})}"/>
+                <input type="button" th:value="#{user.detail.lockUser}" th:onclick="|lockUser(${user.id})|"/>
+                <input type="button" th:value="#{user.detail.unlockUser}" th:onclick="|unlockUser(${user.id})|"/>
             </div>
         </div>
     </div>
