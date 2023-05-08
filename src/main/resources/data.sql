@@ -47,5 +47,23 @@ INSERT INTO promotion (`description`, discount, init_period, final_period, entry
 VALUES ('Promotion 1', 25, 20001010, 20001110, 20001010, 1, 20001010, 1),
        ('Promotion 2', 50, 20001231, 20030101, 20001001, 1, 20001015, 2);
 
-INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `evaluation`, `min_hidden_stock`, `min_supplier_request`, `model`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`) VALUES ('20001010', '20001010', 'Adidas', 'A10', 'Sin comentarios', 'Zapatillas Adidas', '4', '2', '2', 'AirMax', false, false, '10', '5', '1', '1');
-INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `discount`, `evaluation`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`) VALUES ('20080220', '20080221', 'Polo', 'P8', 'Bonito', 'Polo Gris', '20', '2', true, false, '20', '10', '2', '2');
+INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `evaluation`, `min_hidden_stock`, `min_supplier_request`, `model`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`)
+VALUES ('20001010', '20001010', 'Adidas', 'A10', 'Sin comentarios', 'Zapatillas Adidas', '4', '2', '2', 'AirMax', false, false, '10', '5', '1', '1');
+INSERT INTO product (`entry_date`, `last_modification_date`, `brand`, `code`, `comments`, `description`, `discount`, `evaluation`, `new_product`, `offer`, `price`, `stock`, `entry_user_id`, `last_modification_user_id`)
+VALUES ('20080220', '20080221', 'Polo', 'P8', 'Bonito', 'Polo Gris', '20', '2', true, false, '20', '10', '2', '2');
+
+INSERT INTO product_categories (`product_id`, `categories_id`) VALUES ('1', '1');
+INSERT INTO product_categories (`product_id`, `categories_id`) VALUES ('1', '2');
+INSERT INTO product_categories (`product_id`, `categories_id`) VALUES ('2', '1');
+
+INSERT INTO client_categories (`client_id`, `categories_id`) VALUES ('1', '2');
+INSERT INTO client_categories (`client_id`, `categories_id`) VALUES ('2', '1');
+INSERT INTO client_categories (`client_id`, `categories_id`) VALUES ('2', '2');
+
+INSERT INTO client_delivery_addresses (`client_id`, `addresses_id`) VALUES ('1', '1');
+INSERT INTO client_delivery_addresses (`client_id`, `addresses_id`) VALUES ('1', '2');
+
+INSERT INTO promotion_products (`promotion_id`, `products_id`) VALUES ('1', '1');
+INSERT INTO promotion_products (`promotion_id`, `products_id`) VALUES ('1', '2');
+
+

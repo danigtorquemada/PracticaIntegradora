@@ -1,0 +1,18 @@
+<th:block th:fragment="periodDetailView(period)">
+    <div class="divTableRow">
+        <div class="divTableCell">
+            <th:block th:text="#{period.detail.initPeriod}"/>
+        </div>
+        <div class="divTableCell">
+            <th:block th:text="${period.initPeriod}"/>
+        </div>
+    </div>
+    <div class="divTableRow">
+        <div class="divTableCell">
+            <th:block th:text="#{period.detail.finalPeriod}"/>
+        </div>
+        <div class="divTableCell">
+            <th:block th:text="${period.finalPeriod}"/>
+        </div>
+    </div>
+</th:block>

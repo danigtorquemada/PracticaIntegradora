@@ -7,19 +7,19 @@
         <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
       </div>
     </div>
-    <div class="divTableBody" th:object="${promotionDetailsDTO}">
+    <div class="divTableBody" th:object="${promotion}">
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{promotion.detail.id}"/></div><div class="divTableCell"><th:block th:text="*{id}"/></div></div>
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{promotion.detail.description}"/></div><div class="divTableCell"><th:block th:text="*{description}"/></div></div>
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{promotion.detail.discount}"/></div><div class="divTableCell"><th:block th:text="*{discount}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{period.detail.initPeriod}"/></div><div class="divTableCell"><th:block th:text="*{initPeriod}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{period.detail.finalPeriod}"/></div><div class="divTableCell"><th:block th:text="*{finalPeriod}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryDate}"/></div><div class="divTableCell"><th:block th:text="*{entryDate}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryUser}"/></div><div class="divTableCell"><th:block th:text="*{entryUser}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationDate}"/></div><div class="divTableCell"><th:block th:text="*{lastModificationDate}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div><div class="divTableCell"><th:block th:text="*{lastModificationUser}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedDate}"/></div><div class="divTableCell"><th:block th:text="*{removedDate}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedUser}"/></div><div class="divTableCell"><th:block th:text="*{removedUser}"/></div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{promotion.detail.products}"/></div><div class="divTableCell"><th:block th:text="*{products}"/></div></div>
+      <th:block th:replace="~{fragments/period/detail::periodDetailView(period=*{period})}"/>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{promotion.detail.products}"/></div>
+        <div class="divTableCell">
+          <th:block th:each="product : *{products}">
+            <p><th:block th:text="${product.code}"/></p>
+          </th:block>
+        </div>
+      </div>
+      <th:block th:replace="~{fragments/auditory/detail::detailRow(auditory=*{auditory})}"/>
     </div>
   </div>
 </div>

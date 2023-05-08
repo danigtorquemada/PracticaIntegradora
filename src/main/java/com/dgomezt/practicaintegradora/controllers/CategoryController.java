@@ -1,7 +1,6 @@
 package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Category;
-import com.dgomezt.practicaintegradora.entities.dtos.CategoryDetailsDTO;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +18,15 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping("/detail/{id}")
-    public ModelAndView detailClient(@PathVariable String id) throws ElementNotFoundException {
+    public ModelAndView detailCategory(@PathVariable String id) throws ElementNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
         long categoryId = Long.parseLong(id);
 
         Category category =categoryService.findCategoryById(categoryId);
-        CategoryDetailsDTO categoryDetailsDTO = CategoryDetailsDTO.fromCategory(category);
 
         modelAndView.setViewName("main");
-        modelAndView.addObject("categoryDetailsDTO", categoryDetailsDTO);
+        modelAndView.addObject("category", category);
         modelAndView.addObject("content", "category/detail");
         return modelAndView;
     }

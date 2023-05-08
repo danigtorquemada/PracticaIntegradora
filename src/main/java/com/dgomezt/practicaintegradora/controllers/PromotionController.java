@@ -1,9 +1,6 @@
 package com.dgomezt.practicaintegradora.controllers;
 
-import com.dgomezt.practicaintegradora.entities.Client;
 import com.dgomezt.practicaintegradora.entities.Promotion;
-import com.dgomezt.practicaintegradora.entities.dtos.ClientDetailsDTO;
-import com.dgomezt.practicaintegradora.entities.dtos.PromotionDetailsDTO;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +23,9 @@ public class PromotionController {
         long promotionID = Long.parseLong(id);
 
         Promotion promotion = promotionService.findPromotionById(promotionID);
-        PromotionDetailsDTO promotionDetailsDTO = PromotionDetailsDTO.fromPromotion(promotion);
 
         modelAndView.setViewName("main");
-        modelAndView.addObject("promotionDetailsDTO", promotionDetailsDTO);
+        modelAndView.addObject("promotion", promotion);
         modelAndView.addObject("content", "promotion/detail");
         return modelAndView;
     }

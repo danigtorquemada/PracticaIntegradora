@@ -77,30 +77,33 @@
             </div>
         </div>
         <div class="divTableBody">
-            <div class="divTableRow" th:each="client : ${clientDetailDTOS}">
+            <div class="divTableRow" th:each="client : ${clients}">
                 <div class="divTableCell"><th:block th:text="${client.id}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.user}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.gender}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.user?.id}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.gender?.type?.abbreviation}"/></div>
                 <div class="divTableCell"><th:block th:text="${client.birthDate}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.country}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.documentType}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.country?.type?.abbreviation}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.documentType?.type?.abbreviation}"/></div>
                 <div class="divTableCell"><th:block th:text="${client.document}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.phoneNumber}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.firstName}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.lastName}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.contact?.phoneNumber}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.contact?.firstName}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.contact?.lastName}"/></div>
                 <div class="divTableCell"><th:block th:text="${client.address}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.deliveryAddress}"/></div>
+                <div class="divTableCell">
+                    <th:block th:each="address : ${client.deliveryAddress}">
+                        <p><th:block th:text="${address.id}"/></p>
+                    </th:block>
+                </div>
                 <div class="divTableCell"><th:block th:text="${client.totalSpentMoney}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.clientType}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.interestedCategories}"/></div>
+                <div class="divTableCell"><th:block th:text="${client.clientType?.type?.abbreviation}"/></div>
+                <div class="divTableCell">
+                    <th:block th:each="category : ${client.interestedCategories}">
+                        <p><th:block th:text="${category.id}"/></p>
+                    </th:block>
+                </div>
                 <div class="divTableCell"><th:block th:text="${client.comments}"/></div>
                 <div class="divTableCell"><th:block th:text="${client.license}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.entryDate}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.entryUser}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.lastModificationDate}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.lastModificationUser}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.removedDate}"/></div>
-                <div class="divTableCell"><th:block th:text="${client.removedUser}"/></div>
+                <th:block th:replace="~{fragments/auditory/detail::detailList(${auditory})}">
             </div>
         </div>
     </div>

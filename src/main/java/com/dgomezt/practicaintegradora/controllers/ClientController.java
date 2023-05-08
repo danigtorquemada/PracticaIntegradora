@@ -1,7 +1,6 @@
 package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Client;
-import com.dgomezt.practicaintegradora.entities.dtos.ClientDetailsDTO;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +27,9 @@ public class ClientController {
         long clientId = Long.parseLong(id);
 
         Client client = clientService.getClientById(clientId);
-        ClientDetailsDTO clientDetailsDTO = ClientDetailsDTO.fromClient(client);
 
         modelAndView.setViewName("main");
-        modelAndView.addObject("clientDetailsDTO", clientDetailsDTO);
+        modelAndView.addObject("client", client);
         modelAndView.addObject("content", "client/detail");
         return modelAndView;
     }
@@ -42,15 +40,9 @@ public class ClientController {
 
         modelAndView.setViewName("main");
 
-        ClientDetailsDTO clientDetailsDTO = new ClientDetailsDTO();
         List<Client> clients = clientService.getAllClients();
 
-        List<ClientDetailsDTO> clientDetailsDTOS = new ArrayList<>();
-        for (Client client : clients) {
-            clientDetailsDTOS.add(ClientDetailsDTO.fromClient(client));
-        }
-
-        modelAndView.addObject("clientDetailDTOS", clientDetailsDTOS);
+        modelAndView.addObject("clients", clients);
 
         modelAndView.addObject("content", "client/list");
         return modelAndView;

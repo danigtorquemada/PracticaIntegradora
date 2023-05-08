@@ -16,7 +16,11 @@
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.price}"/></div><div class="divTableCell"><th:block th:text="*{price}"/></div></div>
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.discount}"/></div><div class="divTableCell"><th:block th:text="*{discount}"/></div></div>
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.newProduct}"/></div><div class="divTableCell"><th:block th:text="*{newProduct}"/></div></div>
-            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.categories}"/></div><div class="divTableCell"><th:block th:text="*{categories}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.categories}"/></div><div class="divTableCell">
+                <th:block th:each="category : *{categories}">
+                    <p><th:block th:text="${category.code}"/></p>
+                </th:block>
+            </div></div>
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.stock}"/></div><div class="divTableCell"><th:block th:text="*{stock}"/></div></div>
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minHiddenStock}"/></div><div class="divTableCell"><th:block th:text="*{minHiddenStock}"/></div></div>
             <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minSupplierRequest}"/></div><div class="divTableCell"><th:block th:text="*{minSupplierRequest}"/></div></div>
