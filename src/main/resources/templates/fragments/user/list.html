@@ -1,0 +1,32 @@
+<div>
+    <h2>
+        <th:block th:text="#{user.detail.listAdministration}"/>
+    </h2>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{user.detail.id}"/></div>
+                <div class="divTableHead"><th:block th:text="#{user.detail.email}"/></div>
+                <div class="divTableHead"><th:block th:text="#{user.detail.password}"/></div>
+                <div class="divTableHead"><th:block th:text="#{user.detail.lockDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{user.detail.dateLastConnection}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.entryDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.entryUser}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.lastModificationDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.removedDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{auditory.detail.removedUser}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody">
+            <div class="divTableRow" th:each="user : ${users}">
+                <div class="divTableCell"><th:block th:text="${user.id}"/></div>
+                <div class="divTableCell"><th:block th:text="${user.email}"/></div>
+                <div class="divTableCell"><th:block th:text="${user.password}"/></div>
+                <div class="divTableCell"><th:block th:text="${user.lockDate}"/></div>
+                <div class="divTableCell"><th:block th:text="${user.dateLastConnection}"/></div>
+                <th:block th:replace="~{fragments/auditory/detail::detailList(${user.auditory})}">
+            </div>
+        </div>
+    </div>
+</div>

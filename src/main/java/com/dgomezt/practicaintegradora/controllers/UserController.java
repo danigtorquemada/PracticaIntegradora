@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,12 +17,14 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
+import static com.dgomezt.practicaintegradora.utilities.Constants.COOKIE_CONNECTED_USER;
+import static com.dgomezt.practicaintegradora.utilities.Constants.COOKIE_LAST_USER;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private static final String COOKIE_LAST_USER = "_lastUser";
-    private static final String COOKIE_CONNECTED_USER = "_connectedUser";
-
     private static final String CONTENT_CONTAINER = "content";
     private static final String FRAGMENT_CONTAINER = "fragment";
     private static final String SESSION_USER = "userSession";
@@ -159,13 +160,13 @@ public class UserController {
     }
 
     @PostMapping("/login/password")
-    public ModelAndView postPassword(@ModelAttribute UserAuthentication userAuthentication,
+    public ModelAndView postPassword(@ModelAttribute UserAuthentication userForm,
                                      HttpServletResponse httpServletResponse,
                                      HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
-        userSession.setPassword(userAuthentication.getPassword());
+        userSession.setPassword(userForm.getPassword());
 
         if (userService.isCorrectUser(userSession)) {
             session.removeAttribute("errorPwd");
@@ -178,12 +179,12 @@ public class UserController {
         }
 
         int attemps = userSession.getAttemps();
-        if(attemps > 0){
+        if(attemps > 1){
             attemps--;
             userSession.setAttemps(attemps);
             session.setAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
         }else {
-            userService.blockUser(userSession);
+            userService.lockUser(userSession);
             session.setAttribute("errorPwd", "Usuario bloqueado.");
         }
         session.setAttribute(SESSION_USER, userSession);
@@ -218,6 +219,21 @@ public class UserController {
 
         session.invalidate();
         modelAndView.setViewName("redirect:/user/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/list")
+    public ModelAndView listUsers()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("main");
+
+        List<User> users = userService.getAllUsers();
+
+        modelAndView.addObject("users", users);
+
+        modelAndView.addObject("content", "user/list");
         return modelAndView;
     }
 

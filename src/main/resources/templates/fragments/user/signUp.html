@@ -1,13 +1,13 @@
 <div>
   <h1>Sign up</h1>
   <form action="signUp" method="post" th:object="${userForm}">
-    <label th:for="username"><th:block th:text="#{user.username}"></th:block></label>
+    <label th:for="username"><th:block th:text="#{form.user.username}"></th:block></label>
     <input type="text" th:field="*{username}">
     <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"/>
-    <label th:for="password"><th:block th:text="#{user.password}"></th:block></label>
+    <label th:for="password"><th:block th:text="#{form.user.password}"></th:block></label>
     <input type="password" th:field="*{password}">
     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"/>
-    <label th:for="confirmPwd"><th:block th:text="#{user.confirmPwd}"></th:block></label>
+    <label th:for="confirmPwd"><th:block th:text="#{form.user.confirmPwd}"></th:block></label>
     <input type="password" th:field="*{confirmPwd}">
     <p th:if="${#fields.hasErrors('confirmPwd')}" th:errors="*{confirmPwd}" th:errorclass="error"/>
     <p th:if="${#fields.hasErrors('errorMatchPwds')}" th:errors="*{errorMatchPwds}" th:errorclass="error"/>

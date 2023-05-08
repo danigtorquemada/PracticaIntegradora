@@ -1,6 +1,6 @@
 <div th:fragment="username">
     <h1>
-        <th:block th:text="#{user.username}"/>
+        <th:block th:text="#{form.user.username}"/>
     </h1>
     <form action="/user/login/username" method="post" th:object="${user}">
         <fieldset>
@@ -15,7 +15,7 @@
 </div>
 <div th:fragment="password">
     <h1>
-        <th:block th:text="#{user.password}"/>
+        <th:block th:text="#{form.user.password}"/>
     </h1>
     <form action="/user/login/password" method="post" th:object="${user}">
             <p id="currentUser"><th:block th:text="*{username}"/></p>

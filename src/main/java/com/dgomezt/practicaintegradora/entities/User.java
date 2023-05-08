@@ -35,8 +35,8 @@ public class User {
     @Embedded
     private Auditory auditory;
 
-    @Column(name = "block_date")
-    private LocalDate blockDate;
+    @Column(name = "lock_date")
+    private LocalDate lockDate;
 
     /******* RELATIONSHIPS **********/
 
