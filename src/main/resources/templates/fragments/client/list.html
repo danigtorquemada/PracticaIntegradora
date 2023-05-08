@@ -103,7 +103,7 @@
                 </div>
                 <div class="divTableCell"><th:block th:text="${client.comments}"/></div>
                 <div class="divTableCell"><th:block th:text="${client.license}"/></div>
-                <th:block th:replace="~{fragments/auditory/detail::detailList(${auditory})}">
+                <th:block th:replace="~{fragments/auditory/detail::detailList(${client.auditory})}">
             </div>
         </div>
     </div>

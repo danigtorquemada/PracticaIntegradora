@@ -1,17 +1,17 @@
 <th:block th:fragment="detailRow(auditory)">
     <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryDate}"/></div><div class="divTableCell"><th:block th:text="${auditory?.entryDate}"/></div></div>
-    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.entryUser?.getId()}"/></div></div>
+    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.entryUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.entryUser?.id}"/></div></div>
     <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationDate}"/></div><div class="divTableCell"><th:block th:text="${auditory?.lastModificationDate}"/></div></div>
-    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.lastModificationUser?.getId()}"/></div></div>
+    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.lastModificationUser?.id}"/></div></div>
     <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedDate}"/></div><div class="divTableCell"><th:block th:text="${auditory?.removedDate}"/></div></div>
-    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.removedUser?.getId()}"/></div></div>
+    <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{auditory.detail.removedUser}"/></div><div class="divTableCell"><th:block th:text="${auditory?.removedUser?.id}"/></div></div>
 </th:block>
 
 <th:block th:fragment="detailList(auditory)">
     <div class="divTableCell"><th:block th:text="${auditory?.entryDate}"/></div>
-    <div class="divTableCell"><th:block th:text="${auditory?.entryUser}"/></div>
+    <div class="divTableCell"><th:block th:text="${auditory?.entryUser?.id}"/></div>
     <div class="divTableCell"><th:block th:text="${auditory?.lastModificationDate}"/></div>
-    <div class="divTableCell"><th:block th:text="${auditory?.lastModificationUser}"/></div>
+    <div class="divTableCell"><th:block th:text="${auditory?.lastModificationUser?.id}"/></div>
     <div class="divTableCell"><th:block th:text="${auditory?.removedDate}"/></div>
-    <div class="divTableCell"><th:block th:text="${auditory?.removedUser}"/></div>
+    <div class="divTableCell"><th:block th:text="${auditory?.removedUser?.id}"/></div>
 </th:block>
