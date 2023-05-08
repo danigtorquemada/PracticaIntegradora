@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -78,7 +79,6 @@ public class UserController {
     public ModelAndView logIn(@ModelAttribute UserAuthentication user,
                               @CookieValue(value = COOKIE_LAST_USER, required = false) String lastUser,
                               @CookieValue(value = COOKIE_CONNECTED_USER, required = false) String connectedUser,
-                              HttpServletRequest httpServletRequest,
                               HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -115,8 +115,6 @@ public class UserController {
 
         if (session.getAttribute("user") != null)
             user = (UserAuthentication) session.getAttribute(SESSION_USER);
-        if (session.getAttribute("error") != null)
-            modelAndView.addObject("error", session.getAttribute("error"));
 
         modelAndView.addObject("user", user);
 
@@ -128,17 +126,16 @@ public class UserController {
 
     @PostMapping("/login/username")
     public ModelAndView postUsername(@ModelAttribute UserAuthentication user,
-                                     HttpSession session) {
+                                     HttpSession session,
+                                     RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         session.setAttribute(SESSION_USER, user);
 
         if (userService.findByUsername(user.getUsername()) == null) {
-            session.setAttribute("error", "El usuario no se encuentra en la base de datos");
+            redirectAttributes.addFlashAttribute("error", "El usuario no se encuentra en la base de datos");
             modelAndView.setViewName("redirect:/user/login/username");
             return modelAndView;
         }
-
-        session.removeAttribute("error");
 
         modelAndView.setViewName("redirect:/user/login/password");
         return modelAndView;
@@ -151,8 +148,6 @@ public class UserController {
         UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
         modelAndView.addObject("user", user);
 
-        modelAndView.addObject("errorPwd", session.getAttribute("errorPwd"));
-
         modelAndView.setViewName("main");
         modelAndView.addObject(CONTENT_CONTAINER, "user/logIn");
         modelAndView.addObject(FRAGMENT_CONTAINER, "password");
@@ -162,15 +157,14 @@ public class UserController {
     @PostMapping("/login/password")
     public ModelAndView postPassword(@ModelAttribute UserAuthentication userForm,
                                      HttpServletResponse httpServletResponse,
-                                     HttpSession session) {
+                                     HttpSession session,
+                                     RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
 
         UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
         userSession.setPassword(userForm.getPassword());
 
         if (userService.isCorrectUser(userSession)) {
-            session.removeAttribute("errorPwd");
-
             Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, userSession.getUsername());
             httpServletResponse.addCookie(cookieLastUser);
 
@@ -182,10 +176,11 @@ public class UserController {
         if(attemps > 1){
             attemps--;
             userSession.setAttemps(attemps);
-            session.setAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
+
+            redirectAttributes.addFlashAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
         }else {
             userService.lockUser(userSession);
-            session.setAttribute("errorPwd", "Usuario bloqueado.");
+            redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado.");
         }
         session.setAttribute(SESSION_USER, userSession);
 
@@ -194,7 +189,7 @@ public class UserController {
     }
 
     @GetMapping("/logged")
-    public ModelAndView logged(HttpSession session, HttpServletRequest httpServletRequest) {
+    public ModelAndView logged(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
         UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
