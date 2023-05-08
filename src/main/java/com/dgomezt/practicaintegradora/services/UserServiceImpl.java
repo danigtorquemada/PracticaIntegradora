@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
         if(lockDate == null) return false;
 
-        return lockDate.isBefore(LocalDate.now());
+        return lockDate.isAfter(LocalDate.now());
     }
 
     @Override

@@ -166,6 +166,14 @@ public class UserController {
         userSession.setPassword(userForm.getPassword());
 
         if (userService.isCorrectUser(userSession)) {
+            User user = userService.findByUsername(userSession.getUsername());
+
+            if(userService.isLocked(user.getId())){
+                redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado hasta " + user.getLockDate().toString() + " .");
+                modelAndView.setViewName("redirect:/user/login/password");
+                return modelAndView;
+            }
+
             Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, userSession.getUsername());
             httpServletResponse.addCookie(cookieLastUser);
 

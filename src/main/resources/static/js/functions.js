@@ -1,4 +1,4 @@
-function showPasswords(){
+function showPasswords() {
     var password = document.getElementById("password");
     var password2 = document.getElementById('confirmPwd');
 
@@ -15,43 +15,73 @@ function showPwd() {
     }
 }
 
-function forgotPwd(){
+function forgotPwd() {
     var user = $("#currentUser").text()
     alert("Se va a consultar la clave del usuario " + user)
     $.ajax
     ({
-        url:"/user/password_user",
+        url: "/user/password_user",
         type: "get",
         data: "user=" + user
-    }).done(function (data){
+    }).done(function (data) {
         alert(data);
-    }).fail(function (e, textStatus){
+    }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
 }
 
-function lockUser(userId){
+function lockUserByList(userId) {
+    var lockDateElement = document.getElementById('lockDate_' + userId)
+
     $.ajax
     ({
-        url:"/user/lock",
+        url: "/user/lock",
         type: "get",
         data: "userId=" + userId
-    }).done(function (data){
-        alert(data);
-    }).fail(function (e, textStatus){
+    }).done(function (data) {
+        lockDateElement.textContent = data
+    }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
 }
 
-function unlockUser(userId){
+function unlockUserByList(userId) {
+    var lockDateElement = document.getElementById('lockDate_' + userId)
+
     $.ajax
     ({
-        url:"/user/unlock",
+        url: "/user/unlock",
         type: "get",
         data: "userId=" + userId
-    }).done(function (data){
+    }).done(function (data) {
+        lockDateElement.textContent = data
+    }).fail(function (e, textStatus) {
+        alert("Request failed: " + textStatus)
+    });
+}
+
+function lockUser(userId) {
+    $.ajax
+    ({
+        url: "/user/lock",
+        type: "get",
+        data: "userId=" + userId
+    }).done(function (data) {
+        alert(data)
+    }).fail(function (e, textStatus) {
+        alert("Request failed: " + textStatus)
+    });
+}
+
+function unlockUser(userId) {
+    $.ajax
+    ({
+        url: "/user/unlock",
+        type: "get",
+        data: "userId=" + userId
+    }).done(function (data) {
         alert(data);
-    }).fail(function (e, textStatus){
+    }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
 }

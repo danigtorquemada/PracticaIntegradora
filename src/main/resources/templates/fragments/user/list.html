@@ -16,6 +16,8 @@
                 <div class="divTableHead"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div>
                 <div class="divTableHead"><th:block th:text="#{auditory.detail.removedDate}"/></div>
                 <div class="divTableHead"><th:block th:text="#{auditory.detail.removedUser}"/></div>
+                <div class="divTableHead"></div>
+                <div class="divTableHead"></div>
             </div>
         </div>
         <div class="divTableBody">
@@ -23,11 +25,11 @@
                 <div class="divTableCell"><th:block th:text="${user.id}"/></div>
                 <div class="divTableCell"><th:block th:text="${user.email}"/></div>
                 <div class="divTableCell"><th:block th:text="${user.password}"/></div>
-                <div class="divTableCell"><th:block th:text="${user.lockDate}"/></div>
+                <div class="divTableCell" th:id="|lockDate_${user.id}|"><th:block th:text="${user.lockDate}"/></div>
                 <div class="divTableCell"><th:block th:text="${user.dateLastConnection}"/></div>
                 <th:block th:replace="~{fragments/auditory/detail::detailList(${user.auditory})}"/>
-                <input type="button" th:value="#{user.detail.lockUser}" th:onclick="|lockUser(${user.id})|"/>
-                <input type="button" th:value="#{user.detail.unlockUser}" th:onclick="|unlockUser(${user.id})|"/>
+                <div class="divTableCell"><input type="button" th:value="#{user.detail.lockUser}" th:onclick="|lockUserByList(${user.id})|"/></div>
+                <div class="divTableCell"><input type="button" th:value="#{user.detail.unlockUser}" th:onclick="|unlockUserByList(${user.id})|"/></div>
             </div>
         </div>
     </div>
