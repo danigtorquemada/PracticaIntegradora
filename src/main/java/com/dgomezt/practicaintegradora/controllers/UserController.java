@@ -48,9 +48,9 @@ public class UserController {
     @PostMapping("/signUp")
     public ModelAndView signUp(@Valid UserForm userForm, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
 
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("main");
             modelAndView.addObject(CONTENT_CONTAINER, "user/signUp");
             return modelAndView;
         }
@@ -59,7 +59,6 @@ public class UserController {
             ObjectError error = new ObjectError("globalError", "Ya existe el usuario.");
             bindingResult.addError(error);
 
-            modelAndView.setViewName("main");
             modelAndView.addObject(CONTENT_CONTAINER, "user/signUp");
             return modelAndView;
         }
@@ -69,7 +68,8 @@ public class UserController {
         newUser.setPassword(userForm.getPassword());
         userService.save(newUser);
 
-        modelAndView.setViewName("logged");
+        modelAndView.addObject("user", userForm);
+        modelAndView.addObject("content","user/logged");
         return modelAndView;
     }
 
