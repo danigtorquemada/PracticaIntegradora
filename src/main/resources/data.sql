@@ -46,3 +46,6 @@ INSERT INTO promotion (`description`, discount, init_period, final_period, entry
                        last_modification_date, last_modification_user_id)
 VALUES ('Promotion 1', 25, 20001010, 20001110, 20001010, 1, 20001010, 1),
        ('Promotion 2', 50, 20001231, 20030101, 20001001, 1, 20001015, 2);
+
+INSERT INTO product (code, `description`, entry_date, entry_user_id, last_modification_date, last_modification_user_id)
+VALUES ('12', 'Peras', 20001010, 1, 20001212, 1);

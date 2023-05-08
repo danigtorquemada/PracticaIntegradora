@@ -1,0 +1,17 @@
+<div>
+    <h2><th:block th:text="#{client.detail.title}"/></h2>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{table.field}"/></div>
+                <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody" th:object="${product}">
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.id}"/></div><div class="divTableCell"><th:block th:text="*{id}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.code}"/></div><div class="divTableCell"><th:block th:text="*{code}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.description}"/></div><div class="divTableCell"><th:block th:text="*{description}"/></div></div>
+            <th:block th:replace="~{fragments/auditory/detail::detailRow(auditory=*{auditory})}"/>
+        </div>
+    </div>
+</div>
