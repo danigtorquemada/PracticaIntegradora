@@ -18,6 +18,7 @@
         <th:block th:text="#{form.user.password}"/>
     </h1>
     <form action="/user/login/password" method="post" th:object="${user}">
+        <input type="hidden" th:field="*{username}">
             <p id="currentUser"><th:block th:text="*{username}"/></p>
         <!--<select th:if="${users}" id="users">
             <option th:each="posibleUser : ${users}" th:text="${posibleUser}" th:value="${posibleUser}"

@@ -47,7 +47,6 @@ public class UserController {
         modelAndView.addObject(CONTENT_CONTAINER, "user/signUp");
         return modelAndView;
     }
-
     @PostMapping("/signUp")
     public ModelAndView signUp(@Valid UserForm userForm, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -77,17 +76,17 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ModelAndView logIn(@ModelAttribute UserAuthentication user,
+    public ModelAndView logIn(@ModelAttribute("user") UserAuthentication user,
                               @CookieValue(value = COOKIE_LAST_USER, required = false) String lastUser,
                               @CookieValue(value = COOKIE_CONNECTED_USER, required = false) String connectedUser,
-                              HttpSession session) {
+                              RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
 
 
         if (connectedUser != null) {
             String username = cookieManager.readEncodedCookie(connectedUser);
             user.setUsername(username);
-            session.setAttribute(SESSION_USER, user);
+            redirectAttributes.addFlashAttribute("user", user);
 
             modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
@@ -95,7 +94,7 @@ public class UserController {
         if (lastUser != null) {
             String username = cookieManager.readEncodedCookie(lastUser);
             user.setUsername(username);
-            session.setAttribute(SESSION_USER, user);
+            redirectAttributes.addFlashAttribute("user", user);
 
             modelAndView.setViewName("redirect:/user/login/password");
             return modelAndView;
@@ -111,11 +110,8 @@ public class UserController {
     }
 
     @GetMapping("/login/username")
-    public ModelAndView logInUsername(@ModelAttribute UserAuthentication user, HttpSession session) {
+    public ModelAndView logInUsername(@ModelAttribute("user") UserAuthentication user) {
         ModelAndView modelAndView = new ModelAndView();
-
-        if (session.getAttribute("user") != null)
-            user = (UserAuthentication) session.getAttribute(SESSION_USER);
 
         modelAndView.addObject("user", user);
 
@@ -126,11 +122,10 @@ public class UserController {
     }
 
     @PostMapping("/login/username")
-    public ModelAndView postUsername(@ModelAttribute UserAuthentication user,
-                                     HttpSession session,
+    public ModelAndView postUsername(@ModelAttribute("user") UserAuthentication user,
                                      RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        session.setAttribute(SESSION_USER, user);
+        redirectAttributes.addFlashAttribute("user", user);
 
         if (userService.findByUsername(user.getUsername()) == null) {
             redirectAttributes.addFlashAttribute("error", "El usuario no se encuentra en la base de datos");
@@ -143,11 +138,8 @@ public class UserController {
     }
 
     @GetMapping("/login/password")
-    public ModelAndView logInPassword(HttpSession session) {
+    public ModelAndView logInPassword() {
         ModelAndView modelAndView = new ModelAndView();
-
-        UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
-        modelAndView.addObject("user", user);
 
         modelAndView.setViewName("main");
         modelAndView.addObject(CONTENT_CONTAINER, "user/logIn");
@@ -156,17 +148,14 @@ public class UserController {
     }
 
     @PostMapping("/login/password")
-    public ModelAndView postPassword(@ModelAttribute UserAuthentication userForm,
+    public ModelAndView postPassword(@ModelAttribute("user") UserAuthentication userForm,
                                      HttpServletResponse httpServletResponse,
-                                     HttpSession session,
                                      RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        redirectAttributes.addFlashAttribute("user", userForm);
 
-        UserAuthentication userSession = (UserAuthentication) session.getAttribute(SESSION_USER);
-        userSession.setPassword(userForm.getPassword());
-
-        if (userService.isCorrectUser(userSession)) {
-            User user = userService.findByUsername(userSession.getUsername());
+        if (userService.isCorrectUser(userForm)) {
+            User user = userService.findByUsername(userForm.getUsername());
 
             if(userService.isLocked(user.getId())){
                 redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado hasta " + user.getLockDate().toString() + " .");
@@ -174,36 +163,36 @@ public class UserController {
                 return modelAndView;
             }
 
-            Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, userSession.getUsername());
+            Cookie cookieLastUser = cookieManager.createCookie(COOKIE_CONNECTED_USER, userForm.getUsername());
             httpServletResponse.addCookie(cookieLastUser);
 
             modelAndView.setViewName("redirect:/user/logged");
             return modelAndView;
         }
 
-        int attemps = userSession.getAttemps();
+        int attemps = userForm.getAttemps();
         if (attemps > 1) {
             attemps--;
-            userSession.setAttemps(attemps);
+            userForm.setAttemps(attemps);
 
-            redirectAttributes.addFlashAttribute("errorPwd", "Contraseña incorrecta, quedan " + userSession.getAttemps() + " intentos.");
+            redirectAttributes.addFlashAttribute("errorPwd", "Contraseña incorrecta, quedan " + userForm.getAttemps() + " intentos.");
         } else {
-            LocalDate lockDate = userService.lockUserAuthentication(userSession.getUsername());
+            LocalDate lockDate = userService.lockUserAuthentication(userForm.getUsername());
             redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado hasta " + lockDate.toString() + " .");
         }
-        session.setAttribute(SESSION_USER, userSession);
 
         modelAndView.setViewName("redirect:/user/login/password");
         return modelAndView;
     }
 
     @GetMapping("/logged")
-    public ModelAndView logged(HttpSession session) {
+    public ModelAndView logged(@ModelAttribute("user") UserAuthentication userAuthentication,
+                               HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        UserAuthentication user = (UserAuthentication) session.getAttribute(SESSION_USER);
+        session.setAttribute(SESSION_USER, userAuthentication);
 
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userAuthentication);
         modelAndView.setViewName("main");
         modelAndView.addObject(CONTENT_CONTAINER, "user/logged");
 

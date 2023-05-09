@@ -8,5 +8,6 @@ public class UserAuthentication {
 
     private String username;
     private String password;
+    private boolean isLogged;
     private int attemps = MAX_ATTEMPS;
 }
