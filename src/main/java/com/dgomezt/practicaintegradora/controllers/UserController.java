@@ -239,23 +239,4 @@ public class UserController {
         modelAndView.addObject("content", "user/list");
         return modelAndView;
     }
-
-    @GetMapping("/password_user")
-    public @ResponseBody String recoverPassword(String user) {
-        return userService.findByUsername(user).getPassword();
-    }
-
-    @GetMapping("/lock")
-    public @ResponseBody LocalDate lockUser(String userId) {
-        long id = Long.parseLong(userId);
-
-        return userService.lockUser(id);
-    }
-
-    @GetMapping("/unlock")
-    public @ResponseBody LocalDate unlockUser(String userId) {
-        long id = Long.parseLong(userId);
-
-        return userService.unlockUser(id);
-    }
 }
