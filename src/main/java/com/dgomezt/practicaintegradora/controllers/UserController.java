@@ -101,12 +101,9 @@ public class UserController {
             return modelAndView;
         }
 
+        session.setAttribute(SESSION_USER, user);
 
-        modelAndView.addObject("user", user);
-
-        modelAndView.setViewName("main");
-        modelAndView.addObject(CONTENT_CONTAINER, "user/logIn");
-        modelAndView.addObject(FRAGMENT_CONTAINER, "username");
+        modelAndView.setViewName("redirect:/user/login/username");
         return modelAndView;
     }
 
@@ -114,7 +111,7 @@ public class UserController {
     public ModelAndView logInUsername(@ModelAttribute UserAuthentication user, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        if (session.getAttribute("user") != null)
+        if (session.getAttribute(SESSION_USER) != null)
             user = (UserAuthentication) session.getAttribute(SESSION_USER);
 
         modelAndView.addObject("user", user);
