@@ -16,11 +16,11 @@ public class UserForm {
     @Pattern(regexp = "^([a-zA-Z0-9_-]+@[a-z]+(\\.[a-z]{2,}))?$", message = "{error.emailPattern}")
     private String username;
     @NotEmpty
-    @Pattern(regexp = "^.{2,8}$", message = "{error.pwdLength}")
+    @Pattern(regexp = "^.{6,12}$", message = "{error.pwdLength}")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!#$&])([A-Za-z0-9!#$%&]*)$", message = "{error.pwdPattern}")
     private String password;
     @NotEmpty
-    @Pattern(regexp = "^.{2,8}$", message = "{error.pwdLength}")
+    @Pattern(regexp = "^.{6,12}$", message = "{error.pwdLength}")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!#$&])([A-Za-z0-9!#$%&]*)$", message = "{error.pwdPattern}")
     private String confirmPwd;
     private boolean errorMatchPwds;
