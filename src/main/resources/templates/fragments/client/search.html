@@ -1,0 +1,18 @@
+<div>
+  <form action="/client/query" method="get" th:object="${clientQueryDTO}">
+    <label><th:block th:text="#{form.client.search.clientType}"/></label>
+    <input type="text" th:field="*{clientType}">
+    <label><th:block th:text="#{form.client.search.entryDateMax}"/></label>
+    <input type="text" th:field="*{entryDateMax}">
+    <label><th:block th:text="#{form.client.search.entryDateMin}"/></label>
+    <input type="text" th:field="*{entryDateMin}">
+    <label><th:block th:text="#{form.client.search.patternLastName}"/></label>
+    <input type="text" th:field="*{patternLastName}">
+    <label><th:block th:text="#{form.client.search.totalSpentMoneyMax}"/></label>
+    <input type="text" th:field="*{totalSpentMoneyMax}">
+    <label><th:block th:text="#{form.client.search.totalSpentMoneyMin}"/></label>
+    <input type="text" th:field="*{totalSpentMoneyMin}">
+    <input type="submit" th:value="#{form.client.search.searchButton}">
+  </form>
+  <th:block th:insert="~{fragments/client/list}"></th:block>
+</div>

@@ -32,7 +32,7 @@ public class UserRestController {
     }
     @GetMapping("remove")
     public LocalDate removeUser(Long userId){
-            return userService.removeUser(userId);
+        return userService.removeUser(userId);
     }
 
     @GetMapping("recover")

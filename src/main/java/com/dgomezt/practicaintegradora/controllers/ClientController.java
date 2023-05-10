@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Client;
+import com.dgomezt.practicaintegradora.entities.dtos.ClientQueryDTO;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/client")
@@ -45,6 +45,22 @@ public class ClientController {
         modelAndView.addObject("clients", clients);
 
         modelAndView.addObject("content", "client/list");
+        return modelAndView;
+    }
+
+
+    @GetMapping("/query")
+    public ModelAndView queryUsers(ClientQueryDTO clientQueryDTO){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("main");
+
+        List<Client> clients = clientService.getParameterizedQueryClients(clientQueryDTO);
+
+
+        modelAndView.addObject("clientQueryDTO", clientQueryDTO);
+        modelAndView.addObject("clients", clients);
+        modelAndView.addObject("content", "client/search");
         return modelAndView;
     }
 }
