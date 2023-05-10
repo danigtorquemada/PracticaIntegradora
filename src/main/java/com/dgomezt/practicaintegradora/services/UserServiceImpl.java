@@ -2,12 +2,11 @@ package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.repositories.UserRepository;
-import com.dgomezt.practicaintegradora.utilities.Constants;
+import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +15,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ConfProperties properties;
 
     @Override
     public List<User> getAllUsers() {
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.get();
 
-        user.setLockDate(LocalDate.now().plusDays(Constants.LOCK_DAYS));
+        user.setLockDate(LocalDate.now().plusDays(properties.LOCK_DAYS));
 
         save(user);
 

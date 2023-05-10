@@ -17,7 +17,7 @@ function showPwd() {
 
 function forgotPwd() {
     var user = $("#currentUser").text()
-    alert("Se va a consultar la clave del usuario " + user)
+    confirm("Se va a consultar la clave del usuario " + user)
     $.ajax
     ({
         url: "/user/password_user",
@@ -40,6 +40,7 @@ function lockUserByList(userId) {
         data: "userId=" + userId
     }).done(function (data) {
         lockDateElement.textContent = data
+        alert("User has been locked until " + data)
     }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
@@ -55,6 +56,7 @@ function unlockUserByList(userId) {
         data: "userId=" + userId
     }).done(function (data) {
         lockDateElement.textContent = data
+        alert("User has been unlocked");
     }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
@@ -67,7 +69,7 @@ function lockUser(userId) {
         type: "get",
         data: "userId=" + userId
     }).done(function (data) {
-        alert(data)
+        alert("User has been locked until " + data)
     }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
@@ -80,7 +82,7 @@ function unlockUser(userId) {
         type: "get",
         data: "userId=" + userId
     }).done(function (data) {
-        alert(data);
+        alert("User has been unlocked");
     }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
