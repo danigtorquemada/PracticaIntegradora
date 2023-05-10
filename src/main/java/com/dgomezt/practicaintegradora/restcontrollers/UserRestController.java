@@ -20,10 +20,9 @@ public class UserRestController {
     }
 
     @GetMapping("/lock")
-    public LocalDate lockUser(String userId) {
-        long id = Long.parseLong(userId);
+    public LocalDate lockUser(Long userId, Integer daysLock) {
 
-        return userService.lockUser(id);
+        return userService.lockUser(userId,daysLock);
     }
 
     @GetMapping("/unlock")

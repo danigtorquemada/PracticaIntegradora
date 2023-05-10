@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     List<User> getAllUsers();
     LocalDate lockUserAuthentication(String username);
-    LocalDate lockUser(Long userId);
+    LocalDate lockUser(Long userId, Integer days);
     LocalDate unlockUser(Long userId);
     boolean isLocked(Long userId);
     boolean isCorrectUser(UserAuthentication userAuthentication);

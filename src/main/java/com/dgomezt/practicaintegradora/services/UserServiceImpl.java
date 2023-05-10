@@ -28,15 +28,15 @@ public class UserServiceImpl implements UserService {
     public LocalDate lockUserAuthentication(String username) {
         Optional<User> userOptional = userRepository.findByEmail(username);
 
-        return lockUser(userOptional.get().getId());
+        return lockUser(userOptional.get().getId(), properties.LOCK_DAYS);
     }
 
     @Override
-    public LocalDate lockUser(Long userId) {
+    public LocalDate lockUser(Long userId, Integer days) {
         Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.get();
 
-        user.setLockDate(LocalDate.now().plusDays(properties.LOCK_DAYS));
+        user.setLockDate(LocalDate.now().plusDays(days));
 
         save(user);
 

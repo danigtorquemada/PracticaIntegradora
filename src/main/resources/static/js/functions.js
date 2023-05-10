@@ -30,38 +30,50 @@ function forgotPwd() {
     });
 }
 
+function confirmOperation(message){
+     return confirm(message);
+}
+
 function lockUserByList(userId) {
     var lockDateElement = document.getElementById('lockDate_' + userId)
 
-    $.ajax
-    ({
-        url: "/user/lock",
-        type: "get",
-        data: "userId=" + userId
-    }).done(function (data) {
-        lockDateElement.textContent = data
-        alert("User has been locked until " + data)
-    }).fail(function (e, textStatus) {
-        alert("Request failed: " + textStatus)
-    });
+    var daysLock = prompt("Introduzca los dias de bloqueo.")
+
+    if(daysLock && confirmOperation("Se va a bloquear al usuario " + userId)){
+        $.ajax
+        ({
+            url: "/user/lock",
+            type: "get",
+            data: "userId=" + userId +  "&daysLock=" + daysLock,
+        }).done(function (data) {
+            lockDateElement.textContent = data
+            alert("User has been locked until " + data)
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
 }
 
 function unlockUserByList(userId) {
     var lockDateElement = document.getElementById('lockDate_' + userId)
 
-    $.ajax
-    ({
-        url: "/user/unlock",
-        type: "get",
-        data: "userId=" + userId
-    }).done(function (data) {
-        lockDateElement.textContent = data
-        alert("User has been unlocked");
-    }).fail(function (e, textStatus) {
-        alert("Request failed: " + textStatus)
-    });
+    if(confirmOperation("Se va a desbloquear al usuario " + userId)){
+        $.ajax
+        ({
+            url: "/user/unlock",
+            type: "get",
+            data: "userId=" + userId
+        }).done(function (data) {
+            lockDateElement.textContent = data
+            alert("User has been unlocked");
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
 }
 
+
+/*
 function lockUser(userId) {
     $.ajax
     ({
@@ -86,4 +98,4 @@ function unlockUser(userId) {
     }).fail(function (e, textStatus) {
         alert("Request failed: " + textStatus)
     });
-}
+}*/
