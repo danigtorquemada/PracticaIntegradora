@@ -41,4 +41,11 @@ public class Promotion {
             joinColumns = @JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(name = "FK_promotionProducts_promotion")),
             inverseJoinColumns = @JoinColumn(name = "products_id",foreignKey = @ForeignKey(name = "FK_promotionProducts_products")))
     private Set<Product> products = new LinkedHashSet<>();
+
+    public Auditory getAuditory() {
+        if(auditory == null)
+            auditory = new Auditory();
+
+        return auditory;
+    }
 }

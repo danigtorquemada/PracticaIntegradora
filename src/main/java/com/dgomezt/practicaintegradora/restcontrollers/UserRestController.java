@@ -26,9 +26,17 @@ public class UserRestController {
     }
 
     @GetMapping("/unlock")
-    public LocalDate unlockUser(String userId) {
-        long id = Long.parseLong(userId);
+    public boolean unlockUser(Long userId) {
 
-        return userService.unlockUser(id);
+        return userService.unlockUser(userId);
+    }
+    @GetMapping("remove")
+    public LocalDate removeUser(Long userId){
+            return userService.removeUser(userId);
+    }
+
+    @GetMapping("recover")
+    public boolean recoverUser(Long userId){
+        return userService.recoverUser(userId);
     }
 }

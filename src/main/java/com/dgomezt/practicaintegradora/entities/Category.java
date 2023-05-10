@@ -37,4 +37,11 @@ public class Category {
 
     @Embedded
     private Auditory auditory;
+
+    public Auditory getAuditory() {
+        if(auditory == null)
+            auditory = new Auditory();
+
+        return auditory;
+    }
 }

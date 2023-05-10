@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LocalDate unlockUser(Long userId) {
+    public boolean unlockUser(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.get();
 
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
         save(user);
 
-        return user.getLockDate();
+        return true;
     }
 
     @Override
@@ -85,5 +85,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public LocalDate removeUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        User user = userOptional.get();
+        LocalDate removedDate = LocalDate.now();
+        user.getAuditory().setRemovedDate(removedDate);
+
+        save(user);
+
+        return removedDate;
+    }
+
+    @Override
+    public boolean recoverUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        User user = userOptional.get();
+        user.getAuditory().setRemovedDate(null);
+
+        save(user);
+
+        return true;
     }
 }

@@ -64,8 +64,40 @@ function unlockUserByList(userId) {
             type: "get",
             data: "userId=" + userId
         }).done(function (data) {
-            lockDateElement.textContent = data
-            alert("User has been unlocked");
+            if(data == true){
+                lockDateElement.textContent = ''
+                alert("User has been unlocked");
+            }
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
+}
+
+function removeUserByList(userId) {
+    if(confirmOperation("Se va a borrar al usuario " + userId)){
+        $.ajax
+        ({
+            url: "/user/remove",
+            type: "get",
+            data: "userId=" + userId
+        }).done(function (data) {
+            alert("User has been removed");
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
+}
+
+function recoverUserByList(userId) {
+    if(confirmOperation("Se va a recuperar al usuario " + userId)){
+        $.ajax
+        ({
+            url: "/user/recover",
+            type: "get",
+            data: "userId=" + userId
+        }).done(function (data) {
+            alert("User has been recoved");
         }).fail(function (e, textStatus) {
             alert("Request failed: " + textStatus)
         });

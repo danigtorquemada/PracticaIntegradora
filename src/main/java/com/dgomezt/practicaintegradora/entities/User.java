@@ -3,6 +3,7 @@ package com.dgomezt.practicaintegradora.entities;
 import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -42,4 +43,11 @@ public class User {
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
+
+    public Auditory getAuditory() {
+        if(auditory == null)
+            auditory = new Auditory();
+
+        return auditory;
+    }
 }
