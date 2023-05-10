@@ -35,8 +35,6 @@ function confirmOperation(message){
 }
 
 function lockUserByList(userId) {
-    var lockDateElement = document.getElementById('lockDate_' + userId)
-
     var daysLock = prompt("Introduzca los dias de bloqueo.")
 
     if(daysLock && confirmOperation("Se va a bloquear al usuario " + userId)){
@@ -46,7 +44,7 @@ function lockUserByList(userId) {
             type: "get",
             data: "userId=" + userId +  "&daysLock=" + daysLock,
         }).done(function (data) {
-            lockDateElement.textContent = data
+            location.reload()
             alert("User has been locked until " + data)
         }).fail(function (e, textStatus) {
             alert("Request failed: " + textStatus)
@@ -55,8 +53,6 @@ function lockUserByList(userId) {
 }
 
 function unlockUserByList(userId) {
-    var lockDateElement = document.getElementById('lockDate_' + userId)
-
     if(confirmOperation("Se va a desbloquear al usuario " + userId)){
         $.ajax
         ({
@@ -65,7 +61,7 @@ function unlockUserByList(userId) {
             data: "userId=" + userId
         }).done(function (data) {
             if(data == true){
-                lockDateElement.textContent = ''
+                location.reload()
                 alert("User has been unlocked");
             }
         }).fail(function (e, textStatus) {
@@ -83,6 +79,7 @@ function removeUserByList(userId) {
             data: "userId=" + userId
         }).done(function (data) {
             alert("User has been removed");
+            location.reload()
         }).fail(function (e, textStatus) {
             alert("Request failed: " + textStatus)
         });
@@ -97,7 +94,8 @@ function recoverUserByList(userId) {
             type: "get",
             data: "userId=" + userId
         }).done(function (data) {
-            alert("User has been recoved");
+            alert("User has been recoved")
+            location.reload()
         }).fail(function (e, textStatus) {
             alert("Request failed: " + textStatus)
         });
