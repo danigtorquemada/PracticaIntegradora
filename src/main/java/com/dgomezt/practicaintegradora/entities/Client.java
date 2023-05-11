@@ -52,7 +52,8 @@ public class Client {
     private Contact contact;
 
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id",
+            foreignKey = @ForeignKey(name = "FK_client_address"))
     private Address address;
 
     @ManyToMany
@@ -85,7 +86,7 @@ public class Client {
     private Auditory auditory;
 
     public Auditory getAuditory() {
-        if(auditory == null)
+        if (auditory == null)
             auditory = new Auditory();
 
         return auditory;

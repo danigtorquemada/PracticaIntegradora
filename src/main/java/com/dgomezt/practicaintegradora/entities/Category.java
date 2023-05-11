@@ -29,7 +29,8 @@ public class Category {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "parent_category_id")
+    @JoinColumn(name = "parent_category_id",
+            foreignKey = @ForeignKey(name = "FK_category_parentCategory"))
     private Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
@@ -39,7 +40,7 @@ public class Category {
     private Auditory auditory;
 
     public Auditory getAuditory() {
-        if(auditory == null)
+        if (auditory == null)
             auditory = new Auditory();
 
         return auditory;
