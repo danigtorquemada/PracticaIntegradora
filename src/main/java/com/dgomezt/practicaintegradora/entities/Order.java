@@ -1,9 +1,11 @@
 package com.dgomezt.practicaintegradora.entities;
 
+import com.dgomezt.practicaintegradora.entities.helpers.OrderState;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,8 +21,8 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_orders_userId"))
-    private User user;
+    @JoinColumn(name = "client_id", foreignKey = @ForeignKey(name = "FK_orders_clientId"))
+    private Client client;
 
     @OneToMany(mappedBy = "orderId")
     private Set<ProductOrderDetails> productOrderDetailses = new LinkedHashSet<>();
@@ -30,5 +32,13 @@ public class Order {
     private Date date;
 
     @Column(name = "total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "order_state_id", foreignKey = @ForeignKey(name = "FK_orders_orderStateId"))
+    private OrderState orderState;
+
+    @ManyToOne
+    @JoinColumn(name = "user_admin_id", foreignKey = @ForeignKey(name = "FK_orders_userAdminId"))
+    private User userAdmin;
 }

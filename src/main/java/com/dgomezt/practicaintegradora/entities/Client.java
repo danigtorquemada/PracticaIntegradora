@@ -85,6 +85,9 @@ public class Client {
     @Embedded
     private Auditory auditory;
 
+    @OneToMany(mappedBy = "client", orphanRemoval = true)
+    private Set<Order> orders = new LinkedHashSet<>();
+
     public Auditory getAuditory() {
         if (auditory == null)
             auditory = new Auditory();

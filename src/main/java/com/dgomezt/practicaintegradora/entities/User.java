@@ -39,11 +39,6 @@ public class User {
     @Column(name = "lock_date")
     private LocalDate lockDate;
 
-    /******* RELATIONSHIPS **********/
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private Set<Order> orders = new LinkedHashSet<>();
-
     public Auditory getAuditory() {
         if(auditory == null)
             auditory = new Auditory();
