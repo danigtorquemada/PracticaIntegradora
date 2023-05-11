@@ -6,8 +6,10 @@ import com.dgomezt.practicaintegradora.entities.helpers.ClientType;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.ClientService;
 import com.dgomezt.practicaintegradora.services.ClientTypeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,7 @@ public class ClientController {
     }
 
     @GetMapping("/list")
-    public ModelAndView listClients(){
+    public ModelAndView listClients() {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("main");
@@ -54,12 +56,18 @@ public class ClientController {
 
 
     @GetMapping("/query")
-    public ModelAndView queryUsers(ClientQueryDTO clientQueryDTO){
+    public ModelAndView queryUsers(@Valid ClientQueryDTO clientQueryDTO, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("main");
 
-        List<Client> clients = clientService.getParameterizedQueryClients(clientQueryDTO);
+        List<Client> clients;
+
+        if (bindingResult.hasErrors())
+            clients = clientService.getAllClients();
+        else
+            clients = clientService.getParameterizedQueryClients(clientQueryDTO);
+
         List<ClientType> clientTypes = clientTypeService.getAll();
 
         modelAndView.addObject("clientQueryDTO", clientQueryDTO);

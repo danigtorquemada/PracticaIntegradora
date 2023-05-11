@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ClientTypeService {
     List<ClientType> getAll();
+
+    List<String> getAllAbbreviations();
 }

@@ -2,19 +2,24 @@
   <form action="/client/query" method="get" th:object="${clientQueryDTO}">
     <label><th:block th:text="#{form.client.search.clientType}"/></label>
     <!--/*<input type="text" th:field="*{clientType}">*/-->
-    <select th:field="*{clientType}">
+    <select th:field="*{clientTypes}" multiple="multiple">
       <option th:each="type : ${clientTypes}" th:value="${type?.type?.abbreviation}" th:text="${type?.type?.abbreviation}"></option>
     </select>
     <label><th:block th:text="#{form.client.search.entryDateMax}"/></label>
     <input type="text" th:field="*{entryDateMax}">
+    <p th:if="${#fields.hasErrors('entryDateMax')}" th:errors="*{entryDateMax}" th:errorclass="error"/>
     <label><th:block th:text="#{form.client.search.entryDateMin}"/></label>
     <input type="text" th:field="*{entryDateMin}">
+    <p th:if="${#fields.hasErrors('entryDateMin')}" th:errors="*{entryDateMin}" th:errorclass="error"/>
     <label><th:block th:text="#{form.client.search.patternLastName}"/></label>
     <input type="text" th:field="*{patternLastName}">
+    <p th:if="${#fields.hasErrors('patternLastName')}" th:errors="*{patternLastName}" th:errorclass="error"/>
     <label><th:block th:text="#{form.client.search.totalSpentMoneyMax}"/></label>
     <input type="text" th:field="*{totalSpentMoneyMax}">
+    <p th:if="${#fields.hasErrors('totalSpentMoneyMax')}" th:errors="*{totalSpentMoneyMax}" th:errorclass="error"/>
     <label><th:block th:text="#{form.client.search.totalSpentMoneyMin}"/></label>
     <input type="text" th:field="*{totalSpentMoneyMin}">
+    <p th:if="${#fields.hasErrors('totalSpentMoneyMin')}" th:errors="*{totalSpentMoneyMin}" th:errorclass="error"/>
     <input type="submit" th:value="#{form.client.search.searchButton}">
   </form>
   <th:block th:insert="~{fragments/client/list}"></th:block>

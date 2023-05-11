@@ -8,7 +8,6 @@ import com.dgomezt.practicaintegradora.utilities.MysqlProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +17,8 @@ public class ClientServiceImpl implements ClientService{
     ClientRepository clientRepository;
     @Autowired
     MysqlProperties mysqlProperties;
+    @Autowired
+    ClientTypeService clientTypeService;
 
     @Override
     public List<Client> getAllClients() {
@@ -35,8 +36,9 @@ public class ClientServiceImpl implements ClientService{
     public List<Client> getParameterizedQueryClients(ClientQueryDTO clientQueryDTO){
         ClientQueryDTO finalClientQueryDTO = ClientQueryDTO.copy(clientQueryDTO);
 
-        if(clientQueryDTO.clientType == null || clientQueryDTO.clientType.isEmpty())
-            finalClientQueryDTO.clientType = "%";
+        if(clientQueryDTO.clientTypes == null || clientQueryDTO.clientTypes.isEmpty()){
+            finalClientQueryDTO.clientTypes = clientTypeService.getAllAbbreviations();
+        }
 
         if(clientQueryDTO.patternLastName == null)
             finalClientQueryDTO.patternLastName = "";
@@ -53,10 +55,10 @@ public class ClientServiceImpl implements ClientService{
         if(clientQueryDTO.totalSpentMoneyMax == null)
             finalClientQueryDTO.totalSpentMoneyMax = mysqlProperties.getMaxDecimal();
 
-        return clientRepository.findByAuditory_EntryDateBetweenAndTotalSpentMoneyBetweenAndContact_LastNameContainsAndClientType_Type_AbbreviationIsLike(
+        return clientRepository.findByAuditory_EntryDateBetweenAndTotalSpentMoneyBetweenAndContact_LastNameContainsAndClientType_Type_AbbreviationIn(
                 finalClientQueryDTO.entryDateMin, finalClientQueryDTO.entryDateMax,
                 finalClientQueryDTO.totalSpentMoneyMin, finalClientQueryDTO.totalSpentMoneyMax,
-                finalClientQueryDTO.patternLastName, finalClientQueryDTO.clientType
+                finalClientQueryDTO.patternLastName, finalClientQueryDTO.clientTypes
         );
     }
 }

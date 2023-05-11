@@ -7,10 +7,13 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    List<Client> findByAuditory_EntryDateBetweenAndTotalSpentMoneyBetweenAndContact_LastNameContainsAndClientType_Type_AbbreviationIsLike(LocalDate entryDateStart, LocalDate entryDateEnd,
+
+
+    List<Client> findByAuditory_EntryDateBetweenAndTotalSpentMoneyBetweenAndContact_LastNameContainsAndClientType_Type_AbbreviationIn(LocalDate entryDateStart, LocalDate entryDateEnd,
                                                                                                                                     BigDecimal totalSpentMoneyStart, BigDecimal totalSpentMoneyEnd,
-                                                                                                                                    String lastName, String abbreviation);
+                                                                                                                                    String lastName, Collection<String> abbreviations);
 }
