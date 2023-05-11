@@ -2,8 +2,10 @@ package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Client;
 import com.dgomezt.practicaintegradora.entities.dtos.ClientQueryDTO;
+import com.dgomezt.practicaintegradora.entities.helpers.ClientType;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.ClientService;
+import com.dgomezt.practicaintegradora.services.ClientTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,8 @@ public class ClientController {
 
     @Autowired
     ClientService clientService;
+    @Autowired
+    ClientTypeService clientTypeService;
 
     @GetMapping("/detail/{id}")
     public ModelAndView detailClient(@PathVariable String id) throws ElementNotFoundException {
@@ -56,11 +60,13 @@ public class ClientController {
         modelAndView.setViewName("main");
 
         List<Client> clients = clientService.getParameterizedQueryClients(clientQueryDTO);
-
+        List<ClientType> clientTypes = clientTypeService.getAll();
 
         modelAndView.addObject("clientQueryDTO", clientQueryDTO);
+
         modelAndView.addObject("clients", clients);
-        modelAndView.addObject("content", "client/search");
+        modelAndView.addObject("clientTypes", clientTypes);
+        modelAndView.addObject("content", "client/query");
         return modelAndView;
     }
 }

@@ -1,7 +1,9 @@
 <div>
   <form action="/client/query" method="get" th:object="${clientQueryDTO}">
     <label><th:block th:text="#{form.client.search.clientType}"/></label>
-    <input type="text" th:field="*{clientType}">
+    <select th:field="*{clientType}">
+      <option th:each="type : ${clientTypes}" th:value="${type?.type?.abbreviation}" th:text="${type?.type?.abbreviation}"></option>
+    </select>
     <label><th:block th:text="#{form.client.search.entryDateMax}"/></label>
     <input type="text" th:field="*{entryDateMax}">
     <label><th:block th:text="#{form.client.search.entryDateMin}"/></label>
