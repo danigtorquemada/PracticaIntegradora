@@ -30,6 +30,12 @@ public class UserController {
     UserService userService;
     @Autowired
     ConfProperties properties;
+
+    @ModelAttribute("idSession")
+    public String addIdSessionHTML(HttpSession session){
+        return session.getId();
+    }
+
     @GetMapping("/signUp")
     public ModelAndView printForm() {
         ModelAndView modelAndView = new ModelAndView();
@@ -213,6 +219,7 @@ public class UserController {
         httpServletResponse.addCookie(lastUserCookie);
 
         session.invalidate();
+
         modelAndView.setViewName("redirect:/user/login");
         return modelAndView;
     }

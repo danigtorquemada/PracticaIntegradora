@@ -21,4 +21,11 @@ public class PromotionServiceImpl implements PromotionService {
 
         return promotionOptional.get();
     }
+
+    @Override
+    public boolean deleteAll() {
+        promotionRepository.deleteAll();
+
+        return true;
+    }
 }

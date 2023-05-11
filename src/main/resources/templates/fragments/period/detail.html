@@ -4,7 +4,7 @@
             <th:block th:text="#{period.detail.initPeriod}"/>
         </div>
         <div class="divTableCell">
-            <th:block th:text="${period.initPeriod}"/>
+            <th:block th:text="${period?.initPeriod}"/>
         </div>
     </div>
     <div class="divTableRow">
@@ -12,7 +12,7 @@
             <th:block th:text="#{period.detail.finalPeriod}"/>
         </div>
         <div class="divTableCell">
-            <th:block th:text="${period.finalPeriod}"/>
+            <th:block th:text="${period?.finalPeriod}"/>
         </div>
     </div>
 </th:block>
