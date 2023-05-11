@@ -102,6 +102,21 @@ function recoverUserByList(userId) {
     }
 }
 
+function removeAllPromotions() {
+    if(confirmOperation("Se van a borrar todas las promociones")){
+        $.ajax
+        ({
+            url: "/promotion/deleteAll",
+            type: "get",
+        }).done(function (data) {
+            alert("All promotions has been removed")
+            location.reload()
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
+}
+
 
 /*
 function lockUser(userId) {

@@ -1,0 +1,35 @@
+<div>
+  <h2>
+    <th:block th:text="#{promotion.detail.listTitle}"/>
+  </h2>
+  <div class="divTable table-details">
+    <div class="divTableHeading">
+      <div class="divTableRow">
+        <div class="divTableHead"><th:block th:text="#{promotion.detail.id}"/></div>
+        <div class="divTableHead"><th:block th:text="#{promotion.detail.description}"/></div>
+        <div class="divTableHead"><th:block th:text="#{promotion.detail.discount}"/></div>
+        <div class="divTableHead"><th:block th:text="#{promotion.detail.products}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.entryDate}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.entryUser}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.lastModificationDate}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.lastModificationUser}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.removedDate}"/></div>
+        <div class="divTableHead"><th:block th:text="#{auditory.detail.removedUser}"/></div>
+      </div>
+    </div>
+    <div class="divTableBody">
+      <div class="divTableRow" th:each="promotion : ${promotions}">
+        <div class="divTableCell"><th:block th:text="${promotion.id}"/></div>
+        <div class="divTableCell"><th:block th:text="${promotion.description}"/></div>
+        <div class="divTableCell"><th:block th:text="${promotion.discount}"/></div>
+        <div class="divTableCell">
+          <th:block th:each="product : ${promotion.products}">
+            <th:block th:text="${product.code}"/>
+          </th:block>
+        </div>
+        <th:block th:replace="~{fragments/auditory/detail::detailList(${promotion.auditory})}"/>
+      </div>
+    </div>
+  </div>
+  <input type="button" th:value="#{promotion.detail.removeAll}" onclick="removeAllPromotions()">
+</div>

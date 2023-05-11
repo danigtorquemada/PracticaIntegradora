@@ -6,12 +6,19 @@ import com.dgomezt.practicaintegradora.repositories.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
     @Autowired
     PromotionRepository promotionRepository;
+
+    @Override
+    public List<Promotion> getAllPromotions() {
+        return promotionRepository.findAll();
+    }
 
     @Override
     public Promotion findPromotionById(Long id) throws ElementNotFoundException {
@@ -24,7 +31,7 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public boolean deleteAll() {
-        promotionRepository.deleteAll();
+        promotionRepository.logicRemoveAllPromotions(LocalDate.now());
 
         return true;
     }
