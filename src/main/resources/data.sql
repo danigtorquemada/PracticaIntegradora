@@ -68,3 +68,10 @@ INSERT INTO promotion_products (`promotion_id`, `product_id`) VALUES ('1', '2');
 
 INSERT INTO order_state (abbreviation, type)
 VALUES ("P", "En preparación"), ("T", "En tránsito"), ("X", "Extraviado"), ("E", "Entregado"), ("D", "Devuelto");
+
+INSERT INTO orders (`date`, `total_price`, `client_id`, `order_state_id`, `user_admin_id`) VALUES ('20001010', '50', '1', '1', '1');
+INSERT INTO orders (`date`, `total_price`, `client_id`, `order_state_id`, `user_admin_id`) VALUES ('20050105', '150', '2', '3', '2');
+
+INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('1', '2', '10', '2');
+INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('2', '1', '5', '5');
+INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('2', '2', '8', '6');
