@@ -73,6 +73,9 @@ public class Product {
     @Embedded
     private Auditory auditory;
 
+    @ManyToMany(mappedBy = "products")
+    private Set<Promotion> promotions = new LinkedHashSet<>();
+
     public Auditory getAuditory() {
         if(auditory == null)
             auditory = new Auditory();

@@ -9,5 +9,5 @@ public interface PromotionService {
     List<Promotion> getAllPromotions();
     Promotion findPromotionById(Long id) throws ElementNotFoundException;
 
-    boolean deleteAll();
+    void deleteEmptyPromotions();
 }

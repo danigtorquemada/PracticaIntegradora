@@ -6,7 +6,6 @@ import com.dgomezt.practicaintegradora.repositories.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +29,11 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
-    public boolean deleteAll() {
-        promotionRepository.logicRemoveAllPromotions(LocalDate.now());
-
-        return true;
+    public void deleteEmptyPromotions() {
+        //promotionRepository.logicRemoveAllPromotions(LocalDate.now());
+        for (Promotion promotion : promotionRepository.findAll()) {
+            if(promotion.getProducts().isEmpty())
+                promotionRepository.deleteById(promotion.getId());
+        }
     }
 }

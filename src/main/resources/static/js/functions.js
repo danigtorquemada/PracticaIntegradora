@@ -103,13 +103,13 @@ function recoverUserByList(userId) {
 }
 
 function removeAllPromotions() {
-    if(confirmOperation("Se van a borrar todas las promociones")){
+    if(confirmOperation("Se van a borrar todas las promociones vacias")){
         $.ajax
         ({
             url: "/promotion/deleteAll",
-            type: "get",
+            type: "DELETE",
         }).done(function (data) {
-            alert("All promotions has been removed")
+            alert("Borrado con exito.")
             location.reload()
         }).fail(function (e, textStatus) {
             alert("Request failed: " + textStatus)

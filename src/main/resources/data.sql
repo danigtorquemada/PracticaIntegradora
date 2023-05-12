@@ -63,8 +63,8 @@ INSERT INTO client_categories (`client_id`, `categories_id`) VALUES ('2', '2');
 INSERT INTO client_delivery_addresses (`client_id`, `addresses_id`) VALUES ('1', '1');
 INSERT INTO client_delivery_addresses (`client_id`, `addresses_id`) VALUES ('1', '2');
 
-INSERT INTO promotion_products (`promotion_id`, `products_id`) VALUES ('1', '1');
-INSERT INTO promotion_products (`promotion_id`, `products_id`) VALUES ('1', '2');
+INSERT INTO promotion_products (`promotion_id`, `product_id`) VALUES ('1', '1');
+INSERT INTO promotion_products (`promotion_id`, `product_id`) VALUES ('1', '2');
 
 INSERT INTO order_state (abbreviation, type)
 VALUES ("P", "En preparación"), ("T", "En tránsito"), ("X", "Extraviado"), ("E", "Entregado"), ("D", "Devuelto");

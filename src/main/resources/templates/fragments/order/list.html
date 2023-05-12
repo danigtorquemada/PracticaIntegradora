@@ -1,0 +1,27 @@
+<div>
+    <h2>
+        <th:block th:text="#{order.detail.listTitle}"/>
+    </h2>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{order.detail.id}"/></div>
+                <div class="divTableHead"><th:block th:text="#{order.detail.client}"/></div>
+                <div class="divTableHead"><th:block th:text="#{order.detail.date}"/></div>
+                <div class="divTableHead"><th:block th:text="#{order.detail.orderState}"/></div>
+                <div class="divTableHead"><th:block th:text="#{order.detail.totalPrice}"/></div>
+                <div class="divTableHead"><th:block th:text="#{order.detail.userAdmin}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody">
+            <div class="divTableRow" th:each="order : ${orders}">
+                <div class="divTableCell"><th:block th:text="${order.id}"/></div>
+                <div class="divTableCell"><th:block th:text="${order.client?.id}"/></div>
+                <div class="divTableCell"><th:block th:text="${order.date}"/></div>
+                <div class="divTableCell"><th:block th:text="${order.orderState?.type?.type}"/></div>
+                <div class="divTableCell"><th:block th:text="${order.totalPrice}"/></div>
+                <div class="divTableCell"><th:block th:text="${order.userAdmin?.id}"/></div>
+            </div>
+        </div>
+    </div>
+</div>

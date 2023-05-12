@@ -3,10 +3,7 @@ package com.dgomezt.practicaintegradora.entities;
 import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
 import com.dgomezt.practicaintegradora.entities.embeddables.Period;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -38,8 +35,8 @@ public class Promotion {
 
     @ManyToMany
     @JoinTable(name = "promotion_products",
-            joinColumns = @JoinColumn(name = "promotion_id", foreignKey = @ForeignKey(name = "FK_promotionProducts_promotion")),
-            inverseJoinColumns = @JoinColumn(name = "products_id",foreignKey = @ForeignKey(name = "FK_promotionProducts_products")))
+            joinColumns = @JoinColumn(name = "promotion_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new LinkedHashSet<>();
 
     public Auditory getAuditory() {
