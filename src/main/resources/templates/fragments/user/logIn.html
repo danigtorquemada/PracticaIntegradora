@@ -2,7 +2,7 @@
     <h1>
         <th:block th:text="#{form.user.username}"/>
     </h1>
-    <form action="/user/login/username" method="post" th:object="${user}">
+    <form action="/user/login/username" method="post" th:object="${userAuthentication}">
         <fieldset>
             <div class="vertical">
                 <label class="boldText">Log in</label><br>
@@ -17,7 +17,7 @@
     <h1>
         <th:block th:text="#{form.user.password}"/>
     </h1>
-    <form action="/user/login/password" method="post" th:object="${user}">
+    <form action="/user/login/password" method="post" th:object="${userAuthentication}">
             <p id="currentUser"><th:block th:text="*{username}"/></p>
         <!--<select th:if="${users}" id="users">
             <option th:each="posibleUser : ${users}" th:text="${posibleUser}" th:value="${posibleUser}"

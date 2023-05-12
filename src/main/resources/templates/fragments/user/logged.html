@@ -1,5 +1,5 @@
 <form action="/user/logOut" method="get" th:object="${user}">
     <h2>Usuario Logeado:</h2>
-    <p><th:block th:text="*{username}"/></p>
+    <p><th:block th:text="*{email}"/></p>
     <input type="submit" value="Log out">
 </form>

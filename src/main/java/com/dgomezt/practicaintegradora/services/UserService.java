@@ -12,9 +12,12 @@ public interface UserService {
     LocalDate lockUser(Long userId, Integer days);
     boolean unlockUser(Long userId);
     boolean isLocked(Long userId);
+
+    boolean isRemoved(Long userId);
+
     boolean isCorrectUser(UserAuthentication userAuthentication);
     User findByUsername(String username);
-    void save(User user);
+    User save(User user);
 
     LocalDate removeUser(Long userId);
     boolean recoverUser(Long userId);

@@ -68,6 +68,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isRemoved(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.get();
+
+        if(user.getAuditory() == null) return false;
+
+        return user.getAuditory().getRemovedDate() != null;
+    }
+
+    @Override
     public boolean isCorrectUser(UserAuthentication userAuthentication) {
         Optional<User> user = userRepository.findByEmail(userAuthentication.getUsername());
         if(user.isEmpty()) return false;
@@ -83,8 +93,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Override
