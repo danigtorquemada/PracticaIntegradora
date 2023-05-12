@@ -1,0 +1,26 @@
+<div>
+    <h2><th:block th:text="#{order.detail.changeState}"/></h2>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{table.field}"/></div>
+                <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody" th:object="${order}">
+            <input type="hidden" th:value="*{id}" id="orderId">
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.id}"/></div><div class="divTableCell"><th:block th:text="*{id}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.date}"/></div><div class="divTableCell"><th:block th:text="*{date}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.client}"/></div><div class="divTableCell"><th:block th:text="*{client?.id}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.totalPrice}"/></div><div class="divTableCell"><th:block th:text="*{totalPrice}"/></div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.orderState}"/></div><div class="divTableCell">
+                <input type="hidden" th:value="*{orderState.id}" id="currentState">
+                <select id="newState" th:value="*{orderState.id}" onchange="enableUpdateButton()">
+                    <option th:each="state : ${possibleStates}" th:value="${state.id}" th:text="${state?.type?.type}"></option>
+                </select>
+                <input id="updateStateButton" type="button" th:value="#{order.detail.changeState}" onclick="updateOrderState()" disabled>
+            </div></div>
+            <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.userAdmin}"/></div><div class="divTableCell"><th:block th:text="*{userAdmin?.id}"/></div></div>
+        </div>
+    </div>
+</div>

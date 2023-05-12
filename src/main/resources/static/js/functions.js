@@ -107,7 +107,7 @@ function removeAllPromotions() {
         $.ajax
         ({
             url: "/promotion/deleteAll",
-            type: "DELETE",
+            type: "DELETE"
         }).done(function (data) {
             alert("Borrado con exito.")
             location.reload()
@@ -115,6 +115,33 @@ function removeAllPromotions() {
             alert("Request failed: " + textStatus)
         });
     }
+}
+
+function updateOrderState(){
+    var newState = $("#newState").val()
+    var orderId = $("#orderId").val()
+
+    if(confirmOperation("Se va actualizar el estado del pedido")){
+        $.ajax
+        ({
+            url: "/order/updateState",
+            type: "PUT",
+            data: "orderId=" + orderId + "&newState=" + newState
+        }).done(function (data) {
+            alert("Estado actualizado con exito.")
+            location.reload()
+        }).fail(function (e, textStatus) {
+            alert("Request failed")
+        });
+    }
+
+}
+
+function enableUpdateButton(){
+    const newState = $("#newState").val()
+    const currentValue = $("#currentState").val()
+
+    const button = $("#updateStateButton").prop('disabled', (newState == currentValue))
 }
 
 
