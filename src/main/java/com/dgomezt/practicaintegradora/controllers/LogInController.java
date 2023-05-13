@@ -5,6 +5,7 @@ import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.services.UserService;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -142,13 +145,33 @@ public class LogInController {
     }
 
     @GetMapping("/logged")
-    public ModelAndView logged(HttpSession session, HttpServletResponse httpServletResponse) {
+    public ModelAndView logged(HttpSession session,
+                               @CookieValue(value = "${custom.COOKIE_USERS_CONNECTIONS}", required = false) String usersCookie,
+                               HttpServletResponse httpServletResponse) {
         ModelAndView modelAndView = new ModelAndView();
 
         User user = (User) session.getAttribute(properties.SESSION_USER);
 
+        Map<String, Integer> usersConnections;
+        if(usersCookie == null){
+            usersConnections = new HashMap<>();
+            usersConnections.put(user.getEmail(), 1);
+            cookieManager.saveCookieUsers(usersConnections);
+        }else {
+            usersConnections = cookieManager.getUsersFromCookieUser(usersCookie);
+            if(usersConnections.containsKey(user.getEmail())){
+                usersConnections.put(user.getEmail(), usersConnections.get(user.getEmail()) + 1);
+            }else
+                usersConnections.put(user.getEmail(), 1);
+        }
+        Cookie cookieUsers = cookieManager.saveCookieUsers(usersConnections);
+        httpServletResponse.addCookie(cookieUsers);
+
         Cookie cookieLastUser = cookieManager.createCookie(properties.COOKIE_CONNECTED_USER, user.getEmail());
         httpServletResponse.addCookie(cookieLastUser);
+
+        user.addConnection();
+        userService.save(user);
 
         modelAndView.addObject("user", user);
         modelAndView.setViewName("main");

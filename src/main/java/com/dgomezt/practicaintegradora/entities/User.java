@@ -45,4 +45,9 @@ public class User {
 
         return auditory;
     }
+
+    public void addConnection(){
+        if(numberAccess == null) numberAccess = 1;
+        else numberAccess++;
+    }
 }
