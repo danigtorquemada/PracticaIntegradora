@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Transactional
     @Modifying
-    @Query("update Order o set o.orderState.id = ?1")
-    int updateOrderStateBy(Long orderStateId);
+    @Query("update Order o set o.orderState = ?1 where o.id = ?2")
+    int updateOrderStateById(OrderState orderState, Long id);
 }
