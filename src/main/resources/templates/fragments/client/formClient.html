@@ -149,3 +149,119 @@
         <input type="reset" th:value="#{form.reset}">
     </form>
 </th:block>
+
+<th:block th:fragment="resume">
+    <script>
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var newLanguage = $("#locales").val().toString();
+                window.location.replace('?lang=' + newLanguage);
+            });
+
+            $("#css").change(function () {
+                if ($("#css").val().toString() === "true")
+                    document.getElementById('cssStyle').disabled = '';
+                else
+                    document.getElementById('cssStyle').disabled = true;
+            });
+        });
+    </script>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value="" text=""></option>
+        <option value="es" th:text="#{lang.es}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+    </select>
+    <form method="post" action="">
+        <fieldset th:object="${personalDataDTO}">
+            <legend><th:block th:text="#{form.client.register.personalData}"/></legend>
+            <input type="hidden" th:field="*{interactions}">
+            <label>
+                <th:block th:text="#{client.detail.firstName}"/>
+            </label>
+            <input type="text" th:field="*{firstName}" disabled><br>
+            <label>
+                <th:block th:text="#{client.detail.lastName}"/>
+            </label>
+            <input type="text" th:field="*{lastName}" disabled><br>
+            <label>
+                <th:block th:text="#{client.detail.gender}"/>
+            </label><br>
+            <th:block th:each="gender : ${genderList}">
+                <input type="radio" th:field="*{gender}" th:value="${gender?.id}" disabled>
+                <th:block th:text="${gender?.type?.type}"></th:block>
+                <br>
+            </th:block>
+            <label>
+                <th:block th:text="#{client.detail.birthDate}"/>
+            </label>
+            <input type="text" th:field="*{birthDate}" disabled><br>
+            <label>
+                <th:block th:text="#{client.detail.country}"/>
+            </label>
+            <select th:field="*{country}" tabindex="14">
+                <option th:each="country : ${countryList}" th:value="${country?.id}"
+                        th:text="${country?.type?.type}" disabled></option>
+            </select><br>
+            <label>
+                <th:block th:text="#{client.detail.documentType}"/>
+            </label><br>
+            <th:block th:each="documentType : ${documentTypeList}">
+                <input type="radio" th:field="*{documentType}" th:value="${documentType?.id}" disabled>
+                <th:block th:text="${documentType?.type?.type}"></th:block>
+                <br>
+            </th:block>
+            <label>
+                <th:block th:text="#{client.detail.document}"/>
+            </label>
+            <input type="text" th:field="*{document}" disabled>
+        </fieldset>
+        <fieldset th:object="${contactDataDTO}">
+            <legend><th:block th:text="#{form.client.register.contactData}"/></legend>
+            <label>
+                <th:block th:text="#{client.detail.phoneNumber}"/>
+            </label>
+            <input type="text" th:field="*{phoneNumber}" disabled><br>
+            <label><th:block th:text="#{address.detail.typeRoad}"/></label>
+            <select th:field="*{typeRoad}" tabindex="14">
+                <option th:each="road : ${typeRoadList}" th:value="${road.id}" th:text="${road?.type?.type}"></option>
+            </select><br>
+            <label><th:block th:text="#{address.detail.name}"/></label>
+            <input type="text" th:field="*{name}" disabled><br>
+            <label><th:block th:text="#{address.detail.number}"/></label>
+            <input type="text" th:field="*{number}" disabled><br>
+            <label><th:block th:text="#{address.detail.portal}"/></label>
+            <input type="text" th:field="*{portal}" disabled><br>
+            <label><th:block th:text="#{address.detail.floor}"/></label>
+            <input type="text" th:field="*{floor}" disabled><br>
+            <label><th:block th:text="#{address.detail.door}"/></label>
+            <input type="text" th:field="*{door}" disabled><br>
+            <label><th:block th:text="#{address.detail.city}"/></label>
+            <input type="text" th:field="*{city}" disabled><br>
+            <label><th:block th:text="#{address.detail.state}"/></label>
+            <input type="text" th:field="*{state}" disabled><br>
+            <label><th:block th:text="#{address.detail.postcode}"/></label>
+            <input type="text" th:field="*{postcode}" disabled><br>
+        </fieldset>
+        <fieldset th:object="${otherDataDTO}">
+            <legend><th:block th:text="#{form.client.register.otherData}"/></legend>
+            <label>
+                <th:block th:text="#{client.detail.interestedCategories}"/>
+            </label>
+            <th:block th:each="category : ${categoryList}">
+                <input type="checkbox" th:field="*{interestedCategories}" th:value="${category.id}" disabled>
+                <th:block th:text="${category.code}"/>
+            </th:block>
+            <br>
+            <label>
+                <th:block th:text="#{client.detail.comments}"/>
+            </label><br>
+            <textarea rows="4" cols="30" th:field="*{comments}" disabled></textarea>
+            <label>
+                <th:block th:text="#{client.detail.license}"/>
+            </label>
+            <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}" disabled><br>
+            <input type="submit" th:value="#{form.submit}">
+        </fieldset>
+    </form>
+</th:block>

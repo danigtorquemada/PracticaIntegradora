@@ -41,7 +41,7 @@ public class ClientRegisterController {
     ClientService clientService;
 
     @ModelAttribute
-    public void addCollections(Model model){
+    public void addCollections(Model model) {
         model.addAttribute("genderList", genderService.findAll());
         model.addAttribute("documentTypeList", documentTypeService.findAll());
         model.addAttribute("countryList", countryService.findAll());
@@ -73,13 +73,13 @@ public class ClientRegisterController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main");
 
-        if(!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             httpSession.setAttribute(PERSONAL_DATA_OBJECT, personalDataDTO);
             modelAndView.setViewName("redirect:step2");
             return modelAndView;
         }
 
-        if(bindingResult.hasGlobalErrors()){
+        if (bindingResult.hasGlobalErrors()) {
             bindingResult.rejectValue("document", "PatternDniNie", bindingResult.getGlobalError().getDefaultMessage());
         }
 
@@ -90,7 +90,7 @@ public class ClientRegisterController {
     }
 
     @GetMapping("/register/step2")
-    public ModelAndView contactDataStep(HttpSession httpSession){
+    public ModelAndView contactDataStep(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
 
         ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
@@ -105,14 +105,15 @@ public class ClientRegisterController {
         modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "contactData");
         return modelAndView;
     }
+
     @PostMapping("/register/step2")
     public ModelAndView contactDataStep(@Valid ContactDataDTO contactDataDTO,
-                                         BindingResult bindingResult,
-                                         HttpSession httpSession) {
+                                        BindingResult bindingResult,
+                                        HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main");
 
-        if(!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors()) {
             httpSession.setAttribute(CONTACT_DATA_OBJECT, contactDataDTO);
             modelAndView.setViewName("redirect:step3");
             return modelAndView;
@@ -125,7 +126,7 @@ public class ClientRegisterController {
     }
 
     @GetMapping("/register/step3")
-    public ModelAndView otherDataStep(HttpSession httpSession){
+    public ModelAndView otherDataStep(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
 
         OtherDataDTO otherDataDTO = (OtherDataDTO) httpSession.getAttribute(OTHER_DATA_OBJECT);
@@ -148,14 +149,14 @@ public class ClientRegisterController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("main");
 
-        if(!bindingResult.hasErrors()){
-            ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
+        if (!bindingResult.hasErrors()) {
+            /*ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
             PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
 
             Client newClient = Client.fromDTOS(personalDataDTO, contactDataDTO, otherDataDTO);
-            Client registeredClient = clientService.registerClient(newClient);
-
-            modelAndView.setViewName("redirect:/client/detail/" + registeredClient.getId());
+            Client registeredClient = clientService.registerClient(newClient);*/
+            httpSession.setAttribute(OTHER_DATA_OBJECT, otherDataDTO);
+            modelAndView.setViewName("redirect:/client/register/resume");
             return modelAndView;
         }
 
@@ -165,5 +166,21 @@ public class ClientRegisterController {
         return modelAndView;
     }
 
+    @GetMapping("/register/resume")
+    public ModelAndView resumeRegister(HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
 
+        ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
+        PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
+        OtherDataDTO otherDataDTO = (OtherDataDTO) httpSession.getAttribute(OTHER_DATA_OBJECT);
+
+        modelAndView.addObject(contactDataDTO);
+        modelAndView.addObject(personalDataDTO);
+        modelAndView.addObject(otherDataDTO);
+
+        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/formClient");
+        modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "resume");
+        return modelAndView;
+    }
 }
