@@ -169,8 +169,6 @@ function enableUpdateButton(){
 
     const button = $("#updateStateButton").prop('disabled', (newState == currentValue))
 }
-
-
 /*
 function lockUser(userId) {
     $.ajax

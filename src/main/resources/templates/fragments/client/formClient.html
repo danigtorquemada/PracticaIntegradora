@@ -1,4 +1,18 @@
 <th:block th:fragment="personalData">
+  <script>
+    $(document).ready(function () {
+      $("#locales").change(function () {
+        var newLanguage = $("#locales").val().toString();
+        window.location.replace('?lang=' + newLanguage);
+      });
+    });
+  </script>
+  <span th:text="#{lang.change}"></span>:
+  <select id="locales">
+    <option value="" text=""></option>
+    <option value="es" th:text="#{lang.es}"></option>
+    <option value="en" th:text="#{lang.eng}"></option>
+  </select>
   <form method="post" action="" th:object="${personalDataDTO}">
     <input type="hidden" th:field="*{interactions}">
     <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
@@ -38,6 +52,20 @@
   </form>
 </th:block>
 <th:block th:fragment="contactData">
+  <script>
+    $(document).ready(function () {
+      $("#locales").change(function () {
+        var newLanguage = $("#locales").val().toString();
+        window.location.replace('?lang=' + newLanguage);
+      });
+    });
+  </script>
+  <span th:text="#{lang.change}"></span>:
+  <select id="locales">
+    <option value="" text=""></option>
+    <option value="es" th:text="#{lang.es}"></option>
+    <option value="en" th:text="#{lang.eng}"></option>
+  </select>
   <form method="post" action="" th:object="${contactDataDTO}">
     <input type="hidden" th:field="*{interactions}">
     <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
@@ -50,6 +78,20 @@
   </form>
 </th:block>
 <th:block th:fragment="otherData">
+  <script>
+    $(document).ready(function () {
+      $("#locales").change(function () {
+        var newLanguage = $("#locales").val().toString();
+        window.location.replace('?lang=' + newLanguage);
+      });
+    });
+  </script>
+  <span th:text="#{lang.change}"></span>:
+  <select id="locales">
+    <option value="" text=""></option>
+    <option value="es" th:text="#{lang.es}"></option>
+    <option value="en" th:text="#{lang.eng}"></option>
+  </select>
   <form method="post" action="" th:object="${otherDataDTO}">
     <input type="hidden" th:field="*{interactions}">
     <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/><br>

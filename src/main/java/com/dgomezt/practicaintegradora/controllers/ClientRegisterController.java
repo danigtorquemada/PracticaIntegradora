@@ -164,4 +164,6 @@ public class ClientRegisterController {
         modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "otherData");
         return modelAndView;
     }
+
+
 }
