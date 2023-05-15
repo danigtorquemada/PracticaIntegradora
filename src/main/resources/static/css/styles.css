@@ -55,3 +55,7 @@ div.table-details {
 .divTableFoot { display: table-footer-group;}
 .divTableBody { display: table-row-group;}
  /************* TABLE DETAILS *************/
+
+body{
+    background-color: #FFFFFF;
+}

@@ -1,114 +1,151 @@
 <th:block th:fragment="personalData">
-  <script>
-    $(document).ready(function () {
-      $("#locales").change(function () {
-        var newLanguage = $("#locales").val().toString();
-        window.location.replace('?lang=' + newLanguage);
-      });
-    });
-  </script>
-  <span th:text="#{lang.change}"></span>:
-  <select id="locales">
-    <option value="" text=""></option>
-    <option value="es" th:text="#{lang.es}"></option>
-    <option value="en" th:text="#{lang.eng}"></option>
-  </select>
-  <form method="post" action="" th:object="${personalDataDTO}">
-    <input type="hidden" th:field="*{interactions}">
-    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.firstName}"/></label>
-    <input type="text" th:field="*{firstName}"><br>
-    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.lastName}"/></label>
-    <input type="text" th:field="*{lastName}"><br>
-    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.gender}"/></label><br>
-    <th:block th:each="gender : ${genderList}">
-      <input type="radio" th:field="*{gender}" th:value="${gender?.id}">
-      <th:block th:text="${gender?.type?.type}"></th:block><br>
-    </th:block>
-    <input type="button" th:value="#{form.deselectAll}" onclick="deselectRadios('gender')">
-    <input type="button" th:value="#{form.selectFirst}" onclick="selectFirst('gender')"><br>
-    <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.birthDate}"/></label>
-    <input type="text" th:field="*{birthDate}"><br>
-    <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.country}"/></label>
-    <select th:field="*{country}" tabindex="14">
-      <option th:each="country : ${countryList}" th:value="${country?.id}" th:text="${country?.type?.type}"></option>
-    </select><br>
-    <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.documentType}"/></label><br>
-    <th:block th:each="documentType : ${documentTypeList}">
-      <input type="radio" th:field="*{documentType}" th:value="${documentType?.id}">
-      <th:block th:text="${documentType?.type?.type}"></th:block><br>
-    </th:block>
-    <p th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.document}"/></label>
-    <input type="text" th:field="*{document}">
-    <p th:if="${#fields.hasErrors('document')}" th:errors="*{document}" th:errorclass="error"/>
-    <input type="submit" th:value="#{form.nextStep}">
-    <input type="reset" th:value="#{form.reset}">
-  </form>
+    <script>
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var newLanguage = $("#locales").val().toString();
+                window.location.replace('?lang=' + newLanguage);
+            });
+
+            $("#css").change(function () {
+                if ($("#css").val().toString() === "true")
+                    document.getElementById('cssStyle').disabled = '';
+                else
+                    document.getElementById('cssStyle').disabled = true;
+            });
+        });
+    </script>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value="" text=""></option>
+        <option value="es" th:text="#{lang.es}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+    </select>
+    <select id="css">
+        <option th:value="true" th:text="#{form.withCss}"></option>
+        <option th:value="false" th:text="#{form.withoutCss}"></option>
+    </select>
+    <form method="post" action="" th:object="${personalDataDTO}">
+        <input type="hidden" th:field="*{interactions}">
+        <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.firstName}"/>
+        </label>
+        <input type="text" th:field="*{firstName}"><br>
+        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.lastName}"/>
+        </label>
+        <input type="text" th:field="*{lastName}"><br>
+        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.gender}"/>
+        </label><br>
+        <th:block th:each="gender : ${genderList}">
+            <input type="radio" th:field="*{gender}" th:value="${gender?.id}">
+            <th:block th:text="${gender?.type?.type}"></th:block>
+            <br>
+        </th:block>
+        <input type="button" th:value="#{form.deselectAll}" onclick="deselectRadios('gender')">
+        <input type="button" th:value="#{form.selectFirst}" onclick="selectFirst('gender')"><br>
+        <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.birthDate}"/>
+        </label>
+        <input type="text" th:field="*{birthDate}"><br>
+        <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.country}"/>
+        </label>
+        <select th:field="*{country}" tabindex="14">
+            <option th:each="country : ${countryList}" th:value="${country?.id}"
+                    th:text="${country?.type?.type}"></option>
+        </select><br>
+        <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.documentType}"/>
+        </label><br>
+        <th:block th:each="documentType : ${documentTypeList}">
+            <input type="radio" th:field="*{documentType}" th:value="${documentType?.id}">
+            <th:block th:text="${documentType?.type?.type}"></th:block>
+            <br>
+        </th:block>
+        <p th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.document}"/>
+        </label>
+        <input type="text" th:field="*{document}">
+        <p th:if="${#fields.hasErrors('document')}" th:errors="*{document}" th:errorclass="error"/>
+        <input type="submit" th:value="#{form.nextStep}">
+        <input type="reset" th:value="#{form.reset}">
+    </form>
 </th:block>
 <th:block th:fragment="contactData">
-  <script>
-    $(document).ready(function () {
-      $("#locales").change(function () {
-        var newLanguage = $("#locales").val().toString();
-        window.location.replace('?lang=' + newLanguage);
-      });
-    });
-  </script>
-  <span th:text="#{lang.change}"></span>:
-  <select id="locales">
-    <option value="" text=""></option>
-    <option value="es" th:text="#{lang.es}"></option>
-    <option value="en" th:text="#{lang.eng}"></option>
-  </select>
-  <form method="post" action="" th:object="${contactDataDTO}">
-    <input type="hidden" th:field="*{interactions}">
-    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
-    <label><th:block th:text="#{client.detail.phoneNumber}"/></label>
-    <input type="text" th:field="*{phoneNumber}"><br>
-    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"/>
-    <th:block th:insert="~{fragments/address/formAddress::addressForm}"/>
-    <input type="submit" th:value="#{form.nextStep}">
-    <input type="reset" th:value="#{form.reset}">
-  </form>
+    <script>
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var newLanguage = $("#locales").val().toString();
+                window.location.replace('?lang=' + newLanguage);
+            });
+        });
+    </script>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value="" text=""></option>
+        <option value="es" th:text="#{lang.es}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+    </select>
+    <form method="post" action="" th:object="${contactDataDTO}">
+        <input type="hidden" th:field="*{interactions}">
+        <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
+        <label>
+            <th:block th:text="#{client.detail.phoneNumber}"/>
+        </label>
+        <input type="text" th:field="*{phoneNumber}"><br>
+        <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"/>
+        <th:block th:insert="~{fragments/address/formAddress::addressForm}"/>
+        <input type="submit" th:value="#{form.nextStep}">
+        <input type="reset" th:value="#{form.reset}">
+    </form>
 </th:block>
 <th:block th:fragment="otherData">
-  <script>
-    $(document).ready(function () {
-      $("#locales").change(function () {
-        var newLanguage = $("#locales").val().toString();
-        window.location.replace('?lang=' + newLanguage);
-      });
-    });
-  </script>
-  <span th:text="#{lang.change}"></span>:
-  <select id="locales">
-    <option value="" text=""></option>
-    <option value="es" th:text="#{lang.es}"></option>
-    <option value="en" th:text="#{lang.eng}"></option>
-  </select>
-  <form method="post" action="" th:object="${otherDataDTO}">
-    <input type="hidden" th:field="*{interactions}">
-    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/><br>
-    <label><th:block th:text="#{client.detail.interestedCategories}"/></label>
-    <th:block th:each="category : ${categoryList}">
-      <input type="checkbox" th:field="*{interestedCategories}" th:value="${category.id}">
-      <th:block th:text="${category.code}"/>
-    </th:block><br>
-    <input type="button" th:value="#{form.selectAll}" onclick="selectCheckboxes('interestedCategories', 'checked')">
-    <input type="button" th:value="#{form.deselectAll}" onclick="selectCheckboxes('interestedCategories', '')"><br>
-    <label><th:block th:text="#{client.detail.comments}"/></label><br>
-    <textarea rows="4" cols="30" th:field="*{comments}"></textarea>
-    <p th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" th:errorclass="error"/><br>
-    <label><th:block th:text="#{client.detail.license}"/></label>
-    <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}"><br>
-    <p th:if="${#fields.hasErrors('license')}" th:errors="*{license}" th:errorclass="error"/>
-    <input type="submit" th:value="#{form.submit}">
-    <input type="reset" th:value="#{form.reset}">
-  </form>
+    <script>
+        $(document).ready(function () {
+            $("#locales").change(function () {
+                var newLanguage = $("#locales").val().toString();
+                window.location.replace('?lang=' + newLanguage);
+            });
+        });
+    </script>
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value="" text=""></option>
+        <option value="es" th:text="#{lang.es}"></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+    </select>
+    <form method="post" action="" th:object="${otherDataDTO}">
+        <input type="hidden" th:field="*{interactions}">
+        <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/><br>
+        <label>
+            <th:block th:text="#{client.detail.interestedCategories}"/>
+        </label>
+        <th:block th:each="category : ${categoryList}">
+            <input type="checkbox" th:field="*{interestedCategories}" th:value="${category.id}">
+            <th:block th:text="${category.code}"/>
+        </th:block>
+        <br>
+        <input type="button" th:value="#{form.selectAll}" onclick="selectCheckboxes('interestedCategories', 'checked')">
+        <input type="button" th:value="#{form.deselectAll}" onclick="selectCheckboxes('interestedCategories', '')"><br>
+        <label>
+            <th:block th:text="#{client.detail.comments}"/>
+        </label><br>
+        <textarea rows="4" cols="30" th:field="*{comments}"></textarea>
+        <p th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" th:errorclass="error"/><br>
+        <label>
+            <th:block th:text="#{client.detail.license}"/>
+        </label>
+        <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}"><br>
+        <p th:if="${#fields.hasErrors('license')}" th:errors="*{license}" th:errorclass="error"/>
+        <input type="submit" th:value="#{form.submit}">
+        <input type="reset" th:value="#{form.reset}">
+    </form>
 </th:block>

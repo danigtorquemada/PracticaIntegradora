@@ -35,10 +35,18 @@ public class AppConfiguration implements WebMvcConfigurer {
         lci.setParamName("lang");
         return lci;
     }
+    @Bean
+    //Define un interceptor (listener) nombre localChangeInterceptor
+    public LocaleChangeInterceptor localeChangeCSSInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("css");
+        return lci;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //Añade el interceptor creado anter al registro
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(localeChangeCSSInterceptor());
     }
 }
