@@ -1,3 +1,19 @@
+function selectFirst(name){
+    var radioButtons = document.getElementsByName(name);
+
+    if(radioButtons.length > 0) radioButtons[0].checked = true;
+}
+
+function deselectRadios(name){
+    var radioButtons = document.getElementsByName(name);
+
+    for(var i = 0; i < radioButtons.length; i++){
+        if(radioButtons[i].type == "radio"){
+            radioButtons[i].checked = false;
+        }
+    }
+}
+
 function showPasswords() {
     var password = document.getElementById("password");
     var password2 = document.getElementById('confirmPwd');

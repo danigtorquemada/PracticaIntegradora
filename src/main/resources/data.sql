@@ -7,7 +7,7 @@ INSERT INTO document_type (abbreviation, type_document)
 VALUES ("D", "DNI"), ("N", "NIE"), ("P", "Nº pasaporte"), ("S", "Nº Seguridad social");
 
 INSERT INTO country (abbreviation, name)
-VALUES ("es", "España"), ("fr", "Francia"), ("Italia", "it"), ("pt","Portugal") ;
+VALUES ("es", "España"), ("fr", "Francia"), ("it", "Italia"), ("pt","Portugal") ;
 
 INSERT INTO type_road (abbreviation, type_road)
 VALUES ("Av", "Avenida"), ("Cl", "Calle"), ("Gl", "Glorieta"), ("Ps", "Paseo"),
@@ -75,3 +75,6 @@ INSERT INTO orders (`date`, `total_price`, `client_id`, `order_state_id`, `user_
 INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('1', '2', '10', '2');
 INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('2', '1', '5', '5');
 INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`) VALUES ('2', '2', '8', '6');
+
+INSERT INTO credit_cart_type (abbreviation, credit_cart_type)
+VALUES ("V", "VISA"), ("M", "Master Card"), ("A", "American Extress");

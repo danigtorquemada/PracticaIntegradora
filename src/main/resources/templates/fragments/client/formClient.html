@@ -1,0 +1,39 @@
+<th:block th:fragment="personalData">
+  <form method="post" action="" th:object="${personalDataDTO}">
+    <input type="hidden" th:field="*{interactions}">
+    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.firstName}"/></label>
+    <input type="text" th:field="*{firstName}"><br>
+    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.lastName}"/></label>
+    <input type="text" th:field="*{lastName}"><br>
+    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.gender}"/></label><br>
+    <th:block th:each="gender : ${genderList}">
+      <input type="radio" th:field="*{gender}" th:value="${gender?.type?.abbreviation}">
+      <th:block th:text="${gender?.type?.type}"></th:block><br>
+    </th:block>
+    <input type="button" th:value="#{form.deselectAll}" onclick="deselectRadios('gender')">
+    <input type="button" th:value="#{form.selectFirst}" onclick="selectFirst('gender')"><br>
+    <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.birthDate}"/></label>
+    <input type="text" th:field="*{birthDate}"><br>
+    <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.country}"/></label>
+    <select th:field="*{country}" tabindex="14">
+      <option th:each="country : ${countryList}" th:value="${country?.type?.abbreviation}" th:text="${country?.type?.type}"></option>
+    </select><br>
+    <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.documentType}"/></label><br>
+    <th:block th:each="documentType : ${documentTypeList}">
+      <input type="radio" th:field="*{documentType}" th:value="${documentType?.type?.abbreviation}">
+      <th:block th:text="${documentType?.type?.type}"></th:block><br>
+    </th:block>
+    <p th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.document}"/></label>
+    <input type="text" th:field="*{document}">
+    <p th:if="${#fields.hasErrors('document')}" th:errors="*{document}" th:errorclass="error"/>
+    <input type="submit" th:value="#{form.submit}">
+    <input type="reset" th:value="#{form.reset}">
+  </form>
+</th:block>
