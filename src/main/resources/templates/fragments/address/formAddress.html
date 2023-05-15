@@ -1,21 +1,31 @@
-<th:block th:fragment="addressDetail(address)" th:object="${addressDTO}">
+<th:block th:fragment="addressForm">
     <label><th:block th:text="#{address.detail.typeRoad}"/></label>
     <select th:field="*{typeRoad}" tabindex="14">
-        <option th:each="road : ${typeRoadList}" th:value="${road?.type?.abbreviation}" th:text="${road?.type?.type}"></option>
+        <option th:each="road : ${typeRoadList}" th:value="${road.id}" th:text="${road?.type?.type}"></option>
     </select><br>
+    <p th:if="${#fields.hasErrors('typeRoad')}" th:errors="*{typeRoad}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.name}"/></label>
-
+    <input type="text" th:field="*{name}"><br>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.number}"/></label>
-
+    <input type="text" th:field="*{number}"><br>
+    <p th:if="${#fields.hasErrors('number')}" th:errors="*{number}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.portal}"/></label>
-
+    <input type="text" th:field="*{portal}"><br>
+    <p th:if="${#fields.hasErrors('portal')}" th:errors="*{portal}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.floor}"/></label>
-
+    <input type="text" th:field="*{floor}"><br>
+    <p th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.door}"/></label>
-
+    <input type="text" th:field="*{door}"><br>
+    <p th:if="${#fields.hasErrors('door')}" th:errors="*{door}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.city}"/></label>
-
+    <input type="text" th:field="*{city}"><br>
+    <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.state}"/></label>
-
+    <input type="text" th:field="*{state}"><br>
+    <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}" th:errorclass="error"/>
     <label><th:block th:text="#{address.detail.postcode}"/></label>
+    <input type="text" th:field="*{postcode}"><br>
+    <p th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}" th:errorclass="error"/>
 </th:block>

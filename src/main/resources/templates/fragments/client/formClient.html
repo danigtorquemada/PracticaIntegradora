@@ -43,6 +43,7 @@
     <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.phoneNumber}"/></label>
     <input type="text" th:field="*{phoneNumber}"><br>
+    <th:block th:insert="~{fragments/address/formAddress::addressForm}"/>
     <input type="submit" th:value="#{form.submit}">
     <input type="reset" th:value="#{form.reset}">
   </form>

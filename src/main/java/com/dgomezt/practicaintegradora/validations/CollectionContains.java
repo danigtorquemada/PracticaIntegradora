@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CollectionContains {
     COLLECTIONS collection();
-    enum COLLECTIONS{GENDER, COUNTRY, TYPE_DOCUMENT}
+    enum COLLECTIONS{GENDER, COUNTRY, TYPE_ROAD, TYPE_DOCUMENT}
 
     String message() default "{error.collection}";
 
