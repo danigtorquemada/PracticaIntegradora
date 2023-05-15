@@ -18,7 +18,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService{
     }
 
     @Override
-    public boolean isPresentByAbbreviation(String abbreviation) {
-        return documentTypeRepository.findByType_Abbreviation(abbreviation) != null;
+    public boolean isPresent(Long id) {
+        return documentTypeRepository.findById(id) != null;
     }
 }

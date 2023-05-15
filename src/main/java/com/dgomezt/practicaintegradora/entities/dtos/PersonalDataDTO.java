@@ -21,17 +21,17 @@ public class PersonalDataDTO {
     String lastName;
     @NotNull
     @CollectionContains(collection = CollectionContains.COLLECTIONS.GENDER)
-    String gender;
+    Long gender;
     @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @EighteenPlusAge
     LocalDate birthDate;
-    @NotEmpty
+    @NotNull
     @CollectionContains(collection = CollectionContains.COLLECTIONS.COUNTRY)
-    String country;
+    Long country;
     @NotNull
     @CollectionContains(collection = CollectionContains.COLLECTIONS.TYPE_DOCUMENT)
-    String documentType;
+    Long documentType;
     @NotEmpty
     String document;
 

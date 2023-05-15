@@ -10,7 +10,7 @@
     <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.gender}"/></label><br>
     <th:block th:each="gender : ${genderList}">
-      <input type="radio" th:field="*{gender}" th:value="${gender?.type?.abbreviation}">
+      <input type="radio" th:field="*{gender}" th:value="${gender?.id}">
       <th:block th:text="${gender?.type?.type}"></th:block><br>
     </th:block>
     <input type="button" th:value="#{form.deselectAll}" onclick="deselectRadios('gender')">
@@ -21,18 +21,28 @@
     <p th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.country}"/></label>
     <select th:field="*{country}" tabindex="14">
-      <option th:each="country : ${countryList}" th:value="${country?.type?.abbreviation}" th:text="${country?.type?.type}"></option>
+      <option th:each="country : ${countryList}" th:value="${country?.id}" th:text="${country?.type?.type}"></option>
     </select><br>
     <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.documentType}"/></label><br>
     <th:block th:each="documentType : ${documentTypeList}">
-      <input type="radio" th:field="*{documentType}" th:value="${documentType?.type?.abbreviation}">
+      <input type="radio" th:field="*{documentType}" th:value="${documentType?.id}">
       <th:block th:text="${documentType?.type?.type}"></th:block><br>
     </th:block>
     <p th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.document}"/></label>
     <input type="text" th:field="*{document}">
     <p th:if="${#fields.hasErrors('document')}" th:errors="*{document}" th:errorclass="error"/>
+    <input type="submit" th:value="#{form.submit}">
+    <input type="reset" th:value="#{form.reset}">
+  </form>
+</th:block>
+<th:block th:fragment="contactData">
+  <form method="post" action="" th:object="${contactDataDTO}">
+    <input type="hidden" th:field="*{interactions}">
+    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
+    <label><th:block th:text="#{client.detail.phoneNumber}"/></label>
+    <input type="text" th:field="*{phoneNumber}"><br>
     <input type="submit" th:value="#{form.submit}">
     <input type="reset" th:value="#{form.reset}">
   </form>

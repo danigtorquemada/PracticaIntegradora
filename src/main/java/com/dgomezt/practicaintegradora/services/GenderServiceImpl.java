@@ -16,7 +16,7 @@ public class GenderServiceImpl implements GenderService {
         return genderRepository.findAll();
     }
     @Override
-    public boolean isPresentByAbbreviation(String abbreviation) {
-        return genderRepository.findByType_Abbreviation(abbreviation) != null;
+    public boolean isPresent(Long id) {
+        return genderRepository.findById(id) != null;
     }
 }

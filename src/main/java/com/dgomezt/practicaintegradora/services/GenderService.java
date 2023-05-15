@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface GenderService {
     List<Gender> findAll();
-    boolean isPresentByAbbreviation(String abbreviation);
+    boolean isPresent(Long id);
 }

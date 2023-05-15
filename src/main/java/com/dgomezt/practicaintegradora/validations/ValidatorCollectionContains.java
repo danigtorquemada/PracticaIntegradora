@@ -7,7 +7,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ValidatorCollectionContains implements ConstraintValidator<CollectionContains, String> {
+public class ValidatorCollectionContains implements ConstraintValidator<CollectionContains, Long> {
     @Autowired
     CountryService countryService;
     @Autowired
@@ -22,18 +22,18 @@ public class ValidatorCollectionContains implements ConstraintValidator<Collecti
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        if(s == null) return false;
+    public boolean isValid(Long id, ConstraintValidatorContext constraintValidatorContext) {
+        if(id == null) return false;
 
         switch (collection) {
             case GENDER -> {
-                return genderService.isPresentByAbbreviation(s);
+                return genderService.isPresent(id);
             }
             case COUNTRY -> {
-                return countryService.isPresentByAbbreviation(s);
+                return countryService.isPresent(id);
             }
             case TYPE_DOCUMENT -> {
-                return documentTypeService.isPresentByAbbreviation(s);
+                return documentTypeService.isPresent(id);
             }
         }
         return false;

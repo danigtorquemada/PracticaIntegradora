@@ -18,7 +18,7 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public boolean isPresentByAbbreviation(String abbreviation) {
-        return countryRepository.findByType_Abbreviation(abbreviation) != null;
+    public boolean isPresent(Long id) {
+        return countryRepository.findById(id) != null;
     }
 }

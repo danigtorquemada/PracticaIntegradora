@@ -1,0 +1,21 @@
+<th:block th:fragment="addressDetail(address)" th:object="${addressDTO}">
+    <label><th:block th:text="#{address.detail.typeRoad}"/></label>
+    <select th:field="*{typeRoad}" tabindex="14">
+        <option th:each="road : ${typeRoadList}" th:value="${road?.type?.abbreviation}" th:text="${road?.type?.type}"></option>
+    </select><br>
+    <label><th:block th:text="#{address.detail.name}"/></label>
+
+    <label><th:block th:text="#{address.detail.number}"/></label>
+
+    <label><th:block th:text="#{address.detail.portal}"/></label>
+
+    <label><th:block th:text="#{address.detail.floor}"/></label>
+
+    <label><th:block th:text="#{address.detail.door}"/></label>
+
+    <label><th:block th:text="#{address.detail.city}"/></label>
+
+    <label><th:block th:text="#{address.detail.state}"/></label>
+
+    <label><th:block th:text="#{address.detail.postcode}"/></label>
+</th:block>
