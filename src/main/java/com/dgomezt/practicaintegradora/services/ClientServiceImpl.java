@@ -2,6 +2,10 @@ package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.Client;
 import com.dgomezt.practicaintegradora.entities.dtos.ClientQueryDTO;
+import com.dgomezt.practicaintegradora.entities.helpers.Address;
+import com.dgomezt.practicaintegradora.entities.helpers.Country;
+import com.dgomezt.practicaintegradora.entities.helpers.DocumentType;
+import com.dgomezt.practicaintegradora.entities.helpers.Gender;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ClientRepository;
 import com.dgomezt.practicaintegradora.utilities.MysqlProperties;
@@ -19,6 +23,15 @@ public class ClientServiceImpl implements ClientService{
     MysqlProperties mysqlProperties;
     @Autowired
     ClientTypeService clientTypeService;
+
+   // @Autowired
+   // AddressService addressService;
+   // @Autowired
+   // GenderService genderService;
+   // @Autowired
+   // CountryService countryService;
+   // @Autowired
+   // DocumentTypeService documentTypeService;
 
     @Override
     public List<Client> getAllClients() {
@@ -60,5 +73,20 @@ public class ClientServiceImpl implements ClientService{
                 finalClientQueryDTO.totalSpentMoneyMin, finalClientQueryDTO.totalSpentMoneyMax,
                 finalClientQueryDTO.patternLastName, finalClientQueryDTO.clientTypes
         );
+    }
+
+    @Override
+    public Client registerClient(Client newClient) {
+        //Address address = addressService.save(newClient.getAddress());
+        //Gender gender = genderService.findById(newClient.getGender().getId());
+        //Country country =countryService.findById(newClient.getCountry().getId());
+        //DocumentType documentType = documentTypeService.findById(newClient.getDocumentType().getId());
+//
+        //newClient.setAddress(address);
+        //newClient.setGender(gender);
+        //newClient.setCountry(country);
+        //newClient.setDocumentType(documentType);
+        //
+        return clientRepository.save(newClient);
     }
 }

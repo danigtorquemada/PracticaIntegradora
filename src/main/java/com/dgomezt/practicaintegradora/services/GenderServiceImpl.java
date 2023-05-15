@@ -11,6 +11,12 @@ import java.util.List;
 public class GenderServiceImpl implements GenderService {
     @Autowired
     GenderRepository genderRepository;
+
+    @Override
+    public Gender findById(Long id) {
+        return genderRepository.findById(id).get();
+    }
+
     @Override
     public List<Gender> findAll() {
         return genderRepository.findAll();

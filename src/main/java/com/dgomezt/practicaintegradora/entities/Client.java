@@ -1,13 +1,18 @@
 package com.dgomezt.practicaintegradora.entities;
 
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.ContactDataDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.OtherDataDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.PersonalDataDTO;
 import com.dgomezt.practicaintegradora.entities.embeddables.*;
 import com.dgomezt.practicaintegradora.entities.helpers.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.print.attribute.standard.MediaSize;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -93,6 +98,54 @@ public class Client {
             auditory = new Auditory();
 
         return auditory;
+    }
+    public Client(){
+        auditory = new Auditory();
+        contact = new Contact();
+        country = new Country();
+        documentType = new DocumentType();
+        address = new Address();
+        gender = new Gender();
+        clientType = new ClientType();
+        user = new User();
+    }
+
+    public static Client fromDTOS(PersonalDataDTO personalDataDTO, ContactDataDTO contactDataDTO, OtherDataDTO otherDataDTO){
+        Client newClient = new Client();
+        //PERSONAL DTO
+        newClient.contact.firstName = personalDataDTO.getFirstName();
+        newClient.contact.lastName = personalDataDTO.getLastName();
+        newClient.gender.setId(personalDataDTO.getGender());
+        newClient.birthDate = personalDataDTO.getBirthDate();
+        newClient.country.setId(personalDataDTO.getCountry());
+        newClient.documentType.setId(personalDataDTO.getDocumentType());
+        newClient.document = personalDataDTO.getDocument();
+
+        //CONTACT DTO
+        newClient.contact.phoneNumber = contactDataDTO.getPhoneNumber();
+        TypeRoad typeRoad = new TypeRoad(contactDataDTO.getTypeRoad(), null);
+        newClient.address.setTypeRoad(typeRoad);
+        newClient.address.setName(contactDataDTO.getName());
+        newClient.address.setNumber(Integer.valueOf(contactDataDTO.getNumber()));
+        newClient.address.setPortal(contactDataDTO.getPortal());
+        newClient.address.setFloor(contactDataDTO.getFloor());
+        newClient.address.setCity(contactDataDTO.getCity());
+        newClient.address.setState(contactDataDTO.getState());
+        newClient.address.setPostcode(contactDataDTO.getPostcode());
+
+        //OTHER DTO
+        Set<Category> categories = new HashSet<>();
+        for (Long interestedCategory : otherDataDTO.getInterestedCategories()) {
+            Category newCategory = new Category();
+            newCategory.setId(interestedCategory);
+            categories.add(newCategory);
+        }
+
+        newClient.interestedCategories = categories;
+        newClient.comments = otherDataDTO.getComments();
+        newClient.license = otherDataDTO.getLicense() == "on";
+
+        return newClient;
     }
 }
 

@@ -33,7 +33,7 @@
     <label><th:block th:text="#{client.detail.document}"/></label>
     <input type="text" th:field="*{document}">
     <p th:if="${#fields.hasErrors('document')}" th:errors="*{document}" th:errorclass="error"/>
-    <input type="submit" th:value="#{form.submit}">
+    <input type="submit" th:value="#{form.nextStep}">
     <input type="reset" th:value="#{form.reset}">
   </form>
 </th:block>
@@ -43,7 +43,29 @@
     <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
     <label><th:block th:text="#{client.detail.phoneNumber}"/></label>
     <input type="text" th:field="*{phoneNumber}"><br>
+    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"/>
     <th:block th:insert="~{fragments/address/formAddress::addressForm}"/>
+    <input type="submit" th:value="#{form.nextStep}">
+    <input type="reset" th:value="#{form.reset}">
+  </form>
+</th:block>
+<th:block th:fragment="otherData">
+  <form method="post" action="" th:object="${otherDataDTO}">
+    <input type="hidden" th:field="*{interactions}">
+    <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/><br>
+    <label><th:block th:text="#{client.detail.interestedCategories}"/></label>
+    <th:block th:each="category : ${categoryList}">
+      <input type="checkbox" th:field="*{interestedCategories}" th:value="${category.id}">
+      <th:block th:text="${category.code}"/>
+    </th:block><br>
+    <input type="button" th:value="#{form.selectAll}" onclick="selectCheckboxes('interestedCategories', 'checked')">
+    <input type="button" th:value="#{form.deselectAll}" onclick="selectCheckboxes('interestedCategories', '')"><br>
+    <label><th:block th:text="#{client.detail.comments}"/></label><br>
+    <textarea rows="4" cols="30" th:field="*{comments}"></textarea>
+    <p th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" th:errorclass="error"/><br>
+    <label><th:block th:text="#{client.detail.license}"/></label>
+    <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}"><br>
+    <p th:if="${#fields.hasErrors('license')}" th:errors="*{license}" th:errorclass="error"/>
     <input type="submit" th:value="#{form.submit}">
     <input type="reset" th:value="#{form.reset}">
   </form>

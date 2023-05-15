@@ -1,4 +1,4 @@
-package com.dgomezt.practicaintegradora.entities.dtos;
+package com.dgomezt.practicaintegradora.entities.dtos.clientForm;
 
 import com.dgomezt.practicaintegradora.entities.helpers.Address;
 import com.dgomezt.practicaintegradora.validations.CollectionContains;

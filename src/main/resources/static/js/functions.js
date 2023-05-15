@@ -14,6 +14,16 @@ function deselectRadios(name){
     }
 }
 
+function selectCheckboxes(name, value){
+    var arrayCheckbox = document.getElementsByName(name);
+
+    for(var i = 0; i < arrayCheckbox.length; i++){
+        if(arrayCheckbox[i].type == "checkbox") {
+            arrayCheckbox[i].checked = value;
+        }
+    }
+}
+
 function showPasswords() {
     var password = document.getElementById("password");
     var password2 = document.getElementById('confirmPwd');

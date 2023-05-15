@@ -1,16 +1,14 @@
 package com.dgomezt.practicaintegradora.controllers;
 
-import com.dgomezt.practicaintegradora.entities.dtos.ContactDataDTO;
-import com.dgomezt.practicaintegradora.entities.dtos.PersonalDataDTO;
-import com.dgomezt.practicaintegradora.services.CountryService;
-import com.dgomezt.practicaintegradora.services.DocumentTypeService;
-import com.dgomezt.practicaintegradora.services.GenderService;
-import com.dgomezt.practicaintegradora.services.TypeRoadService;
+import com.dgomezt.practicaintegradora.entities.Client;
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.ContactDataDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.OtherDataDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.clientForm.PersonalDataDTO;
+import com.dgomezt.practicaintegradora.services.*;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +35,10 @@ public class ClientRegisterController {
     CountryService countryService;
     @Autowired
     TypeRoadService typeRoadService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    ClientService clientService;
 
     @ModelAttribute
     public void addCollections(Model model){
@@ -44,6 +46,7 @@ public class ClientRegisterController {
         model.addAttribute("documentTypeList", documentTypeService.findAll());
         model.addAttribute("countryList", countryService.findAll());
         model.addAttribute("typeRoadList", typeRoadService.findAll());
+        model.addAttribute("categoryList", categoryService.findAll());
     }
 
     @GetMapping("/register/step1")
@@ -118,6 +121,47 @@ public class ClientRegisterController {
         modelAndView.addObject(contactDataDTO);
         modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/formClient");
         modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "contactData");
+        return modelAndView;
+    }
+
+    @GetMapping("/register/step3")
+    public ModelAndView otherDataStep(HttpSession httpSession){
+        ModelAndView modelAndView = new ModelAndView();
+
+        OtherDataDTO otherDataDTO = (OtherDataDTO) httpSession.getAttribute(OTHER_DATA_OBJECT);
+
+        if (otherDataDTO == null)
+            otherDataDTO = new OtherDataDTO();
+
+        modelAndView.addObject(otherDataDTO);
+
+        modelAndView.setViewName("main");
+        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/formClient");
+        modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "otherData");
+        return modelAndView;
+    }
+
+    @PostMapping("/register/step3")
+    public ModelAndView contactDataStep(@Valid OtherDataDTO otherDataDTO,
+                                        BindingResult bindingResult,
+                                        HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
+
+        if(!bindingResult.hasErrors()){
+            ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
+            PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
+
+            Client newClient = Client.fromDTOS(personalDataDTO, contactDataDTO, otherDataDTO);
+            Client registeredClient = clientService.registerClient(newClient);
+
+            modelAndView.setViewName("redirect:/client/detail/" + registeredClient.getId());
+            return modelAndView;
+        }
+
+        modelAndView.addObject(otherDataDTO);
+        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/formClient");
+        modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "otherData");
         return modelAndView;
     }
 }

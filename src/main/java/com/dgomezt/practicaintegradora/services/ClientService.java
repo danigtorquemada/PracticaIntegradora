@@ -11,4 +11,6 @@ public interface ClientService {
     Client getClientById(long id) throws ElementNotFoundException;
 
     List<Client> getParameterizedQueryClients(ClientQueryDTO clientQueryDTO);
+
+    Client registerClient(Client newClient);
 }

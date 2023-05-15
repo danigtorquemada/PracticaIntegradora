@@ -13,6 +13,11 @@ public class CountryServiceImpl implements CountryService{
     CountryRepository countryRepository;
 
     @Override
+    public Country findById(Long id) {
+        return countryRepository.findById(id).get();
+    }
+
+    @Override
     public List<Country> findAll() {
         return countryRepository.findAll();
     }
