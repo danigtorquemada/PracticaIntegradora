@@ -4,6 +4,7 @@ import com.dgomezt.practicaintegradora.entities.Client;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.ContactDataDTO;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.OtherDataDTO;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.PersonalDataDTO;
+import com.dgomezt.practicaintegradora.entities.helpers.Address;
 import com.dgomezt.practicaintegradora.services.*;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +40,8 @@ public class ClientRegisterController {
     CategoryService categoryService;
     @Autowired
     ClientService clientService;
+    @Autowired
+    AddressService addressService;
 
     @ModelAttribute
     public void addCollections(Model model) {
@@ -150,11 +153,6 @@ public class ClientRegisterController {
         modelAndView.setViewName("main");
 
         if (!bindingResult.hasErrors()) {
-            /*ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
-            PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
-
-            Client newClient = Client.fromDTOS(personalDataDTO, contactDataDTO, otherDataDTO);
-            Client registeredClient = clientService.registerClient(newClient);*/
             httpSession.setAttribute(OTHER_DATA_OBJECT, otherDataDTO);
             modelAndView.setViewName("redirect:/client/register/resume");
             return modelAndView;
@@ -181,6 +179,24 @@ public class ClientRegisterController {
 
         modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/formClient");
         modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "resume");
+        return modelAndView;
+    }
+
+    @PostMapping("/register/resume")
+    public ModelAndView register(HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
+        PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
+        OtherDataDTO otherDataDTO = (OtherDataDTO) httpSession.getAttribute(OTHER_DATA_OBJECT);
+
+        Client newClient = Client.fromDTOS(personalDataDTO, contactDataDTO, otherDataDTO);
+        Address savedAddress = addressService.save(newClient.getAddress());
+        newClient.setAddress(savedAddress);
+
+        Client registeredClient = clientService.registerClient(newClient);
+
+        modelAndView.setViewName("redirect:/client/detail/" + registeredClient.getId());
         return modelAndView;
     }
 }

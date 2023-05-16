@@ -112,6 +112,8 @@ public class Client {
 
     public static Client fromDTOS(PersonalDataDTO personalDataDTO, ContactDataDTO contactDataDTO, OtherDataDTO otherDataDTO){
         Client newClient = new Client();
+        newClient.clientType = null;
+        newClient.user = null;
         //PERSONAL DTO
         newClient.contact.firstName = personalDataDTO.getFirstName();
         newClient.contact.lastName = personalDataDTO.getLastName();
@@ -143,7 +145,7 @@ public class Client {
 
         newClient.interestedCategories = categories;
         newClient.comments = otherDataDTO.getComments();
-        newClient.license = otherDataDTO.getLicense() == "on";
+        newClient.license = otherDataDTO.getLicense().equalsIgnoreCase("on");
 
         return newClient;
     }
