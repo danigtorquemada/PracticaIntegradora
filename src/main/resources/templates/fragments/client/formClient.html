@@ -103,6 +103,7 @@
         <input type="text" th:field="*{phoneNumber}"><br>
         <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" th:errorclass="error"/>
         <th:block th:insert="~{fragments/address/formAddress::addressForm}"/>
+        <a th:href="@{/client/register/step1}"><th:block th:text="#{form.backStep}"/></a>
         <input type="submit" th:value="#{form.nextStep}">
         <input type="reset" th:value="#{form.reset}">
     </form>
@@ -145,6 +146,7 @@
         </label>
         <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}"><br>
         <p th:if="${#fields.hasErrors('license')}" th:errors="*{license}" th:errorclass="error"/>
+        <a th:href="@{/client/register/step2}"><th:block th:text="#{form.backStep}"/></a>
         <input type="submit" th:value="#{form.submit}">
         <input type="reset" th:value="#{form.reset}">
     </form>
@@ -261,6 +263,7 @@
                 <th:block th:text="#{client.detail.license}"/>
             </label>
             <input type="checkbox" th:field="*{license}" value="on" th:checked="*{license}" disabled><br>
+            <a th:href="@{/client/register/step3}"><th:block th:text="#{form.backStep}"/></a>
             <input type="submit" th:value="#{form.submit}">
         </fieldset>
     </form>
