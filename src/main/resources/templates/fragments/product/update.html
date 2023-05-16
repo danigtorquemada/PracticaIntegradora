@@ -1,0 +1,34 @@
+<div>
+  <h2><th:block th:text="#{client.detail.title}"/></h2>
+  <form method="post" action="" th:object="${product}">
+  <div class="divTable table-details">
+    <div class="divTableHeading">
+      <div class="divTableRow">
+        <div class="divTableHead"><th:block th:text="#{table.field}"/></div>
+        <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
+      </div>
+    </div>
+    <div class="divTableBody">
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.code}"/></div><div class="divTableCell"><input type="text" th:field="*{code}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.description}"/></div><div class="divTableCell"><input type="text" th:field="*{description}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.brand}"/></div><div class="divTableCell"><input type="text" th:field="*{brand}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.model}"/></div><div class="divTableCell"><input type="text" th:field="*{model}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.price}"/></div><div class="divTableCell"><input type="text" th:field="*{price}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.discount}"/></div><div class="divTableCell"><input type="text" th:field="*{discount}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.newProduct}"/></div><div class="divTableCell"><input type="checkbox" th:checked="*{newProduct}"></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.offer}"/></div><div class="divTableCell"><input type="checkbox" th:checked="*{offer}"></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.categories}"/></div><div class="divTableCell">
+        <select th:field="*{categories}" multiple="multiple">
+          <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.code}"></option>
+        </select>
+      </div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.stock}"/></div><div class="divTableCell"><input type="text" th:field="*{stock}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minHiddenStock}"/></div><div class="divTableCell"><input type="text" th:field="*{minHiddenStock}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minSupplierRequest}"/></div><div class="divTableCell"><input type="text" th:field="*{minSupplierRequest}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.comments}"/></div><div class="divTableCell"><input type="text" th:field="*{comments}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.evaluation}"/></div><div class="divTableCell"><input type="text" th:field="*{evaluation}"/></div></div>
+    </div>
+  </div>
+    <input type="submit" th:value="#{form.update}">
+  </form>
+</div>
