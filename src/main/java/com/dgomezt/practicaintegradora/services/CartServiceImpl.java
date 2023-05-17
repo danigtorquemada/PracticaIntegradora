@@ -32,13 +32,14 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart saveCart(CartDTO cartDTO, Long id) {
-        Cart cart = cartRepository.save(new Cart());
+        Optional<Cart> optionalCart = cartRepository.findById(id);
+        if(optionalCart.isEmpty()) return null;
 
-        cart.setCreationDate(LocalDate.now());
-        cart.setPrice(cartDTO.getPrice());
+        Cart cart = optionalCart.get();
 
-        Client client = clientRepository.findById(cartDTO.getClient()).get();
-        cart.setClient(client);
+        for (ProductCartDetail productCartDetail : cart.getProductCartDetails()) {
+            productCartDetailRepository.deleteByProductCartKey(productCartDetail.getProductCartKey());
+        }
 
         Set<ProductCartDetail> productCartDetails = new HashSet<>();
 
