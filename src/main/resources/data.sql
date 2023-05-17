@@ -78,3 +78,6 @@ INSERT INTO product_order_details (`order_id`, `product_id`, `price`, `quantity`
 
 INSERT INTO credit_cart_type (abbreviation, credit_cart_type)
 VALUES ("V", "VISA"), ("M", "Master Card"), ("A", "American Extress");
+
+INSERT INTO warning_level (abbreviation, warning_level_type)
+VALUES ("B", "Baja"), ("M", "Media"), ("A", "Alta");
