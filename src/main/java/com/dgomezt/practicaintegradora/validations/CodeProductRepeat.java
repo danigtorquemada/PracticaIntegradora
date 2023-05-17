@@ -8,14 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ValidatorCollectionContains.class)
+@Constraint(validatedBy = ValidatorCodeProductRepeat.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CollectionContains {
-    COLLECTIONS collection();
-    enum COLLECTIONS{GENDER, COUNTRY, TYPE_ROAD, TYPE_DOCUMENT, CATEGORY}
-
-    String message() default "{error.collection}";
+public @interface CodeProductRepeat {
+    String message() default "{error.valueExist}";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};

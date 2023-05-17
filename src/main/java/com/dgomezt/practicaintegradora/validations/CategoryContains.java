@@ -8,13 +8,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ValidatorCollectionContains.class)
+@Constraint(validatedBy = ValidatorCategoryContains.class)
 @Target( { ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CollectionContains {
-    COLLECTIONS collection();
-    enum COLLECTIONS{GENDER, COUNTRY, TYPE_ROAD, TYPE_DOCUMENT, CATEGORY}
-
+public @interface CategoryContains {
     String message() default "{error.collection}";
 
     Class<?>[] groups() default {};

@@ -1,9 +1,6 @@
 package com.dgomezt.practicaintegradora.validations;
 
-import com.dgomezt.practicaintegradora.services.CountryService;
-import com.dgomezt.practicaintegradora.services.DocumentTypeService;
-import com.dgomezt.practicaintegradora.services.GenderService;
-import com.dgomezt.practicaintegradora.services.TypeRoadService;
+import com.dgomezt.practicaintegradora.services.*;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,8 @@ public class ValidatorCollectionContains implements ConstraintValidator<Collecti
     DocumentTypeService documentTypeService;
     @Autowired
     TypeRoadService typeRoadService;
+    @Autowired
+    CategoryService categoryService;
 
     CollectionContains.COLLECTIONS collection;
     @Override
@@ -40,6 +39,9 @@ public class ValidatorCollectionContains implements ConstraintValidator<Collecti
             }
             case TYPE_DOCUMENT -> {
                 return documentTypeService.isPresent(id);
+            }
+            case CATEGORY -> {
+                return categoryService.isPresent(id);
             }
         }
         return false;

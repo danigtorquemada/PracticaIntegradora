@@ -9,6 +9,7 @@ import com.dgomezt.practicaintegradora.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,26 +44,33 @@ public class ProductController {
         long productId = Long.parseLong(id);
 
         Product product = productService.findyProductById(productId);
+        ProductDTO productDTO = ProductDTO.fromProduct(product);
         List<Category> categoryList = categoryService.findAll();
 
         modelAndView.setViewName("main");
-        modelAndView.addObject("product", product);
+        modelAndView.addObject("productDTO", productDTO);
         modelAndView.addObject("categoryList", categoryList);
         modelAndView.addObject("content", "product/update");
         return modelAndView;
     }
 
     @PostMapping("/update/{id}")
-    public ModelAndView updateProduct(@PathVariable String id, @Valid Product product) throws ElementNotFoundException {
+    public ModelAndView updateProduct(@PathVariable String id, @Valid ProductDTO productDTO, BindingResult bindingResult) throws ElementNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
-        long productId = Long.parseLong(id);
+        if(!bindingResult.hasErrors()){
+            long productId = Long.parseLong(id);
 
-        Product aproduct = productService.findyProductById(productId);
+            Product product = productService.updateProductByDTO(productId, productDTO);
+
+            modelAndView.setViewName("redirect:/product/detail/" + product.getId());
+            return modelAndView;
+        }
+
         List<Category> categoryList = categoryService.findAll();
 
         modelAndView.setViewName("main");
-        modelAndView.addObject("product", product);
+        modelAndView.addObject("productDTO", productDTO);
         modelAndView.addObject("categoryList", categoryList);
         modelAndView.addObject("content", "product/update");
         return modelAndView;

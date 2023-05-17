@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -26,5 +27,17 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public boolean isPresent(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+
+        return category.isPresent();
+    }
+
+    @Override
+    public Set<Category> findAllByIds(Set<Long> ids) {
+        return categoryRepository.findByIdIn(ids);
     }
 }
