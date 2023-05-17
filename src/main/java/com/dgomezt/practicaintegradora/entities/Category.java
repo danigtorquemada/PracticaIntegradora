@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.entities;
 
 import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Category {
             foreignKey = @ForeignKey(name = "FK_category_parentCategory"))
     private Category parentCategory;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "parentCategory", orphanRemoval = true)
     private Set<Category> childCategories = new LinkedHashSet<>();
 

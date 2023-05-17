@@ -5,6 +5,7 @@ import com.dgomezt.practicaintegradora.entities.dtos.clientForm.OtherDataDTO;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.PersonalDataDTO;
 import com.dgomezt.practicaintegradora.entities.embeddables.*;
 import com.dgomezt.practicaintegradora.entities.helpers.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -90,6 +91,7 @@ public class Client {
     @Embedded
     private Auditory auditory;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
