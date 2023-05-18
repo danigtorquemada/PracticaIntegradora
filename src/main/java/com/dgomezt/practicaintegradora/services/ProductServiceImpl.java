@@ -92,4 +92,9 @@ public class ProductServiceImpl implements ProductService{
 
         return productRepository.save(product);
     }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
 }

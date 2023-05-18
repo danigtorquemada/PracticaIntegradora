@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.entities;
 
 import com.dgomezt.practicaintegradora.entities.embeddables.Auditory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class Product {
     @Column(name = "total_sales_revenue")
     private BigDecimal totalSalesRevenue;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_productCategories_product")),
@@ -73,6 +75,7 @@ public class Product {
     @Embedded
     private Auditory auditory;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private Set<Promotion> promotions = new LinkedHashSet<>();
 
