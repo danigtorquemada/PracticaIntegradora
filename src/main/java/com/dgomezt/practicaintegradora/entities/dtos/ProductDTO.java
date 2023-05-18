@@ -3,21 +3,16 @@ package com.dgomezt.practicaintegradora.entities.dtos;
 import com.dgomezt.practicaintegradora.entities.Category;
 import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.validations.CategoryContains;
-import com.dgomezt.practicaintegradora.validations.CodeProductRepeat;
-import com.dgomezt.practicaintegradora.validations.CollectionContains;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
 public class ProductDTO {
     @NotEmpty
-    @CodeProductRepeat
     String code;
     @NotEmpty
     String description;

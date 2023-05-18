@@ -3,6 +3,7 @@ package com.dgomezt.practicaintegradora.services;
 import com.dgomezt.practicaintegradora.entities.Category;
 import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
+import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProductByDTO(long id, ProductDTO productDTO) throws ElementNotFoundException {
-        Product product = findyProductById(id);
+    public Product updateProductByDTO(long id, ProductDTO productDTO) throws ElementNotFoundException, CodeRepeatException {
+        Product product = productRepository.findByCode(productDTO.getCode());
+        if (product != null && product.getId() != id)
+            throw new CodeRepeatException("Code repeated");
+
+        product = findyProductById(id);
         Set<Category> categories = categoryService.findAllByIds(productDTO.getCategories());
         product.setCategories(categories);
 

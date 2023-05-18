@@ -3,6 +3,7 @@ package com.dgomezt.practicaintegradora.controllers;
 import com.dgomezt.practicaintegradora.entities.Category;
 import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
+import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.CategoryService;
 import com.dgomezt.practicaintegradora.services.ProductService;
@@ -61,7 +62,20 @@ public class ProductController {
         if(!bindingResult.hasErrors()){
             long productId = Long.parseLong(id);
 
-            Product product = productService.updateProductByDTO(productId, productDTO);
+            Product product = null;
+            try {
+                product = productService.updateProductByDTO(productId, productDTO);
+            } catch (CodeRepeatException e) {
+                bindingResult.rejectValue("code", "CodeRepeat", "Este valor ya existe en la BBDD");
+
+                List<Category> categoryList = categoryService.findAll();
+
+                modelAndView.setViewName("main");
+                modelAndView.addObject("productDTO", productDTO);
+                modelAndView.addObject("categoryList", categoryList);
+                modelAndView.addObject("content", "product/update");
+                return modelAndView;
+            }
 
             modelAndView.setViewName("redirect:/product/detail/" + product.getId());
             return modelAndView;
