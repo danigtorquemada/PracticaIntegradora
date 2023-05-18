@@ -33,7 +33,7 @@ public class Warning {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_warning_user"))
-    private User user;
+    private UserAdmin user;
 
     @Column(name = "product_stock")
     private Integer productStock;

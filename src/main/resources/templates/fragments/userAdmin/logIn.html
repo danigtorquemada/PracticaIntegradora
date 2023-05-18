@@ -1,0 +1,14 @@
+<div th:fragment="username">
+    <h1>
+        <th:block th:text="#{form.admin}"/>
+    </h1>
+    <form action="/admin/login" method="post" th:object="${userAdmin}">
+        <fieldset>
+            <select th:field="*{id}">
+                <option th:each="user : ${userAdmins}" th:value="${user.id}"
+                        th:text="${user.username}"></option>
+            </select>
+        </fieldset>
+        <input type="submit" th:value="#{form.login}">
+    </form>
+</div>

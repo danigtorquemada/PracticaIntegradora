@@ -18,6 +18,7 @@ VALUES ("Br", "Bronce"), ("Pl", "Plata"), ("O", "Oro"), ("Pt", "Platino");
 
 /* TEST VALUES */
 
+INSERT INTO user_admin (`username`) VALUES ('admin1'),('admin2'),('admin3'),('admin4');
 
 INSERT INTO user (email, password)
 VALUES ('prueba1@gmail.com', '12345'), ('prueba2@gmail.com', '12345');
@@ -25,8 +26,6 @@ VALUES ('prueba1@gmail.com', '12345'), ('prueba2@gmail.com', '12345');
 INSERT INTO address (type_road_id, number, portal, floor, door, city, state, postcode)
 VALUES (1, 15, '2', '4', 'B', 'Madrid', 'Madrid', '28700'),
        (2, 10, '3', '1', 'B', 'Madrid', 'SSRR', '28702');
-
-
 
 INSERT INTO client (user_id, gender_id, birth_date, country_id, document_type_id, document, address_id,
                     total_spent_money, client_type_id, comments, license, first_name, last_name, phone_number,
@@ -81,3 +80,4 @@ VALUES ("V", "VISA"), ("M", "Master Card"), ("A", "American Extress");
 
 INSERT INTO warning_level (abbreviation, warning_level_type)
 VALUES ("B", "Baja"), ("M", "Media"), ("A", "Alta");
+
