@@ -9,4 +9,5 @@ public interface ProductService {
     Product findyProductById(long id) throws ElementNotFoundException;
     Product updateProductByDTO(long id, ProductDTO productDTO) throws ElementNotFoundException, CodeRepeatException;
     Product findProductByCode(String code);
+    Product save(Product product);
 }

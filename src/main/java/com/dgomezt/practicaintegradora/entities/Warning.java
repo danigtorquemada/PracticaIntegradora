@@ -25,13 +25,20 @@ public class Warning {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "warning_level_id")
+    @JoinColumn(name = "warning_level_id", foreignKey = @ForeignKey(name = "FK_warning_warningLevel"))
     private WarningLevel warningLevel;
 
     @Column(name = "processing_date")
     private LocalDate processingDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_warning_user"))
     private User user;
+
+    @Column(name = "product_stock")
+    private Integer productStock;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_warning_product"))
+    private Product product;
 }

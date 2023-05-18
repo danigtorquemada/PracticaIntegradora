@@ -76,6 +76,9 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private Set<Promotion> promotions = new LinkedHashSet<>();
 
+    @Column(name = "hidden")
+    private Boolean hidden;
+
     public Auditory getAuditory() {
         if(auditory == null)
             auditory = new Auditory();

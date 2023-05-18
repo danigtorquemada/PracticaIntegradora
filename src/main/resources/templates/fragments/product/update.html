@@ -42,11 +42,11 @@
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.stock}"/></div><div class="divTableCell"><input type="text" th:field="*{stock}"/>
         <p th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" th:errorclass="error"/><br>
       </div></div>
-      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minHiddenStock}"/></div><div class="divTableCell"><input type="text" th:field="*{minHiddenStock}"/>
-        <p th:if="${#fields.hasErrors('minHiddenStock')}" th:errors="*{minHiddenStock}" th:errorclass="error"/><br>
-      </div></div>
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minSupplierRequest}"/></div><div class="divTableCell"><input type="text" th:field="*{minSupplierRequest}"/>
         <p th:if="${#fields.hasErrors('minSupplierRequest')}" th:errors="*{minSupplierRequest}" th:errorclass="error"/><br>
+      </div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.minHiddenStock}"/></div><div class="divTableCell"><input type="text" th:field="*{minHiddenStock}"/>
+        <p th:if="${#fields.hasErrors('minHiddenStock')}" th:errors="*{minHiddenStock}" th:errorclass="error"/><br>
       </div></div>
       <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{product.detail.comments}"/></div><div class="divTableCell"><textarea rows="4" cols="30" th:field="*{comments}"/>
         <p th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}" th:errorclass="error"/><br>
