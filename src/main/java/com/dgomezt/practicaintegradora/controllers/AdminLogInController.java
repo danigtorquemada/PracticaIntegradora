@@ -2,11 +2,11 @@ package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.entities.UserAdmin;
+import com.dgomezt.practicaintegradora.entities.Warning;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.UserAdminService;
+import com.dgomezt.practicaintegradora.services.WarningService;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,8 @@ public class AdminLogInController {
     UserAdminService userAdminService;
     @Autowired
     ConfProperties confProperties;
+    @Autowired
+    WarningService warningService;
 
     @GetMapping("/login")
     public ModelAndView adminForm(@ModelAttribute("userAdmin") UserAdmin userAdmin){
@@ -55,9 +57,12 @@ public class AdminLogInController {
     public ModelAndView logged(HttpSession httpSession){
         ModelAndView modelAndView = new ModelAndView();
 
+        List<Warning> warnings = warningService.findAll();
+
         UserAdmin userAdmin = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_USER);
 
         modelAndView.addObject("userAdmin", userAdmin);
+        modelAndView.addObject("warnings", warnings);
         modelAndView.setViewName("main");
         modelAndView.addObject(confProperties.CONTENT_CONTAINER, "userAdmin/logged");
         return modelAndView;

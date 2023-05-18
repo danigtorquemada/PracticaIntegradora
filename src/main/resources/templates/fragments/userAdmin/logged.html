@@ -1,3 +1,4 @@
+<th:block th:replace="~{fragments/Warning/list::warningList(${warnings})}"/>
 <form action="/admin/logOut" method="get" th:object="${userAdmin}">
   <h2>Usuario Administrador Logeado:</h2>
   <p><th:block th:text="*{username}"/></p>

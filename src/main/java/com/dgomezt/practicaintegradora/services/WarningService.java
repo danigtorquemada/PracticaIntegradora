@@ -1,7 +1,12 @@
 package com.dgomezt.practicaintegradora.services;
 
-import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
+import com.dgomezt.practicaintegradora.entities.Warning;
+
+import java.util.List;
 
 public interface WarningService {
-    void processWarning(Long id) throws ElementNotFoundException;
+    List<Warning> findAll();
+    void processWarning(Long id);
+
+    Warning save(Warning newWarning);
 }

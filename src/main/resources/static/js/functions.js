@@ -169,6 +169,23 @@ function enableUpdateButton(){
 
     const button = $("#updateStateButton").prop('disabled', (newState == currentValue))
 }
+
+function processWarning(warningId) {
+    if(confirmOperation("Se va a procesar el aviso " + warningId)){
+        $.ajax
+        ({
+            url: "/warning/process",
+            type: "get",
+            data: "id=" + warningId
+        }).done(function (data) {
+            alert("Warning has been processed")
+            location.reload()
+        }).fail(function (e, textStatus) {
+            alert("Request failed: " + textStatus)
+        });
+    }
+}
+
 /*
 function lockUser(userId) {
     $.ajax

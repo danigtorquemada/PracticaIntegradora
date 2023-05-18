@@ -7,12 +7,9 @@ import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
 import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ProductRepository;
-import com.dgomezt.practicaintegradora.repositories.WarningLevelRepository;
-import com.dgomezt.practicaintegradora.repositories.WarningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -24,9 +21,9 @@ public class ProductServiceImpl implements ProductService{
     @Autowired
     CategoryService categoryService;
     @Autowired
-    WarningRepository warningRepository;
+    WarningService warningService;
     @Autowired
-    WarningLevelRepository warningLevelRepository;
+    WarningLevelService warningLevelService;
 
     @Override
     public Product findyProductById(long id) throws ElementNotFoundException {
@@ -77,14 +74,14 @@ public class ProductServiceImpl implements ProductService{
 
         if(product.getStock() < product.getMinSupplierRequest()){
             newWarning.setDescription("Product " + product.getCode() + " id " + product.getId() + " need supplier order.");
-            newWarning.setWarningLevel(warningLevelRepository.findById(2L).get());
-            warningRepository.save(newWarning);
+            newWarning.setWarningLevel(warningLevelService.findById(2L));
+            warningService.save(newWarning);
         }
 
         if(product.getStock() < product.getMinHiddenStock()){
             newWarning.setDescription("Product " + product.getCode() + " id " + product.getId() + " need be hidden.");
-            newWarning.setWarningLevel(warningLevelRepository.findById(3L).get());
-            warningRepository.save(newWarning);
+            newWarning.setWarningLevel(warningLevelService.findById(3L));
+            warningService.save(newWarning);
 
             product.setHidden(true);
         }else if(product.getHidden())

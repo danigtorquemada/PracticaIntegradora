@@ -59,3 +59,20 @@ div.table-details {
 body{
     background-color: #FFFFFF;
 }
+
+.warnings{
+    display: flex;
+    flex-direction: column;
+
+    border: black solid 1px;
+}
+
+.warningLow{
+    color: green;
+}
+.warningMid{
+    color: orange;
+}
+.warningHigh{
+    color: red;
+}

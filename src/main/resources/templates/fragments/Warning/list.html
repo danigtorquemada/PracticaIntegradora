@@ -1,0 +1,26 @@
+<div th:fragment="warningList(list)" class="warnings">
+    <h1>
+        <th:block th:text="#{warning.title}"/>
+    </h1>
+    <div class="divTable table-details">
+        <div class="divTableHeading">
+            <div class="divTableRow">
+                <div class="divTableHead"><th:block th:text="#{warning.detail.description}"/></div>
+                <div class="divTableHead"><th:block th:text="#{warning.detail.creationDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{warning.detail.processingDate}"/></div>
+                <div class="divTableHead"><th:block th:text="#{warning.detail.user}"/></div>
+                <div class="divTableHead"><th:block th:text="#{warning.detail.process}"/></div>
+            </div>
+        </div>
+        <div class="divTableBody">
+            <div th:each="warning : ${list}" class="divTableRow">
+                <div th:class="(${warning.warningLevel?.id == 1} ? 'warningLow' : (${warning.warningLevel?.id == 2} ? 'warningMid' : 'warningHigh')) + ' divTableCell'">
+                    <th:block th:text="${warning.description}"/></div>
+                <div class="divTableCell"><th:block th:text="${warning.creationDate}"/></div>
+                <div class="divTableCell"><th:block th:text="${warning.processingDate}"/></div>
+                <div class="divTableCell"><th:block th:text="${warning.user?.id}"/></div>
+                <div class="divTableCell"><input type="button" th:value="#{warning.detail.process}" th:onclick="|processWarning(${warning.id})|" th:disabled="${warning.processingDate != null}"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,7 @@ public class Warning {
     @JoinColumn(name = "warning_level_id", foreignKey = @ForeignKey(name = "FK_warning_warningLevel"))
     private WarningLevel warningLevel;
 
+
     @Column(name = "processing_date")
     private LocalDate processingDate;
 
@@ -41,4 +42,8 @@ public class Warning {
     @ManyToOne
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_warning_product"))
     private Product product;
+
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+
 }
