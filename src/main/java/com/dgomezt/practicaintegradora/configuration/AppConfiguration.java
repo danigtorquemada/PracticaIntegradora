@@ -59,7 +59,9 @@ public class AppConfiguration implements WebMvcConfigurer {
             @Override
             public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
                 if(request.getSession().getAttribute(confProperties.SESSION_ADMIN_USER) == null){
-                    modelAndView.setViewName("redirect:/admin/login");
+                    modelAndView.addObject(confProperties.CONTENT_CONTAINER, "error/error");
+                    modelAndView.addObject(confProperties.FRAGMENT_CONTAINER, "notAuthenticated");
+                    modelAndView.setViewName("main");
                     //return modelAndView;
                 }
             }
