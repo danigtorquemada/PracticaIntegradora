@@ -60,6 +60,11 @@ function confirmOperation(message){
      return confirm(message);
 }
 
+function confirmForm(message){
+    if(confirm(message))
+        $("#form").submit()
+}
+
 function lockUserByList(userId) {
     var daysLock = prompt("Introduzca los dias de bloqueo.")
 

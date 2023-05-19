@@ -5,7 +5,6 @@ import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.services.UserService;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -138,7 +137,7 @@ public class LogInController {
 
             redirectAttributes.addFlashAttribute("errorPwd", "Contraseña incorrecta, quedan " + userAuthentication.getAttemps() + " intentos.");
         } else {
-            LocalDate lockDate = userService.lockUserAuthentication(userAuthentication.getUsername());
+            LocalDate lockDate = userService.lockUserByUsername(userAuthentication.getUsername());
             redirectAttributes.addFlashAttribute("errorPwd", "Usuario bloqueado hasta " + lockDate.toString() + " .");
         }
         return modelAndView;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/promotion")
+@RequestMapping("admin/promotion")
 public class PromotionController {
     @Autowired
     PromotionService promotionService;

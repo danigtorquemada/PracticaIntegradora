@@ -2,6 +2,7 @@ package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.Category;
 import com.dgomezt.practicaintegradora.entities.Product;
+import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.entities.Warning;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
 import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
@@ -10,6 +11,7 @@ import com.dgomezt.practicaintegradora.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +37,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProductByDTO(long id, ProductDTO productDTO) throws ElementNotFoundException, CodeRepeatException {
+    public Product updateProductByDTO(long id, ProductDTO productDTO, UserAdmin userAdmin) throws ElementNotFoundException, CodeRepeatException {
         Product product = productRepository.findByCode(productDTO.getCode());
         if (product != null && product.getId() != id)
             throw new CodeRepeatException("Code repeated");
@@ -57,6 +59,8 @@ public class ProductServiceImpl implements ProductService{
         product.setModel(productDTO.getModel());
         product.setComments(productDTO.getComments());
         product.setDiscount(productDTO.getDiscount());
+        product.getAuditory().setLastModificationDate(LocalDate.now());
+        product.getAuditory().setLastModificationUser(userAdmin);
 
         return save(product);
     }
@@ -71,6 +75,7 @@ public class ProductServiceImpl implements ProductService{
         Warning newWarning = new Warning();
         newWarning.setProduct(product);
         newWarning.setProductStock(product.getStock());
+        newWarning.setCreationDate(LocalDate.now());
 
         if(product.getStock() < product.getMinSupplierRequest()){
             newWarning.setDescription("Product " + product.getCode() + " id " + product.getId() + " need supplier order.");

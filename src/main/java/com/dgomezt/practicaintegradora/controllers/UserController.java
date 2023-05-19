@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("admin/user")
 public class UserController {
     @Autowired
     CookieManager cookieManager;

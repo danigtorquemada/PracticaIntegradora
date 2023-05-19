@@ -2,11 +2,14 @@ package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Category;
 import com.dgomezt.practicaintegradora.entities.Product;
+import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
 import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.CategoryService;
 import com.dgomezt.practicaintegradora.services.ProductService;
+import com.dgomezt.practicaintegradora.utilities.ConfProperties;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("admin/product")
 public class ProductController {
     @Autowired
     ProductService productService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ConfProperties confProperties;
 
     @GetMapping("/detail/{id}")
     public ModelAndView detailProduct(@PathVariable String id) throws ElementNotFoundException {
@@ -56,7 +61,7 @@ public class ProductController {
     }
 
     @PostMapping("/update/{id}")
-    public ModelAndView updateProduct(@PathVariable String id, @Valid ProductDTO productDTO, BindingResult bindingResult) throws ElementNotFoundException {
+    public ModelAndView updateProduct(@PathVariable String id, @Valid ProductDTO productDTO, BindingResult bindingResult, HttpSession httpSession) throws ElementNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
         if(!bindingResult.hasErrors()){
@@ -64,7 +69,9 @@ public class ProductController {
 
             Product product = null;
             try {
-                product = productService.updateProductByDTO(productId, productDTO);
+                UserAdmin userAdmin = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_ADMIN_USER);
+
+                product = productService.updateProductByDTO(productId, productDTO, userAdmin);
             } catch (CodeRepeatException e) {
                 bindingResult.rejectValue("code", "CodeRepeat", "Este valor ya existe en la BBDD");
 
@@ -77,7 +84,7 @@ public class ProductController {
                 return modelAndView;
             }
 
-            modelAndView.setViewName("redirect:/product/detail/" + product.getId());
+            modelAndView.setViewName("redirect:/admin/product/detail/" + product.getId());
             return modelAndView;
         }
 

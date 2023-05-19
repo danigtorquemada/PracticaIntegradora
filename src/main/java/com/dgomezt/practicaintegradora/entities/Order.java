@@ -40,5 +40,5 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_admin_id", foreignKey = @ForeignKey(name = "FK_orders_userAdminId"))
-    private User userAdmin;
+    private UserAdmin userAdmin;
 }

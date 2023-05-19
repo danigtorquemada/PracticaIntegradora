@@ -1,6 +1,5 @@
 package com.dgomezt.practicaintegradora.controllers;
 
-import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.entities.Warning;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
@@ -63,7 +62,7 @@ public class AdminLogInController {
     public ModelAndView logged(HttpSession httpSession){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Warning> warnings = warningService.findAll();
+        List<Warning> warnings = warningService.findAllOrderByDate();
 
         UserAdmin userAdmin = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_ADMIN_USER);
 

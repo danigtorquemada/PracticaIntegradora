@@ -1,6 +1,6 @@
 <div>
   <h2><th:block th:text="#{client.detail.title}"/></h2>
-  <form method="post" action="" th:object="${productDTO}">
+  <form id="form" method="post" action="" th:object="${productDTO}">
   <div class="divTable table-details">
     <div class="divTableHeading">
       <div class="divTableRow">
@@ -56,6 +56,6 @@
       </div></div>
     </div>
   </div>
-    <input type="submit" th:value="#{form.update}">
+    <input type="button" th:value="#{form.update}" th:onclick="|confirmForm('#{form.updateProductConfirm}')|">
   </form>
 </div>

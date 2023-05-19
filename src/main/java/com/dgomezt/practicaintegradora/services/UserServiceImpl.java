@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.services;
 
 import com.dgomezt.practicaintegradora.entities.User;
+import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.repositories.UserRepository;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LocalDate lockUserAuthentication(String username) {
+    public LocalDate lockUserByUsername(String username) {
         Optional<User> userOptional = userRepository.findByEmail(username);
 
         return lockUser(userOptional.get().getId(), properties.LOCK_DAYS);
@@ -44,11 +45,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public LocalDate lockUser(Long userId, Integer days, UserAdmin userAdmin) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.get();
+
+        user.setLockDate(LocalDate.now().plusDays(days));
+        user.getAuditory().setLastModificationDate(LocalDate.now());
+        user.getAuditory().setLastModificationUser(userAdmin);
+
+        save(user);
+
+        return user.getLockDate();
+    }
+
+    @Override
     public boolean unlockUser(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.get();
 
         user.setLockDate(null);
+
+        save(user);
+
+        return true;
+    }
+
+    @Override
+    public boolean unlockUser(Long userId, UserAdmin userAdmin) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.get();
+
+        user.setLockDate(null);
+        user.getAuditory().setLastModificationUser(userAdmin);
+        user.getAuditory().setLastModificationDate(LocalDate.now());
 
         save(user);
 
@@ -98,12 +127,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LocalDate removeUser(Long userId) {
+    public LocalDate removeUser(Long userId, UserAdmin userAdmin) {
         Optional<User> userOptional = userRepository.findById(userId);
 
         User user = userOptional.get();
         LocalDate removedDate = LocalDate.now();
         user.getAuditory().setRemovedDate(removedDate);
+        user.getAuditory().setRemovedUser(userAdmin);
 
         save(user);
 
@@ -116,6 +146,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userOptional.get();
         user.getAuditory().setRemovedDate(null);
+        user.getAuditory().setRemovedUser(null);
 
         save(user);
 
