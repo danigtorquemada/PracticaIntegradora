@@ -29,8 +29,14 @@ public class AdminLogInController {
     WarningService warningService;
 
     @GetMapping("/login")
-    public ModelAndView adminForm(@ModelAttribute("userAdmin") UserAdmin userAdmin){
+    public ModelAndView adminForm(@ModelAttribute("userAdmin") UserAdmin userAdmin, HttpSession httpSession){
         ModelAndView modelAndView = new ModelAndView();
+
+        UserAdmin userAdminSession = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_ADMIN_USER);
+        if (userAdminSession != null){
+            modelAndView.setViewName("redirect:/admin/logged");
+            return modelAndView;
+        }
 
         List<UserAdmin> userAdmins = userAdminService.findAll();
         modelAndView.addObject("userAdmins", userAdmins);
@@ -47,7 +53,7 @@ public class AdminLogInController {
         Long id = userAdmin.getId();
         userAdmin = userAdminService.findById(id);
 
-        httpSession.setAttribute(confProperties.SESSION_USER, userAdmin);
+        httpSession.setAttribute(confProperties.SESSION_ADMIN_USER, userAdmin);
 
         modelAndView.setViewName("redirect:/admin/logged");
         return modelAndView;
@@ -59,7 +65,7 @@ public class AdminLogInController {
 
         List<Warning> warnings = warningService.findAll();
 
-        UserAdmin userAdmin = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_USER);
+        UserAdmin userAdmin = (UserAdmin) httpSession.getAttribute(confProperties.SESSION_ADMIN_USER);
 
         modelAndView.addObject("userAdmin", userAdmin);
         modelAndView.addObject("warnings", warnings);

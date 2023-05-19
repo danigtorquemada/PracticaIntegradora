@@ -16,4 +16,5 @@ public class ConfProperties {
     public String FRAGMENT_CONTAINER;
     public String SESSION_USER;
     public String SESSION_USER_AUTHENTICATION;
+    public String SESSION_ADMIN_USER;
 }

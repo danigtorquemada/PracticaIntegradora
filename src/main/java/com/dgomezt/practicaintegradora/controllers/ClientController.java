@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RequestMapping("/client")
+@RequestMapping("admin/client")
 @Controller
 public class ClientController {
 
