@@ -2,6 +2,7 @@ package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.components.CookieManager;
 import com.dgomezt.practicaintegradora.entities.User;
+import com.dgomezt.practicaintegradora.services.ClientService;
 import com.dgomezt.practicaintegradora.services.UserService;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import com.dgomezt.practicaintegradora.utilities.UserAuthentication;
@@ -28,6 +29,8 @@ public class LogInController {
     UserService userService;
     @Autowired
     ConfProperties properties;
+    @Autowired
+    ClientService clientService;
 
     @ModelAttribute("idSession")
     public String addIdSessionHTML(HttpSession session){

@@ -1,10 +1,12 @@
 package com.dgomezt.practicaintegradora.controllers;
 
 import com.dgomezt.practicaintegradora.entities.Client;
+import com.dgomezt.practicaintegradora.entities.User;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.ContactDataDTO;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.OtherDataDTO;
 import com.dgomezt.practicaintegradora.entities.dtos.clientForm.PersonalDataDTO;
 import com.dgomezt.practicaintegradora.entities.helpers.Address;
+import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.*;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import jakarta.servlet.http.HttpSession;
@@ -183,20 +185,20 @@ public class ClientRegisterController {
     }
 
     @PostMapping("/register/resume")
-    public ModelAndView register(HttpSession httpSession) {
+    public ModelAndView register(HttpSession httpSession) throws ElementNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
 
         ContactDataDTO contactDataDTO = (ContactDataDTO) httpSession.getAttribute(CONTACT_DATA_OBJECT);
         PersonalDataDTO personalDataDTO = (PersonalDataDTO) httpSession.getAttribute(PERSONAL_DATA_OBJECT);
         OtherDataDTO otherDataDTO = (OtherDataDTO) httpSession.getAttribute(OTHER_DATA_OBJECT);
 
-        Client newClient = Client.fromDTOS(personalDataDTO, contactDataDTO, otherDataDTO);
-        Address savedAddress = addressService.save(newClient.getAddress());
-        newClient.setAddress(savedAddress);
+        User user = (User) httpSession.getAttribute(confProperties.SESSION_USER);
 
-        Client registeredClient = clientService.registerClient(newClient);
+        Client registeredClient = clientService.registerDTOSRegisterStep(personalDataDTO, contactDataDTO, otherDataDTO, user);
 
-        modelAndView.setViewName("redirect:/client/detail/" + registeredClient.getId());
+        modelAndView.setViewName("main");
+        modelAndView.addObject("client", registeredClient);
+        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/detail");
         return modelAndView;
     }
 }

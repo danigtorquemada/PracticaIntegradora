@@ -26,7 +26,9 @@
         <input type="password" th:field="*{password}" placeholder="Password" class="inputText"><br>
         <div><input type="checkbox" onclick="showPwd()"><label>Show password</label></div>
         <p th:if="${errorPwd}" th:text="${errorPwd}" class="error"></p>
-        <div><input type="button" value="Forgot password?" onclick="forgotPwd()">
+        <div>
+            <a href="http://localhost:8080/user/login/username"><th:block th:text="#{form.user.username}"/></a>
+            <input type="button" value="Forgot password?" onclick="forgotPwd()">
             <input type="submit" value="Log in">
         </div>
     </form>
