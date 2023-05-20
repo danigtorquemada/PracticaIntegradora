@@ -18,4 +18,5 @@ public interface ProductService {
     List<ProductShopDTO> filterByCategoriesId(List<Long> categoriesId);
     List<ProductShopDTO> newProducts();
     List<ProductShopDTO> productsWithOffer();
+    ProductShopDTO findProductShopDTOById(String id) throws ElementNotFoundException;
 }

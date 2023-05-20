@@ -133,4 +133,14 @@ public class ProductServiceImpl implements ProductService{
         }
         return productShopDTOS;
     }
+
+    @Override
+    public ProductShopDTO findProductShopDTOById(String id) throws ElementNotFoundException {
+        Optional<Product> optionalProduct = productRepository.findById(Long.valueOf(id));
+        if (optionalProduct.isEmpty()) throw new ElementNotFoundException("Product not found in Database");
+
+        ProductShopDTO productShopDTO = new ProductShopDTO(optionalProduct.get());
+
+        return productShopDTO;
+    }
 }

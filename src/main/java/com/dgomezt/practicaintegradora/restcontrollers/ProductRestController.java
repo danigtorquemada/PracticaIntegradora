@@ -2,15 +2,14 @@ package com.dgomezt.practicaintegradora.restcontrollers;
 
 import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductShopDTO;
+import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ProductRepository;
 import com.dgomezt.practicaintegradora.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +41,15 @@ public class ProductRestController {
     @GetMapping("all/withOffer")
     public ResponseEntity<List<ProductShopDTO>> getProductsWithOffer(){
         return ResponseEntity.ok(productService.productsWithOffer());
+    }
+
+    @GetMapping("find/{id}")
+    public ResponseEntity<ProductShopDTO> findById(@PathVariable String id) throws ElementNotFoundException {
+        return ResponseEntity.ok(productService.findProductShopDTOById(id));
+    }
+
+    @ExceptionHandler(ElementNotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(Exception e){
+        return new ResponseEntity<>(e.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 }
