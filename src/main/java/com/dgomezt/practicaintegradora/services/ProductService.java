@@ -14,4 +14,5 @@ public interface ProductService {
     Product findProductByCode(String code);
     Product save(Product product);
     List<Product> findAll();
+    List<Product> filterByCategoriesId(List<Long> categoriesId);
 }
