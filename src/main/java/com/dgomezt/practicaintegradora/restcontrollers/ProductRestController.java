@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.restcontrollers;
 
 import com.dgomezt.practicaintegradora.entities.Product;
+import com.dgomezt.practicaintegradora.entities.dtos.ProductShopDTO;
 import com.dgomezt.practicaintegradora.repositories.ProductRepository;
 import com.dgomezt.practicaintegradora.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,24 @@ public class ProductRestController {
     ProductService productService;
 
     @GetMapping("all")
-    public ResponseEntity<List<Product>> getAll(){
-        List<Product> products = productService.findAll();
+    public ResponseEntity<List<ProductShopDTO>> getAll(){
+        List<ProductShopDTO> products = productService.findAll();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("filterByCategory")
-    public ResponseEntity<List<Product>> getFilterByCategory(Long[] categories){
+    public ResponseEntity<List<ProductShopDTO>> getFilterByCategory(Long[] categories){
 
-        List<Product> products = productService.filterByCategoriesId(List.of(categories));
+        List<ProductShopDTO> products = productService.filterByCategoriesId(List.of(categories));
         return ResponseEntity.ok(products);
+    }
+    @GetMapping("all/newProducts")
+    public ResponseEntity<List<ProductShopDTO>> getNewProducts(){
+        return ResponseEntity.ok(productService.newProducts());
+    }
+
+    @GetMapping("all/withOffer")
+    public ResponseEntity<List<ProductShopDTO>> getProductsWithOffer(){
+        return ResponseEntity.ok(productService.productsWithOffer());
     }
 }

@@ -5,6 +5,7 @@ import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.entities.Warning;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.ProductShopDTO;
 import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.repositories.ProductRepository;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -96,12 +98,39 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<ProductShopDTO> findAll() {
+        List<ProductShopDTO> productShopDTOS = new ArrayList<>();
+        for (Product product : productRepository.findAll()) {
+            productShopDTOS.add(new ProductShopDTO(product));
+        }
+
+        return productShopDTOS;
     }
 
     @Override
-    public List<Product> filterByCategoriesId(List<Long> categoriesId) {
-        return productRepository.findByCategories_IdIn(categoriesId);
+    public List<ProductShopDTO> filterByCategoriesId(List<Long> categoriesId) {
+        List<ProductShopDTO> productShopDTOS = new ArrayList<>();
+        for (Product product : productRepository.findByCategories_IdIn(categoriesId)) {
+            productShopDTOS.add(new ProductShopDTO(product));
+        }
+        return productShopDTOS;
+    }
+
+    @Override
+    public List<ProductShopDTO> newProducts() {
+        List<ProductShopDTO> productShopDTOS = new ArrayList<>();
+        for (Product product : productRepository.findByNewProductTrue()) {
+            productShopDTOS.add(new ProductShopDTO(product));
+        }
+        return productShopDTOS;
+    }
+
+    @Override
+    public List<ProductShopDTO> productsWithOffer() {
+        List<ProductShopDTO> productShopDTOS = new ArrayList<>();
+        for (Product product : productRepository.findByOfferTrue()) {
+            productShopDTOS.add(new ProductShopDTO(product));
+        }
+        return productShopDTOS;
     }
 }

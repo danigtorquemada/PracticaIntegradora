@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
@@ -35,7 +36,6 @@ public class Product {
     @Column(name = "total_sales_revenue")
     private BigDecimal totalSalesRevenue;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_productCategories_product")),
@@ -51,13 +51,13 @@ public class Product {
     @Column(name = "min_hidden_stock")
     private Integer minHiddenStock;
 
-    @Column(name = "offer")
+    @Column(name = "offer", columnDefinition = "boolean default false")
     private Boolean offer;
 
     @Column(name = "discount", precision = 19, scale = 2)
     private BigDecimal discount;
 
-    @Column(name = "new_product")
+    @Column(name = "new_product", columnDefinition = "boolean default false")
     private Boolean newProduct;
 
     @Column(name = "evaluation")
@@ -79,7 +79,7 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private Set<Promotion> promotions = new LinkedHashSet<>();
 
-    @Column(name = "hidden")
+    @Column(name = "hidden", columnDefinition = "boolean default false")
     private Boolean hidden;
 
     public Auditory getAuditory() {
@@ -87,11 +87,5 @@ public class Product {
             auditory = new Auditory();
 
         return auditory;
-    }
-
-    public Boolean getHidden() {
-        if(hidden == null)
-            hidden = false;
-        return hidden;
     }
 }

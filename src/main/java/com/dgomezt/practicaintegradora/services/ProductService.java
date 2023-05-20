@@ -3,6 +3,7 @@ package com.dgomezt.practicaintegradora.services;
 import com.dgomezt.practicaintegradora.entities.Product;
 import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.entities.dtos.ProductDTO;
+import com.dgomezt.practicaintegradora.entities.dtos.ProductShopDTO;
 import com.dgomezt.practicaintegradora.exception.CodeRepeatException;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 
@@ -13,6 +14,8 @@ public interface ProductService {
     Product updateProductByDTO(long id, ProductDTO productDTO, UserAdmin userAdmin) throws ElementNotFoundException, CodeRepeatException;
     Product findProductByCode(String code);
     Product save(Product product);
-    List<Product> findAll();
-    List<Product> filterByCategoriesId(List<Long> categoriesId);
+    List<ProductShopDTO> findAll();
+    List<ProductShopDTO> filterByCategoriesId(List<Long> categoriesId);
+    List<ProductShopDTO> newProducts();
+    List<ProductShopDTO> productsWithOffer();
 }
