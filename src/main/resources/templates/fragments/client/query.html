@@ -1,5 +1,5 @@
 <div>
-  <form action="/client/query" method="get" th:object="${clientQueryDTO}">
+  <form action="" method="get" th:object="${clientQueryDTO}">
     <label><th:block th:text="#{form.client.search.clientType}"/></label>
     <!--/*<input type="text" th:field="*{clientType}">*/-->
     <select th:field="*{clientTypes}" multiple="multiple">

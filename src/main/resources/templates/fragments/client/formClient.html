@@ -201,9 +201,9 @@
             <label>
                 <th:block th:text="#{client.detail.country}"/>
             </label>
-            <select th:field="*{country}" tabindex="14">
+            <select th:field="*{country}" tabindex="14" disabled>
                 <option th:each="country : ${countryList}" th:value="${country?.id}"
-                        th:text="${country?.type?.type}" disabled></option>
+                        th:text="${country?.type?.type}"></option>
             </select><br>
             <label>
                 <th:block th:text="#{client.detail.documentType}"/>
@@ -225,7 +225,7 @@
             </label>
             <input type="text" th:field="*{phoneNumber}" disabled><br>
             <label><th:block th:text="#{address.detail.typeRoad}"/></label>
-            <select th:field="*{typeRoad}" tabindex="14">
+            <select th:field="*{typeRoad}" tabindex="14" disabled>
                 <option th:each="road : ${typeRoadList}" th:value="${road.id}" th:text="${road?.type?.type}"></option>
             </select><br>
             <label><th:block th:text="#{address.detail.name}"/></label>

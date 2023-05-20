@@ -98,7 +98,7 @@
                 <div class="divTableCell"><th:block th:text="${client.clientType?.type?.abbreviation}"/></div>
                 <div class="divTableCell">
                     <th:block th:each="category : ${client.interestedCategories}">
-                        <p><th:block th:text="${category.id}"/></p>
+                        <div><th:block th:text="${category.code}"/></div>
                     </th:block>
                 </div>
                 <div class="divTableCell"><th:block th:text="${client.comments}"/></div>

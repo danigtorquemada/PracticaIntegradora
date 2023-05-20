@@ -88,4 +88,10 @@ public class Product {
 
         return auditory;
     }
+
+    public Boolean getHidden() {
+        if(hidden == null)
+            hidden = false;
+        return hidden;
+    }
 }

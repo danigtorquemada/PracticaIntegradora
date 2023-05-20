@@ -75,6 +75,6 @@ public class AppConfiguration implements WebMvcConfigurer {
         //Añade el interceptor creado anter al registro
         registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(localeChangeCSSInterceptor());
-        registry.addInterceptor(adminCheckInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin/login");
+        registry.addInterceptor(adminCheckInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin/login", "/admin/logOut");
     }
 }

@@ -37,6 +37,8 @@ public class ClientServiceImpl implements ClientService {
     TypeRoadService typeRoadService;
     @Autowired
     AddressService addressService;
+    @Autowired
+    CategoryService categoryService;
 
     // @Autowired
     // AddressService addressService;
@@ -138,8 +140,7 @@ public class ClientServiceImpl implements ClientService {
         //OtherData DTO
         Set<Category> categories = new HashSet<>();
         for (Long interestedCategory : otherDataDTO.getInterestedCategories()) {
-            Category newCategory = new Category();
-            newCategory.setId(interestedCategory);
+            Category newCategory = categoryService.findCategoryById(interestedCategory);
             categories.add(newCategory);
         }
 
