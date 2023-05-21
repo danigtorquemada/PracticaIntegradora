@@ -51,4 +51,17 @@ public class OrderController {
         modelAndView.addObject(confProperties.CONTENT_CONTAINER, "order/changeState");
         return modelAndView;
     }
+
+    @GetMapping("detail/{id}")
+    public ModelAndView detailOrder(@PathVariable Long id) throws ElementNotFoundException {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Order order = orderService.findById(id);
+
+        modelAndView.addObject("order", order);
+
+        modelAndView.setViewName("main");
+        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "order/detail");
+        return modelAndView;
+    }
 }

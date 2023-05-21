@@ -1,0 +1,24 @@
+<div>
+  <h2><th:block th:text="#{client.detail.title}"/></h2>
+  <div class="divTable table-details">
+    <div class="divTableHeading">
+      <div class="divTableRow">
+        <div class="divTableHead"><th:block th:text="#{table.field}"/></div>
+        <div class="divTableHead"><th:block th:text="#{table.value}"/></div>
+      </div>
+    </div>
+    <div class="divTableBody" th:object="${order}">
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.id}"/></div><div class="divTableCell"><th:block th:text="*{id}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.client}"/></div><div class="divTableCell"><th:block th:text="*{client?.id}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.date}"/></div><div class="divTableCell"><th:block th:text="*{date}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.totalPrice}"/></div><div class="divTableCell"><th:block th:text="*{totalPrice}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.orderState}"/></div><div class="divTableCell"><th:block th:text="*{orderState?.type?.type}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.userAdmin}"/></div><div class="divTableCell"><th:block th:text="*{userAdmin?.id}"/></div></div>
+      <div class="divTableRow"><div class="divTableCell"><th:block th:text="#{order.detail.productOrderDetailses}"/></div><div class="divTableCell">
+        <th:block th:each="productOrderDetail : *{productOrderDetailses}">
+          <div><th:block th:text="${productOrderDetail.quantity}"/> x <th:block th:text="${productOrderDetail.product?.code}"/></div>
+        </th:block>
+      </div></div>
+    </div>
+  </div>
+</div>
