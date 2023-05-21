@@ -1,6 +1,7 @@
 package com.dgomezt.practicaintegradora.entities;
 
 import com.dgomezt.practicaintegradora.entities.embeddables.ProductOrderKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class ProductOrderDetails {
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_prodOrdDetails_productId"))
     private Product product;
 
+    @JsonIgnore
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "FK_prodOrdDetails_orderId"))

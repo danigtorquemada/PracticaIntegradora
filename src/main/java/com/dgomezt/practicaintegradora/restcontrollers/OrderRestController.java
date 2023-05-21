@@ -5,14 +5,13 @@ import com.dgomezt.practicaintegradora.entities.UserAdmin;
 import com.dgomezt.practicaintegradora.exception.ElementNotFoundException;
 import com.dgomezt.practicaintegradora.services.OrderService;
 import com.dgomezt.practicaintegradora.services.OrderStateService;
+import com.dgomezt.practicaintegradora.services.ProductOrderDetailService;
 import com.dgomezt.practicaintegradora.utilities.ConfProperties;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -33,5 +32,12 @@ public class OrderRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok("Order " + orderId + " updated");
+    }
+
+    @CrossOrigin
+    @PostMapping("create")
+    public ResponseEntity<Order> createOrder(Long userId){
+        Order order = orderService.createOrder(userId);
+        return ResponseEntity.ok(order);
     }
 }

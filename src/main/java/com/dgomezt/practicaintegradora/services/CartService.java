@@ -10,4 +10,6 @@ public interface CartService {
     Cart getByClientId(Long clientId);
     Cart addProduct(Long cartId, Long productId);
     Cart updateProduct(Long cartId, Long productId, int amount);
+
+    void removeCart(Cart cart);
 }
