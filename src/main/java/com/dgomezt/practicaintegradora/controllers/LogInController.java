@@ -175,9 +175,11 @@ public class LogInController {
         user.addConnection();
         userService.save(user);
 
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("main");
-        modelAndView.addObject(properties.CONTENT_CONTAINER, "user/logged");
+        //modelAndView.addObject("user", user);
+        //modelAndView.setViewName("main");
+        //modelAndView.addObject(properties.CONTENT_CONTAINER, "user/logged");
+
+        modelAndView.setViewName("redirect:http://localhost:5173/");
 
         return modelAndView;
     }
@@ -195,7 +197,7 @@ public class LogInController {
 
         session.invalidate();
 
-        modelAndView.setViewName("redirect:/user/login");
+        modelAndView.setViewName("redirect:http://localhost:5173/");
         return modelAndView;
     }
 }
