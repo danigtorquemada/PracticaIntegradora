@@ -3,14 +3,12 @@
         <th:block th:text="#{form.user.username}"/>
     </h1>
     <form action="/user/login/username" method="post" th:object="${userAuthentication}">
-        <fieldset>
             <div class="vertical">
                 <label class="boldText">Log in</label><br>
                 <input type="text" th:field="*{username}" placeholder="Username" class="inputText"><br>
                 <p th:if="${error}" th:text="${error}" class="error"></p>
                 <input type="submit" value="Log in">
             </div>
-        </fieldset>
     </form>
 </div>
 <div th:fragment="password">

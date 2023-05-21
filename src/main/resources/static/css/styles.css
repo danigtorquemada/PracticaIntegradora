@@ -1,6 +1,7 @@
 #menu-navegacion-horizontal{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .error{color: red}
@@ -57,7 +58,13 @@ div.table-details {
  /************* TABLE DETAILS *************/
 
 body{
-    background-color: #FFFFFF;
+    background-color: #ddd7ff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0px;
+    height: 100vh;
+    justify-content: space-between;
 }
 
 .warnings{
@@ -75,4 +82,27 @@ body{
 }
 .warningHigh{
     color: red;
+}
+
+header{
+    background-color: #a89bf3;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+header h1{
+    text-align: center;
+}
+nav{
+    background-color: #6c52f5;
+    padding: 1rem;
+}
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: #a89bf3;
+}
+section{
+    padding: 5rem;
 }

@@ -1,19 +1,25 @@
 <div>
   <h1>Sign up</h1>
   <form action="signUp" method="post" th:object="${userForm}">
-    <label th:for="username"><th:block th:text="#{form.user.username}"></th:block></label>
-    <input type="text" th:field="*{username}">
-    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"/>
-    <label th:for="password"><th:block th:text="#{form.user.password}"></th:block></label>
-    <input type="password" th:field="*{password}">
-    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"/>
-    <label th:for="confirmPwd"><th:block th:text="#{form.user.confirmPwd}"></th:block></label>
-    <input type="password" th:field="*{confirmPwd}">
-    <p th:if="${#fields.hasErrors('confirmPwd')}" th:errors="*{confirmPwd}" th:errorclass="error"/>
-    <p th:if="${#fields.hasErrors('errorMatchPwds')}" th:errors="*{errorMatchPwds}" th:errorclass="error"/>
-    <th:block th:if="${#fields.hasGlobalErrors()}">
-      <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
-    </th:block>
+    <div>
+      <label th:for="username"><th:block th:text="#{form.user.username}"></th:block></label>
+      <input type="text" th:field="*{username}">
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"/>
+    </div>
+    <div>
+      <label th:for="password"><th:block th:text="#{form.user.password}"></th:block></label>
+      <input type="password" th:field="*{password}">
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"/>
+    </div>
+    <div>
+      <label th:for="confirmPwd"><th:block th:text="#{form.user.confirmPwd}"></th:block></label>
+      <input type="password" th:field="*{confirmPwd}">
+      <p th:if="${#fields.hasErrors('confirmPwd')}" th:errors="*{confirmPwd}" th:errorclass="error"/>
+      <p th:if="${#fields.hasErrors('errorMatchPwds')}" th:errors="*{errorMatchPwds}" th:errorclass="error"/>
+      <th:block th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+      </th:block>
+    </div>
     <input type="button" th:value="#{form.showPwd}" onclick="showPasswords()">
     <input type="reset" th:value="#{form.reset}">
     <input type="submit" th:value="#{form.submit}">

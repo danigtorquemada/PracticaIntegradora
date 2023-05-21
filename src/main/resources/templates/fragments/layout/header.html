@@ -1,3 +1,4 @@
 <header id="cabecera" th:fragment="header">
-<h1>CABECERA DE PAGINA</h1>
+    <h1><th:block th:text="#{layout.header.title}"></h1>
+    <nav th:replace="~{fragments/layout/nav}" />
 </header>
