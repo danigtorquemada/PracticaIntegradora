@@ -28,7 +28,7 @@ public class Cart {
     private BigDecimal price;
 
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "client_id", foreignKey = @ForeignKey(name = "FK_cart_clientId"))
+    @JoinColumn(name = "client_id", unique = true, foreignKey = @ForeignKey(name = "FK_cart_clientId"))
     private Client client;
 
     @OneToMany(mappedBy = "cart")

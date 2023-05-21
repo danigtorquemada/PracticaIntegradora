@@ -152,4 +152,9 @@ public class ClientServiceImpl implements ClientService {
 
         return registerClient(newClient);
     }
+
+    @Override
+    public Client getByUserId(Long userId) {
+        return clientRepository.findByUser_Id(userId);
+    }
 }

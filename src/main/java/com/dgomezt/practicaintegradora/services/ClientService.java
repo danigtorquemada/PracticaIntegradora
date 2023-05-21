@@ -21,4 +21,6 @@ public interface ClientService {
     boolean userHasClient(User user);
 
     Client registerDTOSRegisterStep(PersonalDataDTO personalDataDTO, ContactDataDTO contactDataDTO, OtherDataDTO otherDataDTO, User user) throws ElementNotFoundException;
+
+    Client getByUserId(Long userId);
 }
