@@ -196,9 +196,8 @@ public class ClientRegisterController {
 
         Client registeredClient = clientService.registerDTOSRegisterStep(personalDataDTO, contactDataDTO, otherDataDTO, user);
 
-        modelAndView.setViewName("main");
-        modelAndView.addObject("client", registeredClient);
-        modelAndView.addObject(confProperties.CONTENT_CONTAINER, "client/detail");
+        modelAndView.setViewName("redirect:http://localhost:5173/");
+
         return modelAndView;
     }
 }

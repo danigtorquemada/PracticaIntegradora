@@ -25,6 +25,7 @@
         <option th:value="false" th:text="#{form.withoutCss}"></option>
     </select>
     <form method="post" action="" th:object="${personalDataDTO}">
+        <h1><th:block th:text="#{form.client.register.title}"/></h1>
         <input type="hidden" th:field="*{interactions}">
         <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
         <label>
@@ -95,6 +96,7 @@
         <option value="en" th:text="#{lang.eng}"></option>
     </select>
     <form method="post" action="" th:object="${contactDataDTO}">
+        <h1><th:block th:text="#{form.client.register.title}"/></h1>
         <input type="hidden" th:field="*{interactions}">
         <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/>
         <label>
@@ -124,6 +126,7 @@
         <option value="en" th:text="#{lang.eng}"></option>
     </select>
     <form method="post" action="" th:object="${otherDataDTO}">
+        <h1><th:block th:text="#{form.client.register.title}"/></h1>
         <input type="hidden" th:field="*{interactions}">
         <p th:if="${#fields.hasErrors('interactions')}" th:errors="*{interactions}" th:errorclass="error"/><br>
         <label>

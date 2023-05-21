@@ -31,9 +31,11 @@ public class LogInController {
     ConfProperties properties;
     @Autowired
     ClientService clientService;
+    @Autowired
+    ConfProperties confProperties;
 
     @ModelAttribute("idSession")
-    public String addIdSessionHTML(HttpSession session){
+    public String addIdSessionHTML(HttpSession session) {
         return session.getId();
     }
 
@@ -155,15 +157,15 @@ public class LogInController {
         User user = (User) session.getAttribute(properties.SESSION_USER);
 
         Map<String, Integer> usersConnections;
-        if(usersCookie == null){
+        if (usersCookie == null) {
             usersConnections = new HashMap<>();
             usersConnections.put(user.getEmail(), 1);
             cookieManager.saveCookieUsers(usersConnections);
-        }else {
+        } else {
             usersConnections = cookieManager.getUsersFromCookieUser(usersCookie);
-            if(usersConnections.containsKey(user.getEmail())){
+            if (usersConnections.containsKey(user.getEmail())) {
                 usersConnections.put(user.getEmail(), usersConnections.get(user.getEmail()) + 1);
-            }else
+            } else
                 usersConnections.put(user.getEmail(), 1);
         }
         Cookie cookieUsers = cookieManager.saveCookieUsers(usersConnections);
@@ -175,6 +177,12 @@ public class LogInController {
         user.addConnection();
         userService.save(user);
 
+
+        if (!clientService.userHasClient(user)){
+            modelAndView.setViewName("redirect:/client/register/step1");
+            return modelAndView;
+        }
+
         //modelAndView.addObject("user", user);
         //modelAndView.setViewName("main");
         //modelAndView.addObject(properties.CONTENT_CONTAINER, "user/logged");
@@ -185,13 +193,19 @@ public class LogInController {
     }
 
     @GetMapping("/logOut")
-    public ModelAndView logOut(HttpSession session, HttpServletResponse httpServletResponse) {
+    public ModelAndView logOut(String username, HttpSession session, HttpServletResponse httpServletResponse) {
         ModelAndView modelAndView = new ModelAndView();
 
         Cookie deletedCookie = cookieManager.deleteCookie(properties.COOKIE_CONNECTED_USER);
         httpServletResponse.addCookie(deletedCookie);
 
         User user = (User) session.getAttribute(properties.SESSION_USER);
+
+        if (user == null) {
+            user = userService.findByUsername(username);
+            session.setAttribute(confProperties.SESSION_USER, user);
+        }
+
         Cookie lastUserCookie = cookieManager.createCookie(properties.COOKIE_LAST_USER, user.getEmail());
         httpServletResponse.addCookie(lastUserCookie);
 
