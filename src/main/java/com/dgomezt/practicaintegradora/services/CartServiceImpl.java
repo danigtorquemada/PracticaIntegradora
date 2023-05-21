@@ -134,4 +134,26 @@ public class CartServiceImpl implements CartService{
         cart.getProductCartDetails().add(productCartDetailRepository.save(productCartDetail));
         return cartRepository.save(cart);
     }
+
+    @Override
+    public Cart updateProduct(Long cartId, Long productId, int amount) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+        if (optionalCart.isEmpty()) return null;
+        Cart cart = optionalCart.get();
+
+        Set<ProductCartDetail> productCartDetails = new HashSet<>();
+        for (ProductCartDetail productCartDetail : cart.getProductCartDetails()) {
+            if(productCartDetail.getProduct().getId() == productId){
+                productCartDetail.setQuantity(amount);
+            }
+            if(productCartDetail.getQuantity() != 0)
+                productCartDetails.add(productCartDetail);
+            else
+                productCartDetailRepository.deleteByProductCartKey(productCartDetail.getProductCartKey());
+        }
+
+        cart.setProductCartDetails(productCartDetails);
+
+        return cartRepository.save(cart);
+    }
 }

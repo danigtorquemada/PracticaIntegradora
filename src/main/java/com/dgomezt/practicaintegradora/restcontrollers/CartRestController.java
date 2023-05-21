@@ -56,4 +56,18 @@ public class CartRestController {
 
         return ResponseEntity.ok(cartDTO);
     }
+
+    @PutMapping("/user/{userId}/updateproduct/{productId}")
+    public ResponseEntity<CartDTO> updateProduct(@PathVariable long userId, @PathVariable long productId, @RequestParam("amount") int amount){
+        Client client = clientService.getByUserId(Long.valueOf(userId));
+
+        Cart cart = cartService.getByClientId(client.getId());
+        if(cart == null)
+            cart = cartService.createCartByClientId(client.getId());
+
+        cart = cartService.updateProduct(cart.getId(), productId, amount);
+        CartDTO cartDTO = new CartDTO(cart);
+
+        return ResponseEntity.ok(cartDTO);
+    }
 }

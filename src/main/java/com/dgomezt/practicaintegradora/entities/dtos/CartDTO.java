@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Data
@@ -32,6 +33,14 @@ public class CartDTO {
             ProductCartDTO productCartDTO = new ProductCartDTO(productCartDetail);
             productCartDTOList.add(productCartDTO);
         }
+        Comparator<ProductCartDTO> comparator = new Comparator<ProductCartDTO>() {
+            @Override
+            public int compare(ProductCartDTO o1, ProductCartDTO o2) {
+                return (int) (o1.getProductId() - o2.getProductId());
+            }
+        };
+
+        productCartDTOList.sort(comparator);
 
         productCartDTOS = productCartDTOList;
 
