@@ -43,13 +43,13 @@ INSERT INTO client (user_id, gender_id, birth_date, country_id, document_type_id
 VALUES (1, 2, 20000303, 2, 1, '12342x', 1, 67, 3, 'Ningun comentario', 1, 'Dani', 'Gomez', '123456789',
         20000303, 2),
        (2, 3, 20000303, 1, 3, '1233434', 1, 99, 2, '1 Comentario chulo', 0, 'Pedro', 'Luengo', '132545657',
-        20000303, 1),
+        20201003, 1),
         (3, 1, 20100812, 3, 2, '12342x', 2, 50, 1, 'Hola soy una prueba', 1, 'Luis', 'Fernandez', '123456789',
-        20000303, 2),
+        19980609, 2),
         (4, 2, 20100812, 4, 1, '12342x', 1, 20, 1, 'Sigo siendo prueba', 1, 'Lucia', 'Gomez', '123456789',
-        20000303, 2),
+        20051003, 2),
         (5, 2, 20100812, 3, 2, '12342x', 3, 160, 4, 'Ultima prueba', 1, 'Victoria', 'Federica', '123456789',
-        20000303, 2);
+        19990603, 2);
 
 INSERT INTO category (code, description, parent_category_id, entry_date, entry_user_id, last_modification_date,
                       last_modification_user_id)
